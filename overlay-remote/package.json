@@ -1,0 +1,16 @@
+{
+  "name": "overlay-remote",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "inquirer": "^7.1.0",
+    "node-persist": "^3.0.5",
+    "socket.io": "^2.3.0"
+  }
+}

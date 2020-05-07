@@ -1,3 +1,5 @@
+overlay-remote/storage/
+
 # Logs
 logs
 *.log

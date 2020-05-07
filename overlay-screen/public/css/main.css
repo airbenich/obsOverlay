@@ -1,0 +1,63 @@
+body {
+  background-color: #000;
+  margin: 0px 0px 0px 0px;
+  padding: 0px 0px 0px 0px;
+  overflow: hidden;
+  background-image: url(../img/transparent.png);
+}
+
+.presentation {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+.lowerThird {
+  color: #fff;
+  text-shadow: 2px 2px 7px rgba(1,1,1,0.4);
+}
+
+.lowerThird .text {
+  font-size: 3vw;
+  position: absolute;
+  z-index: 10000;
+  bottom: 4.5%;
+  left: 5%;
+  right: 0px;
+  line-height: 1em;
+}
+
+.lowerThird .name {
+  font-weight: bold;
+  display: none;
+}
+
+.lowerThird .description {
+  display: none;
+  font-size: 60%;
+  font-weight: lighter;
+}
+
+.lowerThird .presentationProgress .progress-bar{
+  /* float: left;
+  width: 0;
+  height: 100%;
+  line-height: 20px;
+  color: #fff;
+  text-align: center;
+  -webkit-transition: width .6s ease;
+  -o-transition: width .6s ease;
+  transition: width .6s ease;
+   */
+  background-color: #bccf00;
+  box-shadow: none;
+  position: absolute;
+  z-index: 10000;
+  bottom: -7.5%;
+  left: 0px;
+  right: 0px;
+  height: 10%;
+  transform: rotate(-1deg);
+  line-height: 0em;
+}
