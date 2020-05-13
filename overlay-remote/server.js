@@ -4,6 +4,7 @@ CONFIG.port = 3000;
 
 // Booting app
 console.log('\033c'); // clear terminal
+console.clear();
 console.log('Starting Overlay Remote');
 
 var inquirer = require('inquirer');

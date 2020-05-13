@@ -22,7 +22,9 @@ module.exports = class LowerThirdController {
     }
     
     async storeData() {
-        await storage.setItem('lowerThirds',this.lowerThirds);
+	if(storage.setItem) {
+	        await storage.setItem('lowerThirds',this.lowerThirds);
+	}
     }
 
     add(element) {
