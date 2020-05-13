@@ -109,7 +109,8 @@ module.exports = class Menu {
             name: 'option',
             message: 'Choose an ACTION',
             choices: [
-                'Show (!)',
+                'Show for 10 sec and hide afterwards',
+                'Show',
                 'Hide',
                 'Delete Lower Third',
                 'Back'
@@ -118,7 +119,16 @@ module.exports = class Menu {
             if(answers.option === 'Back') {
                 module_this.lowerThird();
             }
-
+            
+            if(answers.option === 'Show for 10 sec and hide afterwards') {
+                console.log('Executed!');
+                module_this.showLowerThird(lowerThird);
+                setTimeout(function () {
+                    module_this.hideLowerThird();
+                },10*1000);
+                module_this.lowerThirdSelected(lowerThird);
+                return;
+            }
             if(answers.option === 'Show (!)') {
                 console.log('Executed!');
                 module_this.showLowerThird(lowerThird);
