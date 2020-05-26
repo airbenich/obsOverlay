@@ -129,7 +129,7 @@ module.exports = class Menu {
                 module_this.lowerThirdSelected(lowerThird);
                 return;
             }
-            if(answers.option === 'Show (!)') {
+            if(answers.option === 'Show') {
                 console.log('Executed!');
                 module_this.showLowerThird(lowerThird);
                 module_this.lowerThirdSelected(lowerThird);
