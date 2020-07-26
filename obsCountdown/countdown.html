@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Countdown</title>
+    <style>
+      body {
+        background: #000;
+        margin: 0 0 0 0;
+        padding: 0 0 0 0;
+        color: #ffffff;
+        font-weight: lighter;
+        font-family:'Arial';
+        font-size: 50vw;
+      }
+
+      .center {
+        text-align: center;
+      }
+
+      #countdown {
+        display: none;
+      }
+
+      #text {
+        display: none;
+      }
+    </style>
+    <script src="jquery-3.5.1.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        startCountdownNow(2,0);
+        $('#countdown').fadeIn(700);
+      });
+
+      function startCountdownNow(initialMinutes = 2, initialSeconds = 0) {
+        // Set the date we're counting down to
+        console.log(initialSeconds + 1 * 1000);
+        var countDownDate = new Date().getTime() + initialMinutes * 60000 + (initialSeconds +1) * 1000;
+        // var countDownDate = new Date().getTime() + 5 * 1000;
+
+        // Update the count down every 1 second
+        var x = setInterval(function () {
+          // Get today's date and time
+          var now = new Date().getTime();
+
+          // Find the distance between now and the count down date
+          var distance = countDownDate - now;
+
+          // Time calculations for days, hours, minutes and seconds
+          // var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+          // var hours = Math.floor(
+          //   (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+          // );
+          var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+          var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+          if(minutes < 0) minutes = 0;
+          if(seconds < 0) seconds = 0;
+
+          // If the count down is finished, write some text
+          $("#countdown").text(minutes + ":" + seconds.pad(2));
+
+          if (minutes <= 0 && seconds <= 3) {
+            $("#countdown").animate({'opacity':0}, 3000);
+            // $("#text").delay(500).html("Jetzt geht's los").fadeIn();
+          }
+          
+          if(minutes <= 0 && seconds <= 0) {
+            clearInterval(x);
+          }
+        }, 10);
+      }
+
+      Number.prototype.pad = function (size) {
+        var s = String(this);
+        while (s.length < (size || 2)) {
+          s = "0" + s;
+        }
+        return s;
+      };
+    </script>
+  </head>
+  <body>
+    <div class="center">
+      <div id="countdown"></div>
+      <div id="text"></div>
+    </div>
+  </body>
+</html>
