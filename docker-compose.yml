@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  overlay-server:
+    container_name: overlay-server
+    build: 
+        context: ./overlay-server
+        args:
+         - SERVERHOST=${SERVERHOST}
+         - SERVERPORT=${SERVERPORT}
+         - AUTHKEY=${AUTHKEY}
+    ports:
+     - "${PORT}:${PORT}"
+
+  overlay-manager:
+    container_name: overlay-manager
+    build: 
+        context: ./overlay-manager
+        args:
+         - MANAGERHOST=${MANAGERHOST}
+         - MANAGERPORT=${MANAGERPORT}
+         - SERVERHOST=${SERVERHOST}
+         - SERVERPORT=${SERVERPORT}
+         - AUTHKEY=${AUTHKEY}
+    ports:
+     - "${PORT}:${PORT}"

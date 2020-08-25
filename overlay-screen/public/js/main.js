@@ -1,12 +1,13 @@
 var CONFIG = {};
-CONFIG.host = 'localhost';
-CONFIG.port = 3000;
+CONFIG.host = process.env.SERVERHOST || 'localhost';
+CONFIG.port = process.env.SERVERPORT || 3000;
+CONFIG.authkey = process.env.AUTHKEY;
 
 var lowerThird = new LowerThird({});
 
 // socket.io
 client = io.connect('http://'+CONFIG.host+':'+CONFIG.port,{
-  query: "authentication=sDJZn16TuP7zu82a"
+  query: "authentication=" + CONFIG.authkey
 });
 
 // on connection
