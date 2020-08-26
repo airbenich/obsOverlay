@@ -22,6 +22,18 @@ npm install
 npm start 
 ```
 
+### Docker Compose
+
+```bash
+cp .env.example .env
+```
+
+edit settings in .env file
+
+```bash
+docker-compose up -d overlay-server
+docker-compose up -d overlay-manager
+```
 ## Add overlay-screen to the OBS as Web View
 
 Simply add `overlay-screen/index.html` as a new Source inside a Scene in OBS inside a Web View / Browser.
