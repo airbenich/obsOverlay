@@ -12,10 +12,29 @@ body {
     background-color: #444 !important;
 }
 
+.bg-light {
+    background-color: #555 !important;
+}
+
 .list-group {
     border-radius: 0;
 }
 
+.panel, .panel-footer, .panel-header {
+    border-radius: 0 !important;
+}
+
+.panel {
+    background-color: #333;
+}
+
+.panel-body {
+    padding: 14px 14px;
+}
+
+.panel-footer {
+    padding: 14px 14px;
+}
 .list-group-item {
     background-color: #444;
 }
@@ -39,6 +58,14 @@ body {
     background-color: #444;
 }
 
+.buttonSubtitle {
+    font-size:x-small;
+}
+
 .preview {
-    background-color: #444;
+    background-color: #444; margin-bottom: 14px;
+}
+
+.hidden {
+    display: none;
 }
