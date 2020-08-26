@@ -4,7 +4,10 @@ var io = require('socket.io')(http);
 
 var os = require('os');
 var ifaces = os.networkInterfaces();
-var port = 3000;
+
+const port = process.env.SERVERPORT || 3000;
+const authkey = process.env.SERVERHOST;
+
 var clients = new Array();
 
 
@@ -47,7 +50,7 @@ http.listen(port, function(){
 io.use(function(socket, next){
     // console.log("Query: ", socket.handshake.query);
     // return the result of next() to accept the connection.
-    if (socket.handshake.query.authentication == "sDJZn16TuP7zu82a") {
+    if (socket.handshake.query.authentication == authkey) {
         return next();
     }
     // call next() with an Error if you need to reject the connection.
