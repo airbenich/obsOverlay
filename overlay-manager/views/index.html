@@ -1,10 +1,38 @@
 {% extends "base.html" %}
 
-
 {% block content %}
-<ul>
-  {% for name, item in items %}
-  <li>{{ name }}: {{ item }}</li>
-  {% endfor %}
-</ul>
+<h4>asd</h4>
+<div class="row">
+  <div class="col-xs-3 col-sm-3">
+    <h5>All Overlays</h5>
+    <ul class="list-group">
+      <button type="menu" class="list-group-item active text-left">test</button>
+    </ul>
+  </div>
+  <div class="col-xs-4 col-sm-4">
+    <h5>Edit Overlay</h5>
+    <div class="form-group">
+      <label for="exampleInputName">Name</label>
+      <input type="name" class="form-control" id="name" aria-describedby="nameHelp">
+      <small id="nameHelp" class="form-text text-muted">First line</small>
+    </div>
+    <div class="form-group">
+      <label for="exampleInputName">Subtitle</label>
+      <input type="name" class="form-control" id="name" aria-describedby="nameHelp">
+      <small id="nameHelp" class="form-text text-muted">Second line</small>
+    </div>
+  </div>
+  <div class="col-xs-5 col-sm-5">
+    <h5>Preview</h5>
+    <div class="btn-group">
+      <button type="menu" class="btn btn-secondary">Monitor 1</button>
+      <button type="menu" class="btn btn-dark">Monitor 2</button>
+    </div>
+    <div class="previews tab-content">
+      <div id="preview0" class="preview tab-pane active embed-responsive embed-responsive-16by9"></div>
+    </div>
+    
+    <h5>Live Control</h5>
+  </div>
+</div>
 {% endblock %}

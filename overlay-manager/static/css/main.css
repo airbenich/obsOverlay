@@ -1,0 +1,44 @@
+html {}
+body {
+    background-color: rgb(41, 41, 44);
+    color: #eee;
+}
+
+.header {
+    margin-bottom: 30px;
+}
+
+.bg-dark {
+    background-color: #444 !important;
+}
+
+.list-group {
+    border-radius: 0;
+}
+
+.list-group-item {
+    background-color: #444;
+}
+
+.list-group-item .active {
+    background-color: rgb(40, 95, 146);
+}
+
+.btn {
+    border-radius: 0;
+}
+
+.form-control {
+    border-radius: 0;
+    background-color: #444;
+    color: #eee;
+}
+
+.form-control:focus {
+    color: #eee;
+    background-color: #444;
+}
+
+.preview {
+    background-color: #444;
+}
