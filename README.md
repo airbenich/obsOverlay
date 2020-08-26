@@ -33,6 +33,8 @@ edit settings in .env file
 ```bash
 docker-compose up -d overlay-server
 docker-compose up -d overlay-manager
+
+docker-compose up overlay-remote
 ```
 ## Add overlay-screen to the OBS as Web View
 
