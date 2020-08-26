@@ -4,23 +4,34 @@ services:
   overlay-server:
     container_name: overlay-server
     build: 
-        context: ./overlay-server
-        args:
-         - SERVERHOST=${SERVERHOST}
-         - SERVERPORT=${SERVERPORT}
-         - AUTHKEY=${AUTHKEY}
+      context: ./overlay-server
+    environment:
+     - SERVERHOST=${SERVERHOST}
+     - SERVERPORT=${SERVERPORT}
+     - AUTHKEY=${AUTHKEY}
     ports:
      - "${SERVERPORT}:${SERVERPORT}"
 
   overlay-manager:
     container_name: overlay-manager
     build: 
-        context: ./overlay-manager
-        args:
-         - MANAGERHOST=${MANAGERHOST}
-         - MANAGERPORT=${MANAGERPORT}
-         - SERVERHOST=${SERVERHOST}
-         - SERVERPORT=${SERVERPORT}
-         - AUTHKEY=${AUTHKEY}
+      context: ./overlay-manager
+    environment:
+     - MANAGERHOST=${MANAGERHOST}
+     - MANAGERPORT=${MANAGERPORT}
+     - SERVERHOST=${SERVERHOST}
+     - SERVERPORT=${SERVERPORT}
+     - AUTHKEY=${AUTHKEY}
     ports:
      - "${MANAGERPORT}:${MANAGERPORT}"
+
+  overlay-remote:
+    container_name: overlay-remote
+    build: 
+      context: ./overlay-remote
+    environment:
+     - MANAGERHOST=${MANAGERHOST}
+     - MANAGERPORT=${MANAGERPORT}
+     - SERVERHOST=${SERVERHOST}
+     - SERVERPORT=${SERVERPORT}
+     - AUTHKEY=${AUTHKEY}

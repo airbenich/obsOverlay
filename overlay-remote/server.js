@@ -1,6 +1,6 @@
 var CONFIG = {};
-CONFIG.host = process.env.HOST || 'localhost';
-CONFIG.port = process.env.PORT || 3000;
+CONFIG.host = process.env.SERVERHOST || 'localhost';
+CONFIG.port = process.env.SERVERPORT || 3000;
 CONFIG.authkey = process.env.AUTHKEY;
 
 // Booting app
@@ -13,6 +13,7 @@ var LowerThird = require('./class/LowerThird');
 
 
 // socket.io
+console.log('Connecting to http://'+CONFIG.host+':'+CONFIG.port);
 var io = require('socket.io-client');
 client = io.connect('http://'+CONFIG.host+':'+CONFIG.port,{
   query: "authentication="+CONFIG.authkey

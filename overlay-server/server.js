@@ -6,7 +6,7 @@ var os = require('os');
 var ifaces = os.networkInterfaces();
 
 const port = process.env.SERVERPORT || 3000;
-const authkey = process.env.SERVERHOST;
+const authkey = process.env.AUTHKEY;
 
 var clients = new Array();
 
@@ -20,7 +20,7 @@ console.log('Starting Overlay Server');
 // });
 
 // incoming connections
-http.listen(port, function(){
+http.listen(port, '0.0.0.0', function(){
   console.log('Overlay Server is ready');
   console.log('Listening on:');
 
