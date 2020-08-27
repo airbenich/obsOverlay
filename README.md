@@ -11,7 +11,7 @@ To clone and run this repository you'll need to run these commands from your com
 
 ```bash
 # Clone this repository
-git clone https://github.com/airbenich/multiviewTouchControl
+git clone https://github.com/airbenich/obsOverlay.git
 # Go into the repository
 cd obsOverlay
 # Go into the application like: overlay-server
