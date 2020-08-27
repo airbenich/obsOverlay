@@ -1,5 +1,5 @@
 {
-  "name": "overlay-manager",
+  "name": "overlay-manager-api",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,7 +10,6 @@
   "license": "GNU General Public License v3.0",
   "dependencies": {
     "express": "^4.17.1",
-    "socket.io": "^2.3.0",
-    "nunjucks": "^3.2.2"
+    "socket.io": "^2.3.0"
   }
 }
