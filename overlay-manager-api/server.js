@@ -13,18 +13,21 @@ var overlays = []
 
 overlays.push({
     id: 0,
-    title: "test",
-    subtitle: "testsubtitle"
+    title: "test 1",
+    subtitle: "testsubtitle",
+    status: "active"
 });
 overlays.push({
     id: 0,
-    title: "test",
-    subtitle: "testsubtitle"
+    title: "test 2",
+    subtitle: "testsubtitle",
+    status: "inactive"
 });
 overlays.push({
     id: 0,
-    title: "test",
-    subtitle: "testsubtitle"
+    title: "test 3",
+    subtitle: "testsubtitle",
+    status: "inactive"
 });
 
 var displays = []
