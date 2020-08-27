@@ -1,6 +1,6 @@
 const express = require('express')
 
-const port = process.env.MANAGERPORT || 3001;
+const port = process.env.MANAGERAPIPORT || 3001;
 
 const serverport = process.env.SERVERPORT || 3000;
 const serverhost = process.env.SERVERHOST|| 'localhost';
