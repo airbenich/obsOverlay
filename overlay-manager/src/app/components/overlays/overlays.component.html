@@ -1,0 +1,6 @@
+<ul class="list-group">
+<button *ngFor="let overlay of overlays" type="menu" class="list-group-item {{ overlay.status }} text-left ">
+    {{ overlay.title }}
+    <div class="buttonSubtitle">{{ overlay.subtitle }}</div>
+</button>
+</ul>

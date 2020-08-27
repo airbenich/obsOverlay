@@ -9,6 +9,7 @@
   "author": "",
   "license": "GNU General Public License v3.0",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "socket.io": "^2.3.0"
   }

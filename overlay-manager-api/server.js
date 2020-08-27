@@ -3,7 +3,7 @@ const express = require('express')
 const port = process.env.MANAGERAPIPORT || 3001;
 
 const serverport = process.env.SERVERPORT || 3000;
-const serverhost = process.env.SERVERHOST|| 'localhost';
+const serverhost = process.env.SERVERHOST || 'localhost';
 const authkey = process.env.AUTHKEY;
 
 const app = express()
@@ -11,17 +11,37 @@ const app = express()
 // TODO persistant storage 
 var overlays = []
 
-overlays.push ({ 
+overlays.push({
     id: 0,
-    name: "test",
+    title: "test",
+    subtitle: "testsubtitle"
+});
+overlays.push({
+    id: 0,
+    title: "test",
+    subtitle: "testsubtitle"
+});
+overlays.push({
+    id: 0,
+    title: "test",
     subtitle: "testsubtitle"
 });
 
 var displays = []
 
-displays.push ({ 
+displays.push({
     id: 0,
     name: "OBS"
+});
+
+app.use(function (req, res, next) {
+    console.log(Date.now(),  req.method, req.protocol, req.hostname, req.originalUrl);
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+    res.setHeader('Access-Control-Allow-Credentials', true);
+
+    next();
 });
 
 // APP ROUTES

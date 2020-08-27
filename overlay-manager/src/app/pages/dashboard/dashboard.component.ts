@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { OverlaysComponent } from '../../components/overlays/overlays.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class DashboardComponent implements OnInit {
 
   constructor() { }
-
+  
   ngOnInit(): void {
   }
 
