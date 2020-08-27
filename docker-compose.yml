@@ -12,10 +12,10 @@ services:
     ports:
      - "${SERVERPORT}:${SERVERPORT}"
 
-  overlay-manager:
-    container_name: overlay-manager
+  overlay-manager-api:
+    container_name: overlay-manager-api
     build: 
-      context: ./overlay-manager
+      context: ./overlay-manager-api
     environment:
      - MANAGERHOST=${MANAGERHOST}
      - MANAGERPORT=${MANAGERPORT}

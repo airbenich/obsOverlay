@@ -8,14 +8,6 @@ const authkey = process.env.AUTHKEY;
 
 const app = express()
 
-app.use('/static', express.static('static'))
-
-const nunjucks = require('nunjucks')
-nunjucks.configure('views', {
-    autoescape: true,
-    express: app
-});
-
 // TODO persistant storage 
 var overlays = []
 
@@ -34,7 +26,7 @@ displays.push ({
 
 // APP ROUTES
 app.get('/', (req, res) => {
-    res.render('index.html');
+    res.end(JSON.stringify({ status: "ok" }));
 })
 
 // API ROUTES
@@ -70,11 +62,12 @@ app.delete('/api/overlay/:overlayId', (req, res) => {
 })
 
 // VIEW API
+// get display list
 app.get('/api/displays/', (req, res) => {
     res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify(displays));
 })
 
 app.listen(port, '0.0.0.0', () => {
-    console.log(`Example app listening at http://0.0.0.0:${port}`)
+    console.log(`Overlay Manager listening at http://0.0.0.0:${port}`)
 })
