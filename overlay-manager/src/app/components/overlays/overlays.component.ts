@@ -9,16 +9,28 @@ import { OverlaysApiService } from '../../services/overlaysapi.service';
 })
 export class OverlaysComponent implements OnInit {
   overlays: Overlay[];
+  selectedOverlay = 0;
+  constructor(private overlaysApiService: OverlaysApiService) { }
 
-  constructor( private overlaysApiService: OverlaysApiService) { }
-  
+  onClick(selectedoverlay: Overlay): void {
+    this.overlays.forEach((overlay, index) => {
+      if (overlay.id == selectedoverlay.id) {
+        overlay.status = "active";
+      }
+      else {
+        overlay.status = "inactive";
+      }
+      this.selectedOverlay = overlay.id;
+      this.overlaysApiService.updateOverlay(overlay).subscribe();
+    })
+  }
+
   ngOnInit() {
     this.getOverlays();
   }
 
   getOverlays(): void {
-    this.overlaysApiService.getOverlays()
-    .subscribe(overlays => this.overlays = overlays);
+    this.overlaysApiService.getOverlays().subscribe(overlays => this.overlays = overlays);
   }
 
   delete(overlay: Overlay): void {
