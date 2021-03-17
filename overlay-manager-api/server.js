@@ -15,24 +15,21 @@ var overlays = []
 
 overlays.push({
     id: 0,
-    title: "test 1",
-    subtitle: "testsubtitle",
-    design: "default",
-    status: "active"
+    title: "Max Mustermann",
+    subtitle: "Musterberuf",
+    design: "default"
 });
 overlays.push({
     id: 1,
-    title: "test 2",
-    subtitle: "testsubtitle",
-    design: "default",
-    status: "inactive"
+    title: "Franz Freudenberg",
+    subtitle: "Freiherr von Freudenberg",
+    design: "default"
 });
 overlays.push({
     id: 2,
-    title: "test 3",
-    subtitle: "testsubtitle",
-    design: "default",
-    status: "inactive"
+    title: "Peter Pan",
+    subtitle: "Pantologe",
+    design: "default"
 });
 
 var displays = []
