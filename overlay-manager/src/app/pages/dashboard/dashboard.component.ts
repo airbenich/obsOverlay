@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { OverlaysComponent } from '../../components/overlays/overlays.component';
+import { Component, EventEmitter, OnInit } from '@angular/core';
+import { IOverlay } from 'src/app/models/ioverlay';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,8 +9,19 @@ import { OverlaysComponent } from '../../components/overlays/overlays.component'
 export class DashboardComponent implements OnInit {
 
   constructor() { }
-  
+
+  selectedOverlay: IOverlay;
+
   ngOnInit(): void {
+  }
+
+  public overlaySelected(overlay: IOverlay): void {
+    this.selectedOverlay = overlay;
+
+  }
+
+  public closeOverlay(): void {
+    delete this.selectedOverlay;
   }
 
 }

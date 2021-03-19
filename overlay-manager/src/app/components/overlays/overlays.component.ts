@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Overlay } from '../overlays/overlay';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { IOverlay } from '../../models/ioverlay';
 import { OverlaysApiService } from '../../services/overlaysapi.service';
 
 @Component({
@@ -8,24 +8,18 @@ import { OverlaysApiService } from '../../services/overlaysapi.service';
   styleUrls: ['./overlays.component.css']
 })
 export class OverlaysComponent implements OnInit {
-  overlays: Overlay[];
-  selectedOverlay = 0;
+  overlays: IOverlay[];
+  @Input() selectedOverlay: IOverlay;
+
+  @Output() selectOverlay = new EventEmitter<IOverlay>();
+
   constructor(private overlaysApiService: OverlaysApiService) { }
 
-  onClick(selectedoverlay: Overlay): void {
-    this.overlays.forEach((overlay, index) => {
-      if (overlay.id == selectedoverlay.id) {
-        overlay.status = "active";
-      }
-      else {
-        overlay.status = "inactive";
-      }
-      this.selectedOverlay = overlay.id;
-      this.overlaysApiService.updateOverlay(overlay).subscribe();
-    })
+  onClick(selectedoverlay: IOverlay): void {
+    this.selectOverlay.emit(selectedoverlay);
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.getOverlays();
   }
 
@@ -33,7 +27,7 @@ export class OverlaysComponent implements OnInit {
     this.overlaysApiService.getOverlays().subscribe(overlays => this.overlays = overlays);
   }
 
-  delete(overlay: Overlay): void {
+  delete(overlay: IOverlay): void {
     this.overlays = this.overlays.filter(o => o !== overlay);
     this.overlaysApiService.deleteOverlay(overlay).subscribe();
   }

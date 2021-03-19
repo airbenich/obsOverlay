@@ -1,6 +1,6 @@
 <ul class="list-group overlay-list">
-    <button *ngFor=" let overlay of overlays" (click)="onClick(overlay)" type="menu" class="list-group-item overlay-list-item {{ overlay.status }} text-left">
-        <div class="title">{{ overlay.title }}</div>
+    <button *ngFor=" let overlay of overlays" (click)="onClick(overlay)" type="menu" class="list-group-item overlay-list-item text-left" [class.active]="selectedOverlay?.id === overlay.id">
+      <div class="title">{{ overlay.title }}</div>
         <div class="subtitle">{{ overlay.subtitle }}</div>
     </button>
 </ul>
