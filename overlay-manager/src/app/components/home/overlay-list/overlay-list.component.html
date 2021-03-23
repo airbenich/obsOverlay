@@ -1,0 +1,10 @@
+<ul class="list-group overlay-list">
+  <ng-container *ngFor="let overlay of overlays">
+    <app-button-tile
+      [title]="overlay.title"
+      [subtitle]="overlay.subtitle"
+      (click)="onClick(overlay)"
+      [selected]="selectedOverlay == overlay"
+    ></app-button-tile>
+  </ng-container>
+</ul>
