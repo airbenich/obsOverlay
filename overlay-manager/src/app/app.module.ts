@@ -9,6 +9,7 @@ import { SettingsComponent } from './components/settings/settings.component';
 import { OverlayListComponent } from './components/dashboard/overlay-list/overlay-list.component';
 import { StatusComponent } from './components/status/status.component';
 import { OverlayEditComponent } from './components/dashboard/overlay-edit/overlay-edit.component';
+import { ButtonTileComponent } from './shared/components/button-tile/button-tile.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { OverlayEditComponent } from './components/dashboard/overlay-edit/overla
     SettingsComponent,
     OverlayListComponent,
     StatusComponent,
-    OverlayEditComponent
+    OverlayEditComponent,
+    ButtonTileComponent
   ],
   imports: [
     BrowserModule,

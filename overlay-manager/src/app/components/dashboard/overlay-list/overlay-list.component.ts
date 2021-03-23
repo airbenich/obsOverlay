@@ -4,7 +4,7 @@ import { IOverlay } from '../../../models/ioverlay';
 @Component({
   selector: 'app-overlays',
   templateUrl: './overlay-list.component.html',
-  styleUrls: ['./overlay-list.component.css']
+  styleUrls: ['./overlay-list.component.scss']
 })
 export class OverlayListComponent implements OnInit {
   overlays: IOverlay[];
@@ -12,7 +12,21 @@ export class OverlayListComponent implements OnInit {
 
   @Output() selectOverlay = new EventEmitter<IOverlay>();
 
-  constructor() { }
+  constructor() {
+    this.overlays = [];
+    this.overlays.push({
+      title: 'Max Mustermann',
+      subtitle: 'Mustertechniker'
+    } as IOverlay);
+    this.overlays.push({
+      title: 'Freiherr von Bauch',
+      subtitle: 'Bauchbinder'
+    } as IOverlay);
+    this.overlays.push({
+      title: 'Peter Pan',
+      subtitle: 'Pantologe'
+    } as IOverlay);
+   }
 
   onClick(selectedoverlay: IOverlay): void {
     this.selectOverlay.emit(selectedoverlay);
