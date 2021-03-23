@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { IOverlay } from '../../models/ioverlay';
-import { OverlaysApiService } from '../../services/overlaysapi.service';
 
 @Component({
   selector: 'app-overlays',
@@ -13,7 +12,7 @@ export class OverlaysComponent implements OnInit {
 
   @Output() selectOverlay = new EventEmitter<IOverlay>();
 
-  constructor(private overlaysApiService: OverlaysApiService) { }
+  constructor() { }
 
   onClick(selectedoverlay: IOverlay): void {
     this.selectOverlay.emit(selectedoverlay);
@@ -24,11 +23,11 @@ export class OverlaysComponent implements OnInit {
   }
 
   getOverlays(): void {
-    this.overlaysApiService.getOverlays().subscribe(overlays => this.overlays = overlays);
+    // this.overlaysApiService.getOverlays().subscribe(overlays => this.overlays = overlays);
   }
 
   delete(overlay: IOverlay): void {
     this.overlays = this.overlays.filter(o => o !== overlay);
-    this.overlaysApiService.deleteOverlay(overlay).subscribe();
+    // this.overlaysApiService.deleteOverlay(overlay).subscribe();
   }
 }
