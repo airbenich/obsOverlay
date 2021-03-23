@@ -7,7 +7,6 @@ import { AppComponent } from './app.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { SettingsComponent } from './pages/settings/settings.component';
 import { OverlaysComponent } from './components/overlays/overlays.component';
-import { DisplaysComponent } from './components/displays/displays.component';
 import { StatusComponent } from './components/status/status.component';
 
 @NgModule({
@@ -16,7 +15,6 @@ import { StatusComponent } from './components/status/status.component';
     DashboardComponent,
     SettingsComponent,
     OverlaysComponent,
-    DisplaysComponent,
     StatusComponent
   ],
   imports: [
