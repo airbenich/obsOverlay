@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { IOverlay } from '../../models/ioverlay';
+import { IOverlay } from '../../../models/ioverlay';
 
 @Component({
   selector: 'app-overlays',
