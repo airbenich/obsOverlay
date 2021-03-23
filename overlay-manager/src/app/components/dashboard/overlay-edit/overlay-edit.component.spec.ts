@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { OverlaysComponent } from './overlays.component';
+import { OverlayEditComponent } from './overlay-edit.component';
 
-describe('OverlayComponent', () => {
-  let component: OverlaysComponent;
-  let fixture: ComponentFixture<OverlaysComponent>;
+describe('OverlayEditComponent', () => {
+  let component: OverlayEditComponent;
+  let fixture: ComponentFixture<OverlayEditComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ OverlaysComponent ]
+      declarations: [ OverlayEditComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(OverlaysComponent);
+    fixture = TestBed.createComponent(OverlayEditComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

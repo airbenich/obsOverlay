@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { StatusService } from '../../services/status.service';
 import { Status } from '../status/status';
 
 @Component({
@@ -9,15 +8,13 @@ import { Status } from '../status/status';
 })
 export class StatusComponent implements OnInit {
   status: Status[];
-  constructor(
-    private statusService: StatusService,
-  ) { }
+  constructor() { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.getStatus();
   }
 
   getStatus(): void {
-    this.statusService.getStatus().subscribe(status => this.status = status);
+    // this.statusService.getStatus().subscribe(status => this.status = status);
   }
 }
