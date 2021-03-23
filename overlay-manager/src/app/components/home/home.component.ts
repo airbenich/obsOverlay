@@ -17,7 +17,6 @@ export class HomeComponent implements OnInit {
 
   public overlaySelected(overlay: IOverlay): void {
     this.selectedOverlay = overlay;
-
   }
 
   public closeOverlay(): void {
