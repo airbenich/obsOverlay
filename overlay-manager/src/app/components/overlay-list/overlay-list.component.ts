@@ -3,10 +3,10 @@ import { IOverlay } from '../../models/ioverlay';
 
 @Component({
   selector: 'app-overlays',
-  templateUrl: './overlays.component.html',
-  styleUrls: ['./overlays.component.css']
+  templateUrl: './overlay-list.component.html',
+  styleUrls: ['./overlay-list.component.css']
 })
-export class OverlaysComponent implements OnInit {
+export class OverlayListComponent implements OnInit {
   overlays: IOverlay[];
   @Input() selectedOverlay: IOverlay;
 

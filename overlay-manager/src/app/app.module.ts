@@ -6,7 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { SettingsComponent } from './pages/settings/settings.component';
-import { OverlaysComponent } from './components/overlays/overlays.component';
+import { OverlayListComponent } from './components/overlay-list/overlay-list.component';
 import { StatusComponent } from './components/status/status.component';
 
 @NgModule({
@@ -14,7 +14,7 @@ import { StatusComponent } from './components/status/status.component';
     AppComponent,
     DashboardComponent,
     SettingsComponent,
-    OverlaysComponent,
+    OverlayListComponent,
     StatusComponent
   ],
   imports: [
