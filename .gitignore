@@ -1,5 +1,7 @@
 overlay-remote/storage/
 
+.DS_Store
+
 # Logs
 logs
 *.log
