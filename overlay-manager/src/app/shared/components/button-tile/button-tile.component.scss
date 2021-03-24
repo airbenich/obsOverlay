@@ -1,0 +1,21 @@
+:host {
+  width: 100%;
+}
+
+button {
+  width: 100%;
+  background-color: #444;
+  color: #fff;
+
+  .title {
+    font-weight: 600;
+  }
+
+  .subtitle {
+    color: #bbb;
+  }
+}
+
+.selected {
+  background-color: rgb(40, 95, 146);
+}

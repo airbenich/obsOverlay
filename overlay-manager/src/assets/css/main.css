@@ -1,11 +1,6 @@
-html {}
 body {
     background-color: rgb(41, 41, 44);
     color: #eee;
-}
-
-.header {
-    margin-bottom: 30px;
 }
 
 .bg-dark {
@@ -34,13 +29,6 @@ body {
 
 .panel-footer {
     padding: 14px 14px;
-}
-.list-group-item {
-    background-color: #444;
-}
-
-.list-group-item .active {
-    background-color: rgb(40, 95, 146);
 }
 
 .btn {

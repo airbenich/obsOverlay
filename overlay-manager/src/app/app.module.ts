@@ -1,30 +1,38 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { HomeComponent } from './components/home/home.component';
 import { SettingsComponent } from './components/settings/settings.component';
-import { OverlayListComponent } from './components/dashboard/overlay-list/overlay-list.component';
+import { OverlayListComponent } from './components/home/overlay-list/overlay-list.component';
 import { StatusComponent } from './components/status/status.component';
-import { OverlayEditComponent } from './components/dashboard/overlay-edit/overlay-edit.component';
+import { OverlayEditComponent } from './components/home/overlay-edit/overlay-edit.component';
+import { ButtonTileComponent } from './shared/components/button-tile/button-tile.component';
+import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    DashboardComponent,
+    HomeComponent,
     SettingsComponent,
     OverlayListComponent,
     StatusComponent,
-    OverlayEditComponent
+    OverlayEditComponent,
+    ButtonTileComponent,
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    TranslateModule.forRoot({
+      defaultLanguage: 'de'
+    }),
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
