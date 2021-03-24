@@ -16,13 +16,16 @@ import { HeaderComponent } from './components/header/header.component';
 import { ToggleSwitchComponent } from './shared/components/toggle-switch/toggle-switch.component';
 import { FormsModule } from '@angular/forms';
 
-const port = process.env.SERVERPORT || 3000;
-const host = process.env.SERVERHOST || localhost;
-const authCode = process.env.AUTHKEY || "sDJZn16TuP7zu82a";
+const port = 3000;
+const host = 'localhost';
+const authCode = 'sDJZn16TuP7zu82a';
 
-const config: SocketIoConfig = { url: 'http://' + host + ':'+port, options: {
-  query: 'authentication=' + authCode
-} };
+const config: SocketIoConfig = {
+  url: 'http://' + host + ':' + port,
+  options: {
+    query: 'authentication=' + authCode,
+  },
+};
 
 @NgModule({
   declarations: [
