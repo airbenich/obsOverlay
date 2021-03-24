@@ -5,6 +5,10 @@ input[readonly] {
   cursor: not-allowed;
 }
 
+*:disabled {
+  cursor: not-allowed;
+}
+
 .panel-footer {
   display: grid;
   grid-template-columns: 1fr auto;
