@@ -7,7 +7,14 @@ const LowerthirdsManager_1 = require("./LowerthirdsManager");
 const config_json_1 = __importDefault(require("./config.json"));
 const app = require('express')();
 const http = require('http').Server(app);
-const io = require('socket.io')(http);
+const io = require('socket.io')(http, {
+    cors: {
+        origin: 'http://localhost:4200',
+        methods: ['GET', 'POST'],
+        allowedHeaders: ['my-custom-header'],
+        credentials: true,
+    },
+});
 app.get('/', (req, res) => {
     res.sendFile(`${__dirname}/index.html`);
 });
@@ -34,9 +41,20 @@ io.on('connection', (socket) => {
     console.log('Send all available lowerthirds to a client');
     socket.emit('get_lowerthirds', lowerthirds.getAll());
     //
-    socket.on('add_lowerthirds', (data) => {
-        console.log('Incomming data: ', data);
-        socket.broadcast.emit('get_lowerthirds', lowerthirds.getAll());
+    socket.on('add_lowerthird', (data) => {
+        console.log('Add lowerthird: ', data);
+        lowerthirds.add(data);
+        io.emit('get_lowerthirds', lowerthirds.getAll());
+    });
+    socket.on('update_lowerthird', (data) => {
+        console.log('Update lowerthird: ', data);
+        lowerthirds.update(data);
+        io.emit('get_lowerthirds', lowerthirds.getAll());
+    });
+    socket.on('remove_lowerthird', (data) => {
+        console.log('Remove lowerthird: ', data);
+        lowerthirds.remove(data);
+        io.emit('get_lowerthirds', lowerthirds.getAll());
     });
     // Transfer content to all clients except self
     socket.on('content', (data) => {
@@ -50,4 +68,3 @@ io.on('connection', (socket) => {
 http.listen(config_json_1.default.port, () => {
     console.log(`listening on http://localhost:${config_json_1.default.port}`);
 });
-//# sourceMappingURL=app.js.map
