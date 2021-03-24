@@ -46,7 +46,19 @@ export class OverlayListComponent implements OnInit {
     );
   }
 
-  createDraftOverlay(): void {
+  public onUserClickedOnNewOverlay(): void {
+    if (this.overlayServerService.draftOverlay) {
+      this.switchToDraftOverlay();
+    } else {
+      this.createDraftOverlayandSwitch();
+    }
+  }
+
+  private switchToDraftOverlay(): void {
+    this.onClick(this.overlayServerService.draftOverlay);
+  }
+
+  private createDraftOverlayandSwitch(): void {
     this.overlayServerService.draftOverlay = {
       id: null,
       design: '',

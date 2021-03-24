@@ -50,10 +50,17 @@
         ></i>
         {{ "Löschen" | translate }}
       </button>
+      <button class="btn btn-warning" (click)="onClickCancelButton()" *ngIf="overlayServerService.draftOverlay === selectedOverlay">
+        <i
+          aria-hidden="true"
+          class="v-icon notranslate mdi mdi-cancel theme--dark"
+        ></i>
+        {{ "Abbrechen" | translate }}
+      </button>
     </div>
 
     <div class="right btn-group">
-      <button class="btn btn-dark" (click)="closeOverlay()">
+      <button class="btn btn-dark" (click)="closeOverlay()" *ngIf="overlayServerService.draftOverlay !== selectedOverlay">
         <i
           aria-hidden="true"
           class="v-icon notranslate mdi mdi-cancel theme--dark"

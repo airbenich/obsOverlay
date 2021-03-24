@@ -24,6 +24,11 @@ export class OverlayEditComponent implements OnInit {
     this.overlayServerService.removeLowerThird(this.selectedOverlay);
   }
 
+  public onClickCancelButton(): void {
+    delete this.overlayServerService.draftOverlay;
+    this.closeOverlay();
+  }
+
   public selectedOverlayChange(): void {
     console.log('changed');
   }
