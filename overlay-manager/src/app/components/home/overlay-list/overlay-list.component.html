@@ -1,5 +1,25 @@
+<!-- <div
+  cdkDropList
+  [cdkDropListData]="overlayServerService.overlays"
+  class="example-list"
+  (cdkDropListDropped)="drop($event)"
+>
+  <div
+    class="drag-item"
+    *ngFor="let item of overlayServerService.overlays"
+    cdkDrag
+  >
+    {{ item.title }}
+  </div>
+</div> -->
+
 <ul class="list-group overlay-list">
-  <input type="text" placeholder="Nach Namen suchen ..." [(ngModel)]="searchTerm" (keyup)="onUserTypedInSearchBar()">
+  <input
+    type="text"
+    placeholder="Nach Namen suchen ..."
+    [(ngModel)]="searchTerm"
+    (keyup)="onUserTypedInSearchBar()"
+  />
 
   <ng-container *ngIf="searchTerm">
     <div class="list-divider">
@@ -35,25 +55,18 @@
     <div class="list-divider" *ngIf="showPinnedToTopDivider()">
       {{ "Angepinnte Overlays" | translate }}
     </div>
-    <ng-container *ngFor="let overlay of overlayServerService.overlays">
-      <app-button-tile
-        *ngIf="overlay.pinnedToTop"
-        [(title)]="overlay.title"
-        [subtitle]="overlay.subtitle"
-        (click)="onClick(overlay)"
-        [selected]="selectedOverlay == overlay"
-        [favorite]="overlay.favorit"
-        [pinned]="overlay.pinnedToTop"
-        [readOnly]="overlay.readOnly"
-      ></app-button-tile>
-    </ng-container>
-    <ng-container *ngIf="showFavorites">
-      <div class="list-divider" *ngIf="showFavorites">
-        {{ "Favoriten Overlays" | translate }}
-      </div>
+    <div
+      cdkDropList
+      [cdkDropListData]="overlayServerService.overlays"
+      class="drag-list"
+      (cdkDropListDropped)="drop($event)"
+    >
       <ng-container *ngFor="let overlay of overlayServerService.overlays">
         <app-button-tile
-          *ngIf="!overlay.pinnedToTop && overlay.favorit"
+          class="drag-item"
+          cdkDrag
+          cdkDragLockAxis="y"
+          *ngIf="overlay.pinnedToTop"
           [(title)]="overlay.title"
           [subtitle]="overlay.subtitle"
           (click)="onClick(overlay)"
@@ -63,23 +76,60 @@
           [readOnly]="overlay.readOnly"
         ></app-button-tile>
       </ng-container>
+    </div>
+    <ng-container *ngIf="showFavorites">
+      <div class="list-divider" *ngIf="showFavorites">
+        {{ "Favoriten Overlays" | translate }}
+      </div>
+      <div
+        cdkDropList
+        [cdkDropListData]="overlayServerService.overlays"
+        class="drag-list"
+        (cdkDropListDropped)="drop($event)"
+      >
+        <ng-container *ngFor="let overlay of overlayServerService.overlays">
+          <app-button-tile
+            class="drag-item"
+            cdkDrag
+            cdkDragLockAxis="y"
+            *ngIf="!overlay.pinnedToTop && overlay.favorit"
+            [(title)]="overlay.title"
+            [subtitle]="overlay.subtitle"
+            (click)="onClick(overlay)"
+            [selected]="selectedOverlay == overlay"
+            [favorite]="overlay.favorit"
+            [pinned]="overlay.pinnedToTop"
+            [readOnly]="overlay.readOnly"
+          ></app-button-tile>
+        </ng-container>
+      </div>
     </ng-container>
     <ng-container *ngIf="!showFavorites">
       <div class="list-divider" *ngIf="showAllDivider() && !showFavorites">
         {{ "Alle Overlays" | translate }}
       </div>
-      <ng-container *ngFor="let overlay of overlayServerService.overlays">
-        <app-button-tile
-          *ngIf="!overlay.pinnedToTop"
-          [(title)]="overlay.title"
-          [subtitle]="overlay.subtitle"
-          (click)="onClick(overlay)"
-          [selected]="selectedOverlay == overlay"
-          [favorite]="overlay.favorit"
-          [pinned]="overlay.pinnedToTop"
-          [readOnly]="overlay.readOnly"
-        ></app-button-tile>
-      </ng-container>
+      <div
+        cdkDropList
+        [cdkDropListData]="overlayServerService.overlays"
+        class="drag-list"
+        (cdkDropListDropped)="drop($event)"
+      >
+        <ng-container *ngFor="let overlay of overlayServerService.overlays">
+          <app-button-tile
+            class="drag-item"
+            cdkDrag
+            cdkDragLockAxis="y"
+            *ngIf="!overlay.pinnedToTop"
+            [(title)]="overlay.title"
+            [subtitle]="overlay.subtitle"
+            (click)="onClick(overlay)"
+            [selected]="selectedOverlay == overlay"
+            [favorite]="overlay.favorit"
+            [pinned]="overlay.pinnedToTop"
+            [readOnly]="overlay.readOnly"
+          ></app-button-tile>
+        </ng-container>
+      </div>
     </ng-container>
   </ng-container>
 </ul>

@@ -5,16 +5,15 @@ import { OverlayServerService } from 'src/app/shared/services/overlay-server/ove
 @Component({
   selector: 'app-overlay-edit',
   templateUrl: './overlay-edit.component.html',
-  styleUrls: ['./overlay-edit.component.scss']
+  styleUrls: ['./overlay-edit.component.scss'],
 })
 export class OverlayEditComponent implements OnInit {
   @Input() selectedOverlay: IOverlay;
   @Output() closedOverlay: EventEmitter<void> = new EventEmitter();
 
-  constructor(public overlayServerService: OverlayServerService) { }
+  constructor(public overlayServerService: OverlayServerService) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   public closeOverlay(): void {
     this.closedOverlay.emit();
@@ -28,5 +27,4 @@ export class OverlayEditComponent implements OnInit {
   public selectedOverlayChange(): void {
     console.log('changed');
   }
-
 }

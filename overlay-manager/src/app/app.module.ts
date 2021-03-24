@@ -15,6 +15,7 @@ import { ButtonTileComponent } from './shared/components/button-tile/button-tile
 import { HeaderComponent } from './components/header/header.component';
 import { ToggleSwitchComponent } from './shared/components/toggle-switch/toggle-switch.component';
 import { FormsModule } from '@angular/forms';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 const port = 3000;
 const host = 'localhost';
@@ -42,6 +43,7 @@ const config: SocketIoConfig = {
   imports: [
     BrowserModule,
     FormsModule,
+    DragDropModule,
     AppRoutingModule,
     HttpClientModule,
     TranslateModule.forRoot({

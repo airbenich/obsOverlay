@@ -1,7 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { IOverlay } from '../../../models/ioverlay';
 import { OverlayServerService } from 'src/app/shared/services/overlay-server/overlay-server.service';
-import { getLocaleDateTimeFormat } from '@angular/common';
+import {
+  CdkDragDrop,
+  moveItemInArray,
+  transferArrayItem,
+} from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-overlay-list',
@@ -22,8 +26,7 @@ export class OverlayListComponent implements OnInit {
     this.selectOverlay.emit(selectedoverlay);
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   delete(overlay: IOverlay): void {
     // this.overlays = this.overlays.filter((o) => o !== overlay);
@@ -31,11 +34,16 @@ export class OverlayListComponent implements OnInit {
   }
 
   showPinnedToTopDivider(): boolean {
-    return this.overlayServerService.overlays.filter((e) => e.pinnedToTop).length > 0;
+    return (
+      this.overlayServerService.overlays.filter((e) => e.pinnedToTop).length > 0
+    );
   }
 
   showAllDivider(): boolean {
-    return this.overlayServerService.overlays.filter((e) => !e.pinnedToTop).length > 0;
+    return (
+      this.overlayServerService.overlays.filter((e) => !e.pinnedToTop).length >
+      0
+    );
   }
 
   createDraftOverlay(): void {
@@ -58,7 +66,28 @@ export class OverlayListComponent implements OnInit {
 
   public searchForOverlay(term: string): IOverlay[] {
     console.log('Search');
-    console.log(this.overlayServerService.overlays.filter(e => e.title.includes(term)));
-    return this.overlayServerService.overlays.filter(e => e.title.includes(term) || e.subtitle.includes(term));
+    console.log(
+      this.overlayServerService.overlays.filter((e) => e.title.includes(term))
+    );
+    return this.overlayServerService.overlays.filter(
+      (e) => e.title.includes(term) || e.subtitle.includes(term)
+    );
+  }
+
+  drop(event: CdkDragDrop<string[]>): void {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
+    } else {
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
+    }
   }
 }
