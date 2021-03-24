@@ -1,17 +1,20 @@
-<!-- <div
-  cdkDropList
-  [cdkDropListData]="overlayServerService.overlays"
-  class="example-list"
-  (cdkDropListDropped)="drop($event)"
->
-  <div
-    class="drag-item"
-    *ngFor="let item of overlayServerService.overlays"
-    cdkDrag
-  >
-    {{ item.title }}
-  </div>
-</div> -->
+<div class="footer">
+  <button class="btn btn-favorites" (click)="onUserClickedOnFavorites()" [class.active]="showFavorites">
+    <i
+      aria-hidden="true"
+      class="v-icon notranslate mdi mdi-heart theme--dark"
+    ></i>
+    {{ "Nur Favoriten anzeigen" | translate }}
+  </button>
+  <div></div>
+  <button class="btn btn-primary" (click)="onUserClickedOnNewOverlay()">
+    <i
+      aria-hidden="true"
+      class="v-icon notranslate mdi mdi-plus theme--dark"
+    ></i>
+    {{ "Neues Overlay" | translate }}
+  </button>
+</div>
 
 <ul class="list-group overlay-list">
   <input
@@ -153,17 +156,3 @@
     </ng-container>
   </ng-container>
 </ul>
-
-<div class="footer">
-  <button class="btn btn-primary" (click)="onUserClickedOnNewOverlay()">
-    <i
-      aria-hidden="true"
-      class="v-icon notranslate mdi mdi-plus theme--dark"
-    ></i>
-    {{ "Neues Overlay" | translate }}
-  </button>
-  <app-toggle-switch
-    [(isChecked)]="showFavorites"
-    [title]="'Favoriten anzeigen'"
-  ></app-toggle-switch>
-</div>

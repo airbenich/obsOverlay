@@ -54,6 +54,10 @@ export class OverlayListComponent implements OnInit {
     }
   }
 
+  public onUserClickedOnFavorites(): void {
+    this.showFavorites = !this.showFavorites;
+  }
+
   private switchToDraftOverlay(): void {
     this.onClick(this.overlayServerService.draftOverlay);
   }

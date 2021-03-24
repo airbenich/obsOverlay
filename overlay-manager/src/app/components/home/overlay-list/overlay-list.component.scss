@@ -3,7 +3,7 @@
   max-height: 100%;
   display: grid;
   grid-template-columns: 100%;
-  grid-template-rows: 1fr auto;
+  grid-template-rows: auto 1fr;
   gap: 20px 0px;
   grid-template-areas:
     "."
@@ -29,8 +29,27 @@ ul {
 }
 
 .footer {
-  padding: 20px;
-  background-color: #333;
+  // padding: 20px;
+  height: 50px;
+  // background-color: #333;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-template-rows: 1fr;
+  gap: 0px 0px;
+  grid-template-areas: ". .";
+
+  app-toggle-switch {
+    padding-top: 13px;
+  }
+
+  .btn-favorites {
+    color: #fff;
+    background-color: #444;
+
+    &.active {
+      background-color: #c02055;
+    }
+  }
 }
 
 input {
@@ -54,11 +73,8 @@ input {
   box-sizing: border-box;
   border-radius: 4px;
   box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
-              0 8px 10px 1px rgba(0, 0, 0, 0.14),
-              0 3px 14px 2px rgba(0, 0, 0, 0.12);
+    0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
 }
-
-
 
 /*
  * Drag & Drop
@@ -77,8 +93,7 @@ input {
   box-sizing: border-box;
   border-radius: 4px;
   box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
-              0 8px 10px 1px rgba(0, 0, 0, 0.14),
-              0 3px 14px 2px rgba(0, 0, 0, 0.12);
+    0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
 }
 
 .cdk-drag-placeholder {
