@@ -19,6 +19,27 @@
     socket.on('get_lowerthirds', (msg) => {
       console.log(msg);
     });
+    
+    setTimeout(() => {
+      socket.emit('add_lowerthird', {
+        name: 'Radovan',
+        description: 'Pastor',
+      })
+    }, 1000);
+
+    setTimeout(() => {
+      socket.emit('update_lowerthird', {
+        id: 1,
+        name: 'Radovan Marjanov',
+        description: 'Pastor',
+      })
+    }, 3000);
+
+    setTimeout(() => {
+      socket.emit('remove_lowerthird', {
+        id: 1,
+      })
+    }, 5000);
 
   </script>
   </head>

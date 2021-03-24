@@ -38,10 +38,22 @@ io.on('connection', (socket: any) => {
   socket.emit('get_lowerthirds', lowerthirds.getAll());
 
   //
-  socket.on('add_lowerthirds', (data: any) => {
-    console.log('Incomming data: ', data);
+  socket.on('add_lowerthird', (data: any) => {
+    console.log('Add lowerthird: ', data);
+    lowerthirds.add(data);
+    io.emit('get_lowerthirds', lowerthirds.getAll());
+  });
 
-    socket.broadcast.emit('get_lowerthirds', lowerthirds.getAll());
+  socket.on('update_lowerthird', (data: any) => {
+    console.log('Update lowerthird: ', data);
+    lowerthirds.update(data);
+    io.emit('get_lowerthirds', lowerthirds.getAll());
+  });
+
+  socket.on('remove_lowerthird', (data: any) => {
+    console.log('Remove lowerthird: ', data);
+    lowerthirds.remove(data);
+    io.emit('get_lowerthirds', lowerthirds.getAll());
   });
 
   // Transfer content to all clients except self
