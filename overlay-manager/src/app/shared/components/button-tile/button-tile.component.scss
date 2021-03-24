@@ -7,6 +7,10 @@ button {
   background-color: #444;
   color: #fff;
 
+  :focus {
+    outline: none;
+  }
+
   .title {
     font-weight: 600;
   }
@@ -17,5 +21,29 @@ button {
 }
 
 .selected {
-  background-color: rgb(40, 95, 146);
+  background-color: #007bff;
+
+  .subtitle {
+    color: #ddd;
+  }
+
+  .icons {
+    color: #fff;
+  }
+}
+
+.icons {
+  position: absolute;
+  display: inline;
+  right: 0px;
+  text-align: right;
+  top: 0px;
+  padding: 1.25rem 1.25rem;
+  font-size: 1.2em;
+  color: #aaa;
+
+  > div {
+    display: inline;
+    margin-left: 10px;
+  }
 }

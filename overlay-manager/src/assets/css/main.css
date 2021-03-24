@@ -65,3 +65,8 @@ body {
 .offline {
     color: red;
 }
+
+pre {
+  color: #fff;
+  border: 1px solid #f00;
+}

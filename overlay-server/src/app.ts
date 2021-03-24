@@ -3,9 +3,14 @@ import config from './config.json';
 
 const app = require('express')();
 const http = require('http').Server(app);
+
+const port = process.env.SERVERPORT || config.port;
+const host = process.env.SERVERHOST || config.host;
+const authCode = process.env.AUTHKEY || config.authCode;
+
 const io = require('socket.io')(http, {
   cors: {
-    origin: 'http://localhost:4200',
+    origin: '*',
     methods: ['GET', 'POST'],
     allowedHeaders: ['my-custom-header'],
     credentials: true,
@@ -20,7 +25,7 @@ app.get('/', (req: any, res: any) => {
 io.use((socket: any, next: any): any => {
   // console.log("Query: ", socket.handshake.query);
   // return the result of next() to accept the connection.
-  if (socket.handshake.query.authentication === config.authCode) {
+  if (socket.handshake.query.authentication === authCode) {
     return next();
   }
   // call next() with an Error if you need to reject the connection.
@@ -73,6 +78,6 @@ io.on('connection', (socket: any) => {
   });
 });
 
-http.listen(config.port, () => {
-  console.log(`listening on http://localhost:${config.port}`);
+http.listen(port, () => {
+  console.log(`listening on http://localhost:${port}`);
 });

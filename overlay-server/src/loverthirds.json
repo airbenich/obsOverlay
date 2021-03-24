@@ -1,0 +1,62 @@
+[
+    {
+        "id": 1,
+        "title": "Hello World",
+        "subtitle": "Subtitle",
+        "lastChange": "2021-03-24 22:04:44",
+        "favorit": false,
+        "pinnedToTop": false,
+        "readOnly": false,
+        "sort": null
+    },
+    {
+        "id": 2,
+        "title": "Max Mustermann",
+        "subtitle": "Mustertechniker",
+        "lastChange": "2021-03-24 22:04:44",
+        "favorit": false,
+        "pinnedToTop": false,
+        "readOnly": false,
+        "sort": null
+    },
+    {
+        "id": 3,
+        "title": "Freiherr von Bauch",
+        "subtitle": "Bauchbinder",
+        "lastChange": "2021-03-24 22:04:44",
+        "favorit": false,
+        "pinnedToTop": false,
+        "readOnly": false,
+        "sort": null
+    },
+    {
+        "id": 4,
+        "title": "Peter Pan",
+        "subtitle": "Pantologe",
+        "lastChange": "2021-03-24 22:04:44",
+        "favorit": false,
+        "pinnedToTop": false,
+        "readOnly": false,
+        "sort": null
+    },
+    {
+        "id": 5,
+        "title": "Live-Chat",
+        "subtitle": "www.auf-der-hoehe.de/livestream",
+        "lastChange": "2021-03-24 22:04:44",
+        "favorit": false,
+        "pinnedToTop": true,
+        "readOnly": true,
+        "sort": null
+    },
+    {
+        "id": 6,
+        "title": "Unterstützen",
+        "subtitle": "www.auf-der-hoehe.de/unterstuetzen",
+        "lastChange": "2021-03-24 22:04:44",
+        "favorit": false,
+        "pinnedToTop": true,
+        "readOnly": true,
+        "sort": null
+    }
+]

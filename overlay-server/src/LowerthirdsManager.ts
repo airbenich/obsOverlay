@@ -1,10 +1,17 @@
 /* eslint-disable no-param-reassign */
 // eslint-disable-next-line import/prefer-default-export
+import storedLoverthirds from './loverthirds.json'; 
+var fs = require('fs');
+
 export type Lowerthird = {
     id: number | null;
     title: string | null;
     subtitle: string | null;
     lastChange: string | null,
+    pinnedToTop: boolean;
+    sort: number | null;
+    favorit: boolean | null;
+    readOnly: boolean | null;
   };
 
 export class LowerthirdsManager {
@@ -13,12 +20,7 @@ export class LowerthirdsManager {
     private idCounter: number = 1;
 
     constructor() {
-      this.lowerthirds.push({
-        id: 0,
-        title: 'Hello World',
-        subtitle: 'Subtitle',
-        lastChange: '2020-03-24 00:59',
-      });
+      this.load();
     }
 
     public add(lowerthird: Lowerthird): void {
@@ -26,6 +28,7 @@ export class LowerthirdsManager {
       lowerthird.id = this.idCounter;
       this.idCounter += 1;
       this.lowerthirds.push(lowerthird);
+      this.store();
     }
 
     public update(lowerthird: Lowerthird): void {
@@ -41,6 +44,7 @@ export class LowerthirdsManager {
           console.log(this.lowerthirds);
         }
       }
+      this.store();
     }
 
     public remove(lowerthird: Lowerthird): void {
@@ -56,6 +60,21 @@ export class LowerthirdsManager {
           }
         }
       }
+      this.store();
+    }
+
+    private store ( ) {
+      let json = JSON.stringify(this.lowerthirds);
+      fs.writeFile ("loverthirds.json", json, function(err: any) {
+        if (err) throw err;
+        console.log('Lowerthirds stored');
+        }
+      );
+    }
+
+    private load ( ) {
+      this.lowerthirds = storedLoverthirds;
+      console.log("Lowerthirds loaded");
     }
 
     public getAll(): Lowerthird[] {

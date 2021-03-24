@@ -1,5 +1,5 @@
 import { stringify } from '@angular/compiler/src/util';
-import { Component, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-button-tile',
@@ -11,6 +11,9 @@ export class ButtonTileComponent implements OnInit {
   @Input() title: string;
   @Input() subtitle: string;
   @Input() selected: boolean;
+  @Input() favorite: boolean;
+  @Input() pinned: boolean;
+  @Input() readOnly: boolean;
 
   constructor() {}
 

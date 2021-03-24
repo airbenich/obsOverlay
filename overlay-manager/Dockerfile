@@ -10,5 +10,5 @@ RUN npm run ng build --prod
 FROM nginx:alpine
 COPY ./nginx.conf /etc/nginx/nginx.conf
 COPY --from=overlay-manager-builder /usr/src/overlay-manager/dist/overlay-manager /overlay-manager
-EXPOSE 4200 80
+EXPOSE 3000 80
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
