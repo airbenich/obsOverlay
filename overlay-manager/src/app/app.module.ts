@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { TranslateModule } from '@ngx-translate/core';
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,6 +13,10 @@ import { StatusComponent } from './components/status/status.component';
 import { OverlayEditComponent } from './components/home/overlay-edit/overlay-edit.component';
 import { ButtonTileComponent } from './shared/components/button-tile/button-tile.component';
 import { HeaderComponent } from './components/header/header.component';
+
+const config: SocketIoConfig = { url: 'http://localhost:3000', options: {
+  query: 'authentication=sDJZn16TuP7zu82a'
+} };
 
 @NgModule({
   declarations: [
@@ -29,8 +34,9 @@ import { HeaderComponent } from './components/header/header.component';
     AppRoutingModule,
     HttpClientModule,
     TranslateModule.forRoot({
-      defaultLanguage: 'de'
+      defaultLanguage: 'de',
     }),
+    SocketIoModule.forRoot(config),
   ],
   providers: [],
   bootstrap: [AppComponent],

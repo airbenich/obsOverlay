@@ -3,4 +3,5 @@ export interface IOverlay {
     title: string;
     subtitle: string;
     design: string;
+    lastChange: string;
 }
