@@ -81,12 +81,9 @@ export class OverlayListComponent implements OnInit {
   }
 
   public searchForOverlay(term: string): IOverlay[] {
-    console.log('Search');
-    console.log(
-      this.overlayServerService.overlays.filter((e) => e.title.includes(term))
-    );
+    term = term.toLowerCase();
     return this.overlayServerService.overlays.filter(
-      (e) => e.title.includes(term) || e.subtitle.includes(term)
+      (e) => e.title.toLowerCase().includes(term) || e.subtitle.toLowerCase().includes(term)
     );
   }
 
