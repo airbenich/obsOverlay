@@ -23,4 +23,4 @@ services:
      - SERVERPORT=${SERVERPORT}
      - AUTHKEY=${AUTHKEY}
     ports:
-     - "${MANAGERPORT}:${MANAGERPORT}"
+     - "${MANAGERPORT}:80"
