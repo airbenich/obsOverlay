@@ -25,13 +25,14 @@ npm start
 ### Docker Compose
 
 ```bash
-cp .env.example .env
+cp .env-example .env
 ```
 
 edit settings in .env file
 
 ```bash
-docker-compose up -d
+docker-compose up -d overlay-server
+docker-compose up -d overlay-manager
 ```
 ## Add overlay-screen to the OBS as Web View
 
