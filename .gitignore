@@ -1,5 +1,7 @@
 overlay-remote/storage/
 
+overlay-server/build/**
+
 .DS_Store
 
 # Logs
