@@ -78,6 +78,6 @@ io.on('connection', (socket: any) => {
   });
 });
 
-http.listen(config.port, () => {
-  console.log(`listening on http://localhost:${config.port}`);
+http.listen(port, () => {
+  console.log(`listening on http://localhost:${port}`);
 });
