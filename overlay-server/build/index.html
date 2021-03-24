@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Test chat</title>
+    <style>
+
+    </style>
+
+    <script src="/socket.io/socket.io.js"></script>
+  <script>
+    var socket = io({
+      query: "authentication=sDJZn16TuP7zu82a"
+    });
+
+    socket.on('connection', (socket) => {
+      
+    });
+
+    socket.on('get_lowerthirds', (msg) => {
+      console.log(msg);
+    });
+
+  </script>
+  </head>
+  <body>
+
+  </body>
+</html>
