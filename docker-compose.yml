@@ -12,19 +12,6 @@ services:
     ports:
      - "${SERVERPORT}:${SERVERPORT}"
 
-  overlay-manager-api:
-    container_name: overlay-manager-api
-    build: 
-      context: ./overlay-manager-api
-    environment:
-     - MANAGERAPIHOST=${MANAGERAPIHOST}
-     - MANAGERAPIPORT=${MANAGERAPIPORT}
-     - SERVERHOST=${SERVERHOST}
-     - SERVERPORT=${SERVERPORT}
-     - AUTHKEY=${AUTHKEY}
-    ports:
-     - "${MANAGERAPIPORT}:${MANAGERAPIPORT}"
-
   overlay-manager:
     container_name: overlay-manager
     build: 
@@ -32,10 +19,8 @@ services:
     environment:
      - MANAGERHOST=${MANAGERHOST}
      - MANAGERPORT=${MANAGERPORT}
-     - MANAGERAPIHOST=${MANAGERAPIHOST}
-     - MANAGERAPIPORT=${MANAGERAPIPORT}
      - SERVERHOST=${SERVERHOST}
      - SERVERPORT=${SERVERPORT}
      - AUTHKEY=${AUTHKEY}
     ports:
-     - "${MANAGERPORT}:80"
+     - "${MANAGERPORT}:${MANAGERPORT}"
