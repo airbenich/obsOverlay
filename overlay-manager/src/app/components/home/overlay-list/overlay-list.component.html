@@ -23,6 +23,10 @@
 
   <ng-container *ngIf="searchTerm">
     <div class="list-divider">
+      <i
+        aria-hidden="true"
+        class="v-icon notranslate mdi mdi-magnify theme--dark"
+      ></i>
       {{ "Suchergebnisse" | translate }}
     </div>
     <ng-container *ngFor="let overlay of searchResults">
@@ -40,6 +44,10 @@
 
   <ng-container *ngIf="!searchTerm">
     <div class="list-divider" *ngIf="overlayServerService.draftOverlay">
+      <i
+        aria-hidden="true"
+        class="v-icon notranslate mdi mdi-file theme--dark"
+      ></i>
       {{ "Nicht gespeichertes Overlay" | translate }}
     </div>
     <app-button-tile
@@ -53,6 +61,10 @@
       [readOnly]="overlayServerService.draftOverlay.readOnly"
     ></app-button-tile>
     <div class="list-divider" *ngIf="showPinnedToTopDivider()">
+      <i
+        aria-hidden="true"
+        class="v-icon notranslate mdi mdi-pin theme--dark"
+      ></i>
       {{ "Angepinnte Overlays" | translate }}
     </div>
     <div
@@ -79,6 +91,10 @@
     </div>
     <ng-container *ngIf="showFavorites">
       <div class="list-divider" *ngIf="showFavorites">
+        <i
+        aria-hidden="true"
+        class="v-icon notranslate mdi mdi-heart theme--dark"
+      ></i>
         {{ "Favoriten Overlays" | translate }}
       </div>
       <div
@@ -106,6 +122,10 @@
     </ng-container>
     <ng-container *ngIf="!showFavorites">
       <div class="list-divider" *ngIf="showAllDivider() && !showFavorites">
+        <i
+        aria-hidden="true"
+        class="v-icon notranslate mdi mdi-message-text theme--dark"
+      ></i>
         {{ "Alle Overlays" | translate }}
       </div>
       <div
