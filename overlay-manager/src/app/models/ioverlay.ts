@@ -4,4 +4,8 @@ export interface IOverlay {
     subtitle: string;
     design: string;
     lastChange: string;
+    pinnedToTop: boolean;
+    sort: number;
+    favorit: boolean;
+    readOnly: boolean;
 }

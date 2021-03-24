@@ -1,20 +1,99 @@
 <ul class="list-group overlay-list">
-  <ng-container *ngFor="let overlay of overlays">
+  <input type="text" placeholder="Nach Namen suchen ..." [(ngModel)]="searchTerm" (keyup)="onUserTypedInSearchBar()">
+
+  <ng-container *ngIf="searchTerm">
+    <div class="list-divider">
+      {{ "Suchergebnisse" | translate }}
+    </div>
+    <ng-container *ngFor="let overlay of searchResults">
+      <app-button-tile
+        [(title)]="overlay.title"
+        [subtitle]="overlay.subtitle"
+        (click)="onClick(overlay)"
+        [selected]="selectedOverlay == overlay"
+        [favorite]="overlay.favorit"
+        [pinned]="overlay.pinnedToTop"
+        [readOnly]="overlay.readOnly"
+      ></app-button-tile>
+    </ng-container>
+  </ng-container>
+
+  <ng-container *ngIf="!searchTerm">
+    <div class="list-divider" *ngIf="overlayServerService.draftOverlay">
+      {{ "Nicht gespeichertes Overlay" | translate }}
+    </div>
     <app-button-tile
-      [title]="overlay.title"
-      [subtitle]="overlay.subtitle"
-      (click)="onClick(overlay)"
-      [selected]="selectedOverlay == overlay"
+      *ngIf="overlayServerService.draftOverlay"
+      [(title)]="overlayServerService.draftOverlay.title"
+      [subtitle]="overlayServerService.draftOverlay.subtitle"
+      (click)="onClick(overlayServerService.draftOverlay)"
+      [selected]="selectedOverlay == overlayServerService.draftOverlay"
+      [favorite]="overlayServerService.draftOverlay.favorit"
+      [pinned]="overlayServerService.draftOverlay.pinnedToTop"
+      [readOnly]="overlayServerService.draftOverlay.readOnly"
     ></app-button-tile>
+    <div class="list-divider" *ngIf="showPinnedToTopDivider()">
+      {{ "Angepinnte Overlays" | translate }}
+    </div>
+    <ng-container *ngFor="let overlay of overlayServerService.overlays">
+      <app-button-tile
+        *ngIf="overlay.pinnedToTop"
+        [(title)]="overlay.title"
+        [subtitle]="overlay.subtitle"
+        (click)="onClick(overlay)"
+        [selected]="selectedOverlay == overlay"
+        [favorite]="overlay.favorit"
+        [pinned]="overlay.pinnedToTop"
+        [readOnly]="overlay.readOnly"
+      ></app-button-tile>
+    </ng-container>
+    <ng-container *ngIf="showFavorites">
+      <div class="list-divider" *ngIf="showFavorites">
+        {{ "Favoriten Overlays" | translate }}
+      </div>
+      <ng-container *ngFor="let overlay of overlayServerService.overlays">
+        <app-button-tile
+          *ngIf="!overlay.pinnedToTop && overlay.favorit"
+          [(title)]="overlay.title"
+          [subtitle]="overlay.subtitle"
+          (click)="onClick(overlay)"
+          [selected]="selectedOverlay == overlay"
+          [favorite]="overlay.favorit"
+          [pinned]="overlay.pinnedToTop"
+          [readOnly]="overlay.readOnly"
+        ></app-button-tile>
+      </ng-container>
+    </ng-container>
+    <ng-container *ngIf="!showFavorites">
+      <div class="list-divider" *ngIf="showAllDivider() && !showFavorites">
+        {{ "Alle Overlays" | translate }}
+      </div>
+      <ng-container *ngFor="let overlay of overlayServerService.overlays">
+        <app-button-tile
+          *ngIf="!overlay.pinnedToTop"
+          [(title)]="overlay.title"
+          [subtitle]="overlay.subtitle"
+          (click)="onClick(overlay)"
+          [selected]="selectedOverlay == overlay"
+          [favorite]="overlay.favorit"
+          [pinned]="overlay.pinnedToTop"
+          [readOnly]="overlay.readOnly"
+        ></app-button-tile>
+      </ng-container>
+    </ng-container>
   </ng-container>
 </ul>
 
 <div class="footer">
-  <button class="btn btn-primary">
+  <button class="btn btn-primary" (click)="createDraftOverlay()">
     <i
       aria-hidden="true"
       class="v-icon notranslate mdi mdi-plus theme--dark"
     ></i>
     {{ "Neues Overlay" | translate }}
   </button>
+  <app-toggle-switch
+    [(isChecked)]="showFavorites"
+    [title]="'Favoriten anzeigen'"
+  ></app-toggle-switch>
 </div>

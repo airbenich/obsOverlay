@@ -1,5 +1,6 @@
-import { Component, EventEmitter, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { IOverlay } from 'src/app/models/ioverlay';
+import { OverlayServerService } from 'src/app/shared/services/overlay-server/overlay-server.service';
 
 @Component({
   selector: 'app-home',
@@ -8,9 +9,10 @@ import { IOverlay } from 'src/app/models/ioverlay';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(public overlayServerService: OverlayServerService) { }
 
   selectedOverlay: IOverlay;
+  @Output() selectedOverlayChange: EventEmitter<IOverlay>;
 
   ngOnInit(): void {
   }

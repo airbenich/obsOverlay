@@ -1,5 +1,5 @@
 <div class="left-column">
-  <h5>{{ "Alle Overlays" | translate }}</h5>
+  <!-- <h5>{{ "Liste" | translate }}</h5> -->
   <app-overlay-list
     [(selectedOverlay)]="selectedOverlay"
     (selectOverlay)="overlaySelected($event)"
@@ -13,7 +13,7 @@
     ></app-overlay-edit>
   </div>
 </div>
-<div class="right-column">
+<div class="right-column" *ngIf="selectedOverlay">
   <h5>{{ "Vorschau" | translate }}</h5>
   <!-- <div class="btn-group">
       <button type="menu" class="btn btn-secondary">Monitor 1</button>
@@ -34,6 +34,9 @@
           class="v-icon notranslate mdi mdi-camera-timer theme--dark"
         ></i>
         {{ "Anzeigen für 10 Sekunen" | translate }}
+      </button>
+      <button class="btn btn-secondary">
+        {{ "Geöffnet lassen" | translate }}
       </button>
       <span class="float-right btn-group">
         <button class="btn btn-success">

@@ -1,52 +1,72 @@
 <h5>Overlay editieren</h5>
-      <div class="panel">
-        <div class="panel-body">
-          <div class="form-group">
-            <label for="exampleInputName">{{ 'Name' | translate }}</label>
-            <input
-              type="name"
-              class="form-control"
-              id="name"
-              aria-describedby="nameHelp"
-              [value]="selectedOverlay?.title"
-              />
-              <!-- <small id="nameHelp" class="form-text text-muted">{{ 'First line' | translate }}</small> -->
-            </div>
-            <div class="form-group">
-              <label for="exampleInputName">{{ 'Subtitle' | translate }}</label>
-              <input
-              type="name"
-              class="form-control"
-              id="name"
-              aria-describedby="nameHelp"
-              [value]="selectedOverlay?.subtitle"
-            />
-            <!-- <small id="nameHelp" class="form-text text-muted">{{ 'Second line' | translate }}</small> -->
-          </div>
-        </div>
-        <div class="panel-footer">
-          <button class="btn btn-danger" (click)="onClickDeleteButton()">
-            <i
-              aria-hidden="true"
-              class="v-icon notranslate mdi mdi-trash-can theme--dark"
-            ></i>
-           {{ 'Löschen' | translate }}
-          </button>
-          <span class="float-right btn-group">
-            <button class="btn btn-dark" (click)="closeOverlay()">
-              <i
-                aria-hidden="true"
-                class="v-icon notranslate mdi mdi-cancel theme--dark"
-              ></i>
-              {{ 'Schließen' | translate }}
-            </button>
-            <button class="btn btn-primary">
-              <i
-                aria-hidden="true"
-                class="v-icon notranslate mdi mdi-check-outline theme--dark"
-              ></i>
-              {{ 'Speichern' | translate }}
-            </button>
-          </span>
-        </div>
-      </div>
+<div class="panel">
+  <div class="panel-body">
+    <div class="form-group">
+      <label for="title">{{ "Titel" | translate }}</label>
+      <input
+        type="name"
+        class="form-control"
+        id="title"
+        aria-describedby="nameHelp"
+        [(ngModel)]="selectedOverlay.title"
+        [disabled]="selectedOverlay?.readOnly"
+      />
+      <!-- <small id="nameHelp" class="form-text text-muted">{{ 'First line' | translate }}</small> -->
+    </div>
+    <div class="form-group">
+      <label for="subtitle">{{ "Untertitel" | translate }}</label>
+      <input
+        type="name"
+        class="form-control"
+        id="subtitle"
+        aria-describedby="nameHelp"
+        [(ngModel)]="selectedOverlay.subtitle"
+        [disabled]="selectedOverlay?.readOnly"
+      />
+      <!-- <small id="nameHelp" class="form-text text-muted">{{ 'Second line' | translate }}</small> -->
+      <app-toggle-switch
+        [(isChecked)]="selectedOverlay.favorit"
+        [title]="'Favorit'"
+        [description]="'in die Auswahl für diese Veranstaltung nehmen'"
+        [disabled]="selectedOverlay?.readOnly"
+      ></app-toggle-switch>
+      <app-toggle-switch
+        [(isChecked)]="selectedOverlay.pinnedToTop"
+        [title]="'Anpinnen'"
+        [disabled]="selectedOverlay?.readOnly"
+      ></app-toggle-switch>
+      <app-toggle-switch
+        [(isChecked)]="selectedOverlay.readOnly"
+        [title]="'Schreibgeschützt'"
+      ></app-toggle-switch>
+    </div>
+  </div>
+  <div class="panel-footer">
+    <div class="left">
+      <button class="btn btn-danger" (click)="onClickDeleteButton()" *ngIf="overlayServerService.draftOverlay !== selectedOverlay">
+        <i
+          aria-hidden="true"
+          class="v-icon notranslate mdi mdi-trash-can theme--dark"
+        ></i>
+        {{ "Löschen" | translate }}
+      </button>
+    </div>
+
+    <div class="right btn-group">
+      <button class="btn btn-dark" (click)="closeOverlay()">
+        <i
+          aria-hidden="true"
+          class="v-icon notranslate mdi mdi-cancel theme--dark"
+        ></i>
+        {{ "Schließen" | translate }}
+      </button>
+      <button class="btn btn-primary" *ngIf="overlayServerService.draftOverlay === selectedOverlay">
+        <i
+          aria-hidden="true"
+          class="v-icon notranslate mdi mdi-check theme--dark"
+        ></i>
+        {{ "Speichern" | translate }}
+      </button>
+    </div>
+  </div>
+</div>

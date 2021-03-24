@@ -5,16 +5,71 @@ class LowerthirdsManager {
     constructor() {
         this.lowerthirds = [];
         this.idCounter = 1;
-        this.lowerthirds.push({
-            id: 0,
+        this.add({
+            id: null,
             title: 'Hello World',
             subtitle: 'Subtitle',
             lastChange: '2020-03-24 00:59',
+            favorit: false,
+            pinnedToTop: false,
+            readOnly: false,
+            sort: null,
+        });
+        this.add({
+            id: null,
+            title: 'Max Mustermann',
+            subtitle: 'Mustertechniker',
+            lastChange: '2020-03-24 00:59',
+            favorit: false,
+            pinnedToTop: false,
+            readOnly: false,
+            sort: null,
+        });
+        this.add({
+            id: null,
+            title: 'Freiherr von Bauch',
+            subtitle: 'Bauchbinder',
+            lastChange: '2020-03-24 00:59',
+            favorit: false,
+            pinnedToTop: false,
+            readOnly: false,
+            sort: null,
+        });
+        this.add({
+            id: null,
+            title: 'Peter Pan',
+            subtitle: 'Pantologe',
+            lastChange: '2020-03-24 00:59',
+            favorit: false,
+            pinnedToTop: false,
+            readOnly: false,
+            sort: null,
+        });
+        this.add({
+            id: null,
+            title: 'Live-Chat',
+            subtitle: 'www.auf-der-hoehe.de/livestream',
+            lastChange: '2020-03-24 00:59',
+            favorit: false,
+            pinnedToTop: true,
+            readOnly: true,
+            sort: null,
+        });
+        this.add({
+            id: null,
+            title: 'Unterstützen',
+            subtitle: 'www.auf-der-hoehe.de/unterstuetzen',
+            lastChange: '2020-03-24 00:59',
+            favorit: false,
+            pinnedToTop: true,
+            readOnly: true,
+            sort: null,
         });
     }
     add(lowerthird) {
         lowerthird.lastChange = new Date().toJSON().slice(0, 19).replace('T', ' ');
         lowerthird.id = this.idCounter;
+        lowerthird.favorit = false;
         this.idCounter += 1;
         this.lowerthirds.push(lowerthird);
     }

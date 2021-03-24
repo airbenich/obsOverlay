@@ -13,6 +13,8 @@ import { StatusComponent } from './components/status/status.component';
 import { OverlayEditComponent } from './components/home/overlay-edit/overlay-edit.component';
 import { ButtonTileComponent } from './shared/components/button-tile/button-tile.component';
 import { HeaderComponent } from './components/header/header.component';
+import { ToggleSwitchComponent } from './shared/components/toggle-switch/toggle-switch.component';
+import { FormsModule } from '@angular/forms';
 
 const config: SocketIoConfig = { url: 'http://localhost:3000', options: {
   query: 'authentication=sDJZn16TuP7zu82a'
@@ -28,9 +30,11 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {
     OverlayEditComponent,
     ButtonTileComponent,
     HeaderComponent,
+    ToggleSwitchComponent,
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     AppRoutingModule,
     HttpClientModule,
     TranslateModule.forRoot({

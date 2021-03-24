@@ -1,0 +1,8 @@
+<label class="switch">
+  <input type="checkbox" [(ngModel)]="isChecked" (change)="onChanged($event)" [disabled]="disabled">
+  <span class="slider round"></span>
+</label>
+<div class="label" (click)="onUserClickedLabel()" [class.disabled]="disabled">
+  <span class="title">{{ title }}</span>
+  <span class="description">{{ description }}</span>
+</div>

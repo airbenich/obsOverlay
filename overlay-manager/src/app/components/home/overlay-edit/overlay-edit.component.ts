@@ -11,7 +11,7 @@ export class OverlayEditComponent implements OnInit {
   @Input() selectedOverlay: IOverlay;
   @Output() closedOverlay: EventEmitter<void> = new EventEmitter();
 
-  constructor(private overlayServerService: OverlayServerService) { }
+  constructor(public overlayServerService: OverlayServerService) { }
 
   ngOnInit(): void {
   }
@@ -23,6 +23,10 @@ export class OverlayEditComponent implements OnInit {
 
   public onClickDeleteButton(): void {
     this.overlayServerService.removeLowerThird(this.selectedOverlay);
+  }
+
+  public selectedOverlayChange(): void {
+    console.log('changed');
   }
 
 }

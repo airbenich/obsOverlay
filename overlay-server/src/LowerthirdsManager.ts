@@ -5,6 +5,10 @@ export type Lowerthird = {
     title: string | null;
     subtitle: string | null;
     lastChange: string | null,
+    pinnedToTop: boolean;
+    sort: number | null;
+    favorit: boolean | null;
+    readOnly: boolean | null;
   };
 
 export class LowerthirdsManager {
@@ -13,11 +17,65 @@ export class LowerthirdsManager {
     private idCounter: number = 1;
 
     constructor() {
-      this.lowerthirds.push({
-        id: 0,
+      this.add({
+        id: null,
         title: 'Hello World',
         subtitle: 'Subtitle',
         lastChange: '2020-03-24 00:59',
+        favorit: false,
+        pinnedToTop: false,
+        readOnly: false,
+        sort: null,
+      });
+      this.add({
+        id: null,
+        title: 'Max Mustermann',
+        subtitle: 'Mustertechniker',
+        lastChange: '2020-03-24 00:59',
+        favorit: false,
+        pinnedToTop: false,
+        readOnly: false,
+        sort: null,
+      });
+      this.add({
+        id: null,
+        title: 'Freiherr von Bauch',
+        subtitle: 'Bauchbinder',
+        lastChange: '2020-03-24 00:59',
+        favorit: false,
+        pinnedToTop: false,
+        readOnly: false,
+        sort: null,
+      });
+      this.add({
+        id: null,
+        title: 'Peter Pan',
+        subtitle: 'Pantologe',
+        lastChange: '2020-03-24 00:59',
+        favorit: false,
+        pinnedToTop: false,
+        readOnly: false,
+        sort: null,
+      });
+      this.add({
+        id: null,
+        title: 'Live-Chat',
+        subtitle: 'www.auf-der-hoehe.de/livestream',
+        lastChange: '2020-03-24 00:59',
+        favorit: false,
+        pinnedToTop: true,
+        readOnly: true,
+        sort: null,
+      });
+      this.add({
+        id: null,
+        title: 'Unterstützen',
+        subtitle: 'www.auf-der-hoehe.de/unterstuetzen',
+        lastChange: '2020-03-24 00:59',
+        favorit: false,
+        pinnedToTop: true,
+        readOnly: true,
+        sort: null,
       });
     }
 
