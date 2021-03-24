@@ -1,67 +1,56 @@
-<div class="row">
-  <div class="col-xs-3 col-sm-3">
-    <h5>{{ 'Alle Overlays' | translate }}</h5>
-    <div class="panel">
-      <app-overlays [(selectedOverlay)]="selectedOverlay" (selectOverlay)="overlaySelected($event)"></app-overlays>
-      <div class="panel-footer">
-        <div class="row">
-          <div class="col-xs-6 col-sm-6">
-            <button class="btn btn-primary">
-              <i
-                aria-hidden="true"
-                class="v-icon notranslate mdi mdi-plus-box-outline theme--dark"
-              ></i>
-              {{ 'Neues Overlay' | translate }}
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
+<div class="left-column">
+  <h5>{{ "Alle Overlays" | translate }}</h5>
+  <app-overlay-list
+    [(selectedOverlay)]="selectedOverlay"
+    (selectOverlay)="overlaySelected($event)"
+  ></app-overlay-list>
+</div>
+<div class="middle-column">
+  <div *ngIf="selectedOverlay">
+    <app-overlay-edit
+      [(selectedOverlay)]="selectedOverlay"
+      (closedOverlay)="closeOverlay()"
+    ></app-overlay-edit>
   </div>
-  <div class="col-xs-4 col-sm-4">
-    <div *ngIf="selectedOverlay">
-      <app-overlay-edit [(selectedOverlay)]="selectedOverlay" (closedOverlay)="closeOverlay()"></app-overlay-edit>
-    </div>
-  </div>
-  <div class="col w-auto">
-    <h5>{{ 'Vorschau' | translate }}</h5>
-    <!-- <div class="btn-group">
+</div>
+<div class="right-column">
+  <h5>{{ "Vorschau" | translate }}</h5>
+  <!-- <div class="btn-group">
       <button type="menu" class="btn btn-secondary">Monitor 1</button>
     </div> -->
-    <div class="previews tab-content">
-      <div
-        id="preview0"
-        class="preview tab-pane active embed-responsive embed-responsive-16by9"
-      ></div>
-    </div>
+  <div class="previews tab-content">
+    <div
+      id="preview0"
+      class="preview tab-pane active embed-responsive embed-responsive-16by9"
+    ></div>
+  </div>
 
-    <h5>{{' Live Control' | translate }}</h5>
-    <div class="panel">
-      <div class="panel-body">
-        <button class="btn btn-primary">
+  <h5>{{ " Live Control" | translate }}</h5>
+  <div class="panel">
+    <div class="panel-body">
+      <button class="btn btn-primary">
+        <i
+          aria-hidden="true"
+          class="v-icon notranslate mdi mdi-camera-timer theme--dark"
+        ></i>
+        {{ "Anzeigen für 10 Sekunen" | translate }}
+      </button>
+      <span class="float-right btn-group">
+        <button class="btn btn-success">
           <i
             aria-hidden="true"
-            class="v-icon notranslate mdi mdi-camera-timer theme--dark"
+            class="v-icon notranslate mdi mdi-play theme--dark"
           ></i>
-          {{ 'Anzeigen für 10 Sekunen' | translate }}
+          {{ "Einblenden" | translate }}
         </button>
-        <span class="float-right btn-group">
-          <button class="btn btn-success">
-            <i
-              aria-hidden="true"
-              class="v-icon notranslate mdi mdi-play theme--dark"
-            ></i>
-            {{ 'Einblenden' | translate }}
-          </button>
-          <button class="btn btn-danger">
-            <i
-              aria-hidden="true"
-              class="v-icon notranslate mdi mdi-stop theme--dark"
-            ></i>
-            {{ 'Ausblenden' | translate }}
-          </button></span
-        >
-      </div>
+        <button class="btn btn-danger">
+          <i
+            aria-hidden="true"
+            class="v-icon notranslate mdi mdi-stop theme--dark"
+          ></i>
+          {{ "Ausblenden" | translate }}
+        </button></span
+      >
     </div>
   </div>
 </div>

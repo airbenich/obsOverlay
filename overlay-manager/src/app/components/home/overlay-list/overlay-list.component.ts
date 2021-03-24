@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { IOverlay } from '../../../models/ioverlay';
 
 @Component({
-  selector: 'app-overlays',
+  selector: 'app-overlay-list',
   templateUrl: './overlay-list.component.html',
   styleUrls: ['./overlay-list.component.scss']
 })
@@ -14,6 +14,126 @@ export class OverlayListComponent implements OnInit {
 
   constructor() {
     this.overlays = [];
+    this.overlays.push({
+      title: 'Max Mustermann',
+      subtitle: 'Mustertechniker'
+    } as IOverlay);
+    this.overlays.push({
+      title: 'Freiherr von Bauch',
+      subtitle: 'Bauchbinder'
+    } as IOverlay);
+    this.overlays.push({
+      title: 'Peter Pan',
+      subtitle: 'Pantologe'
+    } as IOverlay);
+    this.overlays.push({
+      title: 'Max Mustermann',
+      subtitle: 'Mustertechniker'
+    } as IOverlay);
+    this.overlays.push({
+      title: 'Freiherr von Bauch',
+      subtitle: 'Bauchbinder'
+    } as IOverlay);
+    this.overlays.push({
+      title: 'Peter Pan',
+      subtitle: 'Pantologe'
+    } as IOverlay);
+    this.overlays.push({
+      title: 'Max Mustermann',
+      subtitle: 'Mustertechniker'
+    } as IOverlay);
+    this.overlays.push({
+      title: 'Freiherr von Bauch',
+      subtitle: 'Bauchbinder'
+    } as IOverlay);
+    this.overlays.push({
+      title: 'Peter Pan',
+      subtitle: 'Pantologe'
+    } as IOverlay);
+    this.overlays.push({
+      title: 'Max Mustermann',
+      subtitle: 'Mustertechniker'
+    } as IOverlay);
+    this.overlays.push({
+      title: 'Freiherr von Bauch',
+      subtitle: 'Bauchbinder'
+    } as IOverlay);
+    this.overlays.push({
+      title: 'Peter Pan',
+      subtitle: 'Pantologe'
+    } as IOverlay);
+    this.overlays.push({
+      title: 'Max Mustermann',
+      subtitle: 'Mustertechniker'
+    } as IOverlay);
+    this.overlays.push({
+      title: 'Freiherr von Bauch',
+      subtitle: 'Bauchbinder'
+    } as IOverlay);
+    this.overlays.push({
+      title: 'Peter Pan',
+      subtitle: 'Pantologe'
+    } as IOverlay);
+    this.overlays.push({
+      title: 'Max Mustermann',
+      subtitle: 'Mustertechniker'
+    } as IOverlay);
+    this.overlays.push({
+      title: 'Freiherr von Bauch',
+      subtitle: 'Bauchbinder'
+    } as IOverlay);
+    this.overlays.push({
+      title: 'Peter Pan',
+      subtitle: 'Pantologe'
+    } as IOverlay);
+    this.overlays.push({
+      title: 'Max Mustermann',
+      subtitle: 'Mustertechniker'
+    } as IOverlay);
+    this.overlays.push({
+      title: 'Freiherr von Bauch',
+      subtitle: 'Bauchbinder'
+    } as IOverlay);
+    this.overlays.push({
+      title: 'Peter Pan',
+      subtitle: 'Pantologe'
+    } as IOverlay);
+    this.overlays.push({
+      title: 'Max Mustermann',
+      subtitle: 'Mustertechniker'
+    } as IOverlay);
+    this.overlays.push({
+      title: 'Freiherr von Bauch',
+      subtitle: 'Bauchbinder'
+    } as IOverlay);
+    this.overlays.push({
+      title: 'Peter Pan',
+      subtitle: 'Pantologe'
+    } as IOverlay);
+    this.overlays.push({
+      title: 'Max Mustermann',
+      subtitle: 'Mustertechniker'
+    } as IOverlay);
+    this.overlays.push({
+      title: 'Freiherr von Bauch',
+      subtitle: 'Bauchbinder'
+    } as IOverlay);
+    this.overlays.push({
+      title: 'Peter Pan',
+      subtitle: 'Pantologe'
+    } as IOverlay);
+    this.overlays.push({
+      title: 'Max Mustermann',
+      subtitle: 'Mustertechniker'
+    } as IOverlay);
+    this.overlays.push({
+      title: 'Freiherr von Bauch',
+      subtitle: 'Bauchbinder'
+    } as IOverlay);
+    this.overlays.push({
+      title: 'Peter Pan',
+      subtitle: 'Pantologe'
+    } as IOverlay);
     this.overlays.push({
       title: 'Max Mustermann',
       subtitle: 'Mustertechniker'
