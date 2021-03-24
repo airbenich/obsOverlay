@@ -10,7 +10,7 @@ const authCode = process.env.AUTHKEY || config.authCode;
 
 const io = require('socket.io')(http, {
   cors: {
-    origin: 'http://' + host + ':' + port,
+    origin: '*',
     methods: ['GET', 'POST'],
     allowedHeaders: ['my-custom-header'],
     credentials: true,
