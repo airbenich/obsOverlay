@@ -22,16 +22,16 @@
     
     setTimeout(() => {
       socket.emit('add_lowerthird', {
-        name: 'Radovan',
-        description: 'Pastor',
+        title: 'Radovan',
+        subtitle: 'Pastor',
       })
     }, 1000);
 
     setTimeout(() => {
       socket.emit('update_lowerthird', {
         id: 1,
-        name: 'Radovan Marjanov',
-        description: 'Pastor',
+        title: 'Radovan Marjanov',
+        subtitle: 'Pastor',
       })
     }, 3000);
 

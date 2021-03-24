@@ -2,8 +2,8 @@
 // eslint-disable-next-line import/prefer-default-export
 export type Lowerthird = {
     id: number | null;
-    name: string | null;
-    description: string | null;
+    title: string | null;
+    subtitle: string | null;
     lastChange: string | null,
   };
 
@@ -15,8 +15,8 @@ export class LowerthirdsManager {
     constructor() {
       this.lowerthirds.push({
         id: 0,
-        name: 'Hello World',
-        description: 'Subtitle',
+        title: 'Hello World',
+        subtitle: 'Subtitle',
         lastChange: '2020-03-24 00:59',
       });
     }

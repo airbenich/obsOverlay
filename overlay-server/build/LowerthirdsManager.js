@@ -7,8 +7,8 @@ class LowerthirdsManager {
         this.idCounter = 1;
         this.lowerthirds.push({
             id: 0,
-            name: 'Hello World',
-            description: 'Subtitle',
+            title: 'Hello World',
+            subtitle: 'Subtitle',
             lastChange: '2020-03-24 00:59',
         });
     }
