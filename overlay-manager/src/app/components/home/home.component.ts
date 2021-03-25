@@ -25,7 +25,7 @@ export class HomeComponent implements OnInit {
   public onClickShow10Button(): void {
     this.overlayServerService.showLowerThird(this.selectedOverlay);
     this.isCountdownStarted = true;
-    this.countdown(10);
+    this.countdown(this.countdownTimer);
   }
 
   public onClickPauseCountdownButton(): void {
@@ -38,19 +38,20 @@ export class HomeComponent implements OnInit {
 
   private countdown(counter: any): void {
     this.countdownTimer = counter
-    setTimeout(() => {
-      if (counter <= 0 || !this.isCountdownStarted) {
-        this.overlayServerService.hideLowerThird(this.selectedOverlay);
-        this.countdownTimer = 10;
-        this.isCountdownStarted = false;
+    if (counter <= 0 || !this.isCountdownStarted) {
+      this.overlayServerService.hideLowerThird(this.selectedOverlay);
+      this.countdownTimer = 10;
+      this.isCountdownStarted = false;
+    }
+    else {
+      if (!this.isCountdownPaused) {
+        counter--;
       }
-      else {
-        if (!this.isCountdownPaused) {
-          counter--;
-        }
-        this.countdown(counter)
-      }
-    }, 1000);
+      setTimeout(() => {
+        this.countdown(counter);
+      }, 1000);
+      
+    }   
   }
 
 
