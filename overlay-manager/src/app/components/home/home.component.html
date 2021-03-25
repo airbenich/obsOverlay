@@ -28,25 +28,22 @@
   <h5>{{ " Live Control" | translate }}</h5>
   <div class="panel">
     <div class="panel-body">
-      <button class="btn btn-primary">
+      <button class="btn btn-primary" (click)="onClickShow10Button()">
         <i
           aria-hidden="true"
           class="v-icon notranslate mdi mdi-camera-timer theme--dark"
         ></i>
         {{ "Anzeigen für 10 Sekunen" | translate }}
       </button>
-      <button class="btn btn-secondary">
-        {{ "Geöffnet lassen" | translate }}
-      </button>
       <span class="float-right btn-group">
-        <button class="btn btn-success">
+        <button class="btn btn-success" (click)="onClickShowButton()">
           <i
             aria-hidden="true"
             class="v-icon notranslate mdi mdi-play theme--dark"
           ></i>
           {{ "Einblenden" | translate }}
         </button>
-        <button class="btn btn-danger">
+        <button class="btn btn-danger" (click)="onClickHideButton()">
           <i
             aria-hidden="true"
             class="v-icon notranslate mdi mdi-stop theme--dark"

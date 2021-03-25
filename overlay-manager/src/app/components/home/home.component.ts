@@ -17,6 +17,22 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  public onClickShow10Button(): void {
+    this.overlayServerService.showLowerThird(this.selectedOverlay);
+
+    setTimeout(() => {
+      this.overlayServerService.hideLowerThird(this.selectedOverlay);
+    }, 10000);
+  }
+
+  public onClickShowButton(): void {
+    this.overlayServerService.showLowerThird(this.selectedOverlay);
+  }
+
+  public onClickHideButton(): void {
+    this.overlayServerService.hideLowerThird(this.selectedOverlay);
+  }
+
   public overlaySelected(overlay: IOverlay): void {
     this.selectedOverlay = overlay;
   }

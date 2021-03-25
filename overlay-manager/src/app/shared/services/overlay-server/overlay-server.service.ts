@@ -44,6 +44,27 @@ export class OverlayServerService {
     this.socket.emit('remove_lowerthird', data);
   }
 
+  public showLowerThird(lowerThird: IOverlay, ): void {
+    this.socket.emit('content',{
+        'type':'lowerThird',
+        'content': {
+            action:'show',
+            element:lowerThird
+        },
+    });
+  }
+
+  public hideLowerThird(lowerThird: IOverlay, ): void {
+    this.socket.emit('content',{
+        'type':'lowerThird',
+        'content': {
+            action:'hide',
+            element:lowerThird
+        },
+    });
+  }
+
+
   private parseLowerThirds(lowerThirds: any[]): IOverlay[] {
     return lowerThirds.map((element) => {
       const parsed = {};
