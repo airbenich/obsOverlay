@@ -34,10 +34,12 @@ export class OverlayServerService {
 
   public updateLowerThird(data: IOverlay): void {
     this.socket.emit('update_lowerthird', data);
+    this.getLowerThirds().then((data) => this.overlays = data);
   }
 
   public addLowerThird(data: IOverlay): void {
     this.socket.emit('add_lowerthird', data);
+    this.getLowerThirds().then((data) => this.overlays = data);
   }
 
   public removeLowerThird(data: IOverlay): void {
