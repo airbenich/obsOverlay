@@ -2,7 +2,8 @@
 // eslint-disable-next-line import/prefer-default-export
 import storedChannels from './channels.json';
 
-var fs = require('fs');
+const fs = require('fs');
+const colors = require('colors/safe');
 
 export type Channel = {
   id: number | null;
@@ -11,26 +12,24 @@ export type Channel = {
 
 export class ChannelManager {
   private channels: Channel[] = [];
+
   private idCounter: number = 1;
 
   constructor() {
     this.loadChannels();
   }
 
-
-
   private store() {
-    let json = JSON.stringify(this.channels);
-    fs.writeFile("channels.json", json, function (err: any) {
+    const json = JSON.stringify(this.channels);
+    fs.writeFile('channels.json', json, (err: any) => {
       if (err) throw err;
       console.log('Channels stored');
-    }
-    );
+    });
   }
 
   private loadChannels() {
     this.channels = storedChannels;
-    console.log("Channels loaded");
+    console.log(colors.gray('Channels loaded'));
   }
 
   public getChannels(): Channel[] {

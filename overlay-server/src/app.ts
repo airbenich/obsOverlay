@@ -7,6 +7,8 @@ import config from './config.json';
 const app = require('express')();
 const http = require('http').Server(app);
 const path = require('path');
+const colors = require('colors/safe');
+const dns = require('dns');
 
 const port = process.env.SERVERPORT || config.port;
 const host = process.env.SERVERHOST || config.host;
@@ -21,6 +23,10 @@ const io = require('socket.io')(http, {
     credentials: true,
   },
 });
+
+console.clear();
+console.log(colors.green('---------- Overlay Server ----------'));
+console.log('');
 
 app.get('/', (req: any, res: any) => {
   res.sendFile(path.resolve('src/test.html'));
@@ -43,7 +49,13 @@ const lowerthirds = new LowerthirdsManager();
 const channels = new ChannelManager();
 
 io.on('connection', (socket: any) => {
-  console.log('Client connected');
+  dns.reverse(socket.handshake.address.slice(7), (err: any, result: any) => {
+    if (result.length === 0) {
+      console.log(colors.gray('unknown has connected'));
+    } else {
+      console.log(colors.gray(`${result} has connected`));
+    }
+  });
 
   // Add client to list
   clients.push(socket);
@@ -52,10 +64,8 @@ io.on('connection', (socket: any) => {
   socket.emit('connetion', true);
 
   // Send all available lowerthirds to the client
-  console.log('Send all available lowerthirds to a client');
   socket.emit('get_lowerthirds', lowerthirds.getAll());
 
-  console.log('Send all available channels to a client');
   socket.emit('get_channels', channels.getChannels());
 
   //
@@ -99,5 +109,5 @@ io.on('connection', (socket: any) => {
 });
 
 http.listen(port, () => {
-  console.log(`listening on http://localhost:${port}`);
+  console.log(colors.brightCyan(`Listening on http://${host}:${port}`));
 });
