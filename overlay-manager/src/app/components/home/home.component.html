@@ -9,9 +9,11 @@
 </div>
 <div class="right-column" *ngIf="selectedOverlay">
   <h5>{{ "Vorschau" | translate }}</h5>
-  <!-- <div class="btn-group">
-      <button type="menu" class="btn btn-secondary">Monitor 1</button>
-    </div> -->
+  <ng-container *ngFor="let channel of overlayServerService.channels">
+  <div class="btn-group">
+      <button type="menu" class="btn btn-secondary">{{ channel.title }}</button>
+    </div>
+  </ng-container>
   <div class="previews tab-content">
     <div id="preview0" class="preview tab-pane active embed-responsive embed-responsive-16by9"></div>
   </div>

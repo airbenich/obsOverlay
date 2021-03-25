@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Socket, SocketIoModule } from 'ngx-socket-io';
 import { IOverlay } from 'src/app/models/ioverlay';
+import { IChannel } from 'src/app/models/ichannel';
 
 @Injectable({
   providedIn: 'root',
 })
 export class OverlayServerService {
   public overlays: IOverlay[] = [];
+  public channels: IChannel[] = [];
+
   public draftOverlay: IOverlay;
 
   constructor(private socket: Socket) {
@@ -18,6 +21,7 @@ export class OverlayServerService {
     this.socket.fromEvent('connect').subscribe((observer) => {
       console.log('Successfully connected to Websocket Server');
       this.getLowerThirds().then((data) => this.overlays = data);
+      this.getChannels().then((data) => this.channels = data);
     });
 
     // on disconnect
@@ -47,32 +51,45 @@ export class OverlayServerService {
     this.getLowerThirds().then((data) => this.overlays = data);
   }
 
-  public showLowerThird(lowerThird: IOverlay, ): void {
-    this.socket.emit('content',{
-        'type':'lowerThird',
-        'content': {
-            action:'show',
-            element:lowerThird
-        },
+  public showLowerThird(lowerThird: IOverlay,): void {
+    this.socket.emit('content', {
+      'type': 'lowerThird',
+      'content': {
+        action: 'show',
+        element: lowerThird
+      },
     });
   }
 
-  public hideLowerThird(lowerThird: IOverlay, ): void {
-    this.socket.emit('content',{
-        'type':'lowerThird',
-        'content': {
-            action:'hide',
-            element:lowerThird
-        },
+  public hideLowerThird(lowerThird: IOverlay,): void {
+    this.socket.emit('content', {
+      'type': 'lowerThird',
+      'content': {
+        action: 'hide',
+        element: lowerThird
+      },
     });
   }
-
 
   private parseLowerThirds(lowerThirds: any[]): IOverlay[] {
     return lowerThirds.map((element) => {
       const parsed = {};
       Object.assign(parsed, element);
       return parsed as IOverlay;
+    });
+  }
+
+  public getChannels(): Promise<IChannel[]> {
+    return this.socket
+      .fromOneTimeEvent<any[]>('get_channels')
+      .then((channels) => this.parseChannels(channels));
+  }
+
+  private parseChannels(channels: any[]): IChannel[] {
+    return channels.map((element) => {
+      const parsed = {};
+      Object.assign(parsed, element);
+      return parsed as IChannel;
     });
   }
 }

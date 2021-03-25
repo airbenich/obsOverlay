@@ -1,4 +1,6 @@
 import { LowerthirdsManager } from './LowerthirdsManager';
+import { ChannelManager } from './ChannelManager';
+
 import config from './config.json';
 
 const app = require('express')();
@@ -35,6 +37,7 @@ io.use((socket: any, next: any): any => {
 // Store all connected clients
 const clients: any[] = [];
 const lowerthirds = new LowerthirdsManager();
+const channels = new ChannelManager();
 
 io.on('connection', (socket: any) => {
   console.log('Client connected');
@@ -47,25 +50,28 @@ io.on('connection', (socket: any) => {
 
   // Send all available lowerthirds to the client
   console.log('Send all available lowerthirds to a client');
-  socket.emit('get_lowerthirds', lowerthirds.getAll());
+  socket.emit('get_lowerthirds', lowerthirds.getLowerThirds());
+
+  console.log('Send all available channels to a client');
+  socket.emit('get_channels', channels.getChannels());
 
   //
   socket.on('add_lowerthird', (data: any) => {
     console.log('Add lowerthird: ', data);
     lowerthirds.add(data);
-    io.emit('get_lowerthirds', lowerthirds.getAll());
+    io.emit('get_lowerthirds', lowerthirds.getLowerThirds());
   });
 
   socket.on('update_lowerthird', (data: any) => {
     console.log('Update lowerthird: ', data);
     lowerthirds.update(data);
-    io.emit('get_lowerthirds', lowerthirds.getAll());
+    io.emit('get_lowerthirds', lowerthirds.getLowerThirds());
   });
 
   socket.on('remove_lowerthird', (data: any) => {
     console.log('Remove lowerthird: ', data);
     lowerthirds.remove(data);
-    io.emit('get_lowerthirds', lowerthirds.getAll());
+    io.emit('get_lowerthirds', lowerthirds.getLowerThirds());
   });
 
   // Transfer content to all clients except self
