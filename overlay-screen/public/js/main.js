@@ -1,7 +1,7 @@
 var CONFIG = {};
-CONFIG.host = process.env.SERVERHOST || 'localhost';
-CONFIG.port = process.env.SERVERPORT || 3000;
-CONFIG.authkey = process.env.AUTHKEY;
+CONFIG.host = 'localhost';
+CONFIG.port = 3000;
+CONFIG.authkey = 'sDJZn16TuP7zu82a';
 
 var lowerThird = new LowerThird({});
 
