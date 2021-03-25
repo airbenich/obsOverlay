@@ -6,6 +6,12 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import { Subject } from 'rxjs';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  throttleTime,
+} from 'rxjs/operators';
 import { IOverlay } from 'src/app/models/ioverlay';
 import { HotkeyService } from 'src/app/shared/services/hotkey/hotkey.service';
 import { OverlayServerService } from 'src/app/shared/services/overlay-server/overlay-server.service';
@@ -16,8 +22,20 @@ import { OverlayServerService } from 'src/app/shared/services/overlay-server/ove
   styleUrls: ['./overlay-edit.component.scss'],
 })
 export class OverlayEditComponent implements OnInit, OnDestroy {
-  @Input() selectedOverlay: IOverlay;
+  isDraft: boolean;
+
+  @Input() set selectedOverlay(value: IOverlay) {
+    this.privateSelectedOverlay = value;
+    this.selectedOverlayChanged();
+  }
+  get selectedOverlay(): IOverlay {
+    return this.privateSelectedOverlay;
+  }
+  privateSelectedOverlay: IOverlay;
+
   @Output() closedOverlay: EventEmitter<void> = new EventEmitter();
+
+  formDataChanged: Subject<string> = new Subject<string>();
 
   constructor(
     public overlayServerService: OverlayServerService,
@@ -30,21 +48,42 @@ export class OverlayEditComponent implements OnInit, OnDestroy {
     this.hotkeyService.lockTypingHotkeys = false;
   }
 
+  public formChange(): void {
+    if (!this.isDraft) {
+      if (this.formDataChanged.observers.length === 0) {
+        this.formDataChanged
+          .pipe(debounceTime(1000))
+          .subscribe(() => {
+            this.overlayServerService.updateLowerThird(this.selectedOverlay);
+          });
+      }
+      this.formDataChanged.next();
+    }
+  }
+
+  private selectedOverlayChanged(): void {
+    this.isDraft =
+      this.overlayServerService.draftOverlay === this.selectedOverlay;
+  }
+
   public closeOverlay(): void {
     this.closedOverlay.emit();
     delete this.selectedOverlay;
   }
 
+  public onClickSaveButton(): void {
+    this.overlayServerService.addLowerThird(this.selectedOverlay);
+    delete this.overlayServerService.draftOverlay;
+    this.closeOverlay();
+  }
+
   public onClickDeleteButton(): void {
     this.overlayServerService.removeLowerThird(this.selectedOverlay);
+    this.closeOverlay();
   }
 
   public onClickCancelButton(): void {
     delete this.overlayServerService.draftOverlay;
     this.closeOverlay();
-  }
-
-  public selectedOverlayChange(): void {
-    console.log('changed');
   }
 }

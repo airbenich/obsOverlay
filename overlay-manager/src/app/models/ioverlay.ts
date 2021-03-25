@@ -8,4 +8,5 @@ export interface IOverlay {
     sort: number;
     favorit: boolean;
     readOnly: boolean;
+    deleted?: boolean;
 }
