@@ -1,7 +1,8 @@
 /* eslint-disable no-param-reassign */
 // eslint-disable-next-line import/prefer-default-export
-import storedLoverthirds from './loverthirds.json'; 
-var fs = require('fs');
+import storedLoverthirds from './loverthirds.json';
+
+const fs = require('fs');
 
 export type Lowerthird = {
     id: number | null;
@@ -63,18 +64,17 @@ export class LowerthirdsManager {
       this.store();
     }
 
-    private store ( ) {
-      let json = JSON.stringify(this.lowerthirds);
-      fs.writeFile ("loverthirds.json", json, function(err: any) {
+    private store(): void {
+      const json = JSON.stringify(this.lowerthirds);
+      fs.writeFile('loverthirds.json', json, (err: any) => {
         if (err) throw err;
         console.log('Lowerthirds stored');
-        }
-      );
+      });
     }
 
-    private load ( ) {
+    private load(): void {
       this.lowerthirds = storedLoverthirds;
-      console.log("Lowerthirds loaded");
+      console.log('Lowerthirds loaded');
     }
 
     public getAll(): Lowerthird[] {
