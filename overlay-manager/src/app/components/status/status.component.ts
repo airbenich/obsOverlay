@@ -7,7 +7,14 @@ import { Status } from './status';
   styleUrls: ['./status.component.scss']
 })
 export class StatusComponent implements OnInit {
-  status: Status[];
+  status: Status[] = [{
+    service: 'Overlay Server',
+    status: 'online'
+  },
+  {
+    service: 'Livestream Software OBS',
+    status: 'offline'
+  }];
   constructor() { }
 
   ngOnInit(): void {

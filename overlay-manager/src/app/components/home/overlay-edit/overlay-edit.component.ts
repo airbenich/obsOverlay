@@ -1,5 +1,13 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { IOverlay } from 'src/app/models/ioverlay';
+import { HotkeyService } from 'src/app/shared/services/hotkey/hotkey.service';
 import { OverlayServerService } from 'src/app/shared/services/overlay-server/overlay-server.service';
 
 @Component({
@@ -7,13 +15,20 @@ import { OverlayServerService } from 'src/app/shared/services/overlay-server/ove
   templateUrl: './overlay-edit.component.html',
   styleUrls: ['./overlay-edit.component.scss'],
 })
-export class OverlayEditComponent implements OnInit {
+export class OverlayEditComponent implements OnInit, OnDestroy {
   @Input() selectedOverlay: IOverlay;
   @Output() closedOverlay: EventEmitter<void> = new EventEmitter();
 
-  constructor(public overlayServerService: OverlayServerService) {}
+  constructor(
+    public overlayServerService: OverlayServerService,
+    public hotkeyService: HotkeyService
+  ) {}
 
   ngOnInit(): void {}
+
+  ngOnDestroy(): void {
+    this.hotkeyService.lockTypingHotkeys = false;
+  }
 
   public closeOverlay(): void {
     this.closedOverlay.emit();
