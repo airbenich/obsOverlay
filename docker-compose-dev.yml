@@ -26,3 +26,10 @@ services:
       - ./overlay-manager/:/home/node/app
     ports:
      - "4200:4200"
+     
+  overlay-screen:
+    container_name: overlay-screen
+    build: 
+      context: ./overlay-screen
+    ports:
+     - "80:80"
