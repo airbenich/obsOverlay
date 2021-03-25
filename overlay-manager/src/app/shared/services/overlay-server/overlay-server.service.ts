@@ -42,6 +42,7 @@ export class OverlayServerService {
 
   public removeLowerThird(data: IOverlay): void {
     this.socket.emit('remove_lowerthird', data);
+    this.getLowerThirds().then((data) => this.overlays = data);
   }
 
   public showLowerThird(lowerThird: IOverlay, ): void {
