@@ -45,7 +45,6 @@ export class HomeComponent implements OnInit {
         this.isClickShowButtonHidden = true;
       }
       else {
-        console.log("Countdown: " + counter + "s");
         if (!this.isCountdownPaused) {
           counter--;
 
