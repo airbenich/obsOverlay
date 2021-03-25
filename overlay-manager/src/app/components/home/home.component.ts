@@ -1,20 +1,69 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { IOverlay } from 'src/app/models/ioverlay';
+import { HotkeyService } from 'src/app/shared/services/hotkey/hotkey.service';
 import { OverlayServerService } from 'src/app/shared/services/overlay-server/overlay-server.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
+  isCountdownStarted = false;
+  isCountdownPaused = false;
+  countdownTimer = 10;
 
-  constructor(public overlayServerService: OverlayServerService) { }
-
+  constructor(
+    public overlayServerService: OverlayServerService,
+    private hotkeyService: HotkeyService
+  ) {}
   selectedOverlay: IOverlay;
   @Output() selectedOverlayChange: EventEmitter<IOverlay>;
 
   ngOnInit(): void {
+    this.hotkeyService.addShortcut({ keys: 'esc' }).subscribe(() => {
+      this.closeOverlay();
+    });
+  }
+
+  public onClickShow10Button(): void {
+    this.overlayServerService.showLowerThird(this.selectedOverlay);
+    this.isCountdownStarted = true;
+    this.countdown(this.countdownTimer);
+  }
+
+  public onClickPauseCountdownButton(): void {
+    this.isCountdownPaused = true;
+  }
+
+  public onClickResumeCountdownButton(): void {
+    this.isCountdownPaused = false;
+  }
+
+  private countdown(counter: any): void {
+    this.countdownTimer = counter;
+    if (counter <= 0 || !this.isCountdownStarted) {
+      this.overlayServerService.hideLowerThird(this.selectedOverlay);
+      this.countdownTimer = 10;
+      this.isCountdownStarted = false;
+    } else {
+      if (!this.isCountdownPaused) {
+        counter--;
+      }
+      setTimeout(() => {
+        this.countdown(counter);
+      }, 1000);
+    }
+  }
+
+  public onClickShowButton(): void {
+    this.overlayServerService.showLowerThird(this.selectedOverlay);
+  }
+
+  public onClickHideButton(): void {
+    this.overlayServerService.hideLowerThird(this.selectedOverlay);
+    this.isCountdownStarted = false;
+    this.isCountdownPaused = false;
   }
 
   public overlaySelected(overlay: IOverlay): void {
@@ -24,5 +73,4 @@ export class HomeComponent implements OnInit {
   public closeOverlay(): void {
     delete this.selectedOverlay;
   }
-
 }

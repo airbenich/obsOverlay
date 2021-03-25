@@ -28,12 +28,12 @@ body {
   line-height: 1em;
 }
 
-.lowerThird .name {
+.lowerThird .title {
   font-weight: bold;
   display: none;
 }
 
-.lowerThird .description {
+.lowerThird .subtitle {
   display: none;
   font-size: 60%;
   font-weight: lighter;

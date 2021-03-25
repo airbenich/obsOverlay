@@ -1,6 +1,16 @@
 <div class="footer">
-  <button class="btn btn-favorites" (click)="onUserClickedOnFavorites()" [class.active]="showFavorites">
+  <button
+    class="btn btn-favorites"
+    (click)="onUserClickedOnFavorites()"
+    [class.active]="showFavorites"
+  >
     <i
+      *ngIf="!showFavorites"
+      aria-hidden="true"
+      class="v-icon notranslate mdi mdi-heart-outline theme--dark"
+    ></i>
+    <i
+      *ngIf="showFavorites"
       aria-hidden="true"
       class="v-icon notranslate mdi mdi-heart theme--dark"
     ></i>
@@ -18,10 +28,13 @@
 
 <ul class="list-group overlay-list">
   <input
-    type="text"
+    #searchfield
+    type="search"
     placeholder="Nach Namen suchen ..."
     [(ngModel)]="searchTerm"
     (keyup)="onUserTypedInSearchBar()"
+    (focus)="hotkeyService.lockTypingHotkeys = true"
+    (blur)="hotkeyService.lockTypingHotkeys = false"
   />
 
   <ng-container *ngIf="searchTerm">
@@ -56,7 +69,9 @@
     <app-button-tile
       *ngIf="overlayServerService.draftOverlay"
       [(title)]="overlayServerService.draftOverlay.title"
-      [subtitle]="overlayServerService.draftOverlay.subtitle"
+      [placeholderTitle]="'Neues Overlay'"
+      [(subtitle)]="overlayServerService.draftOverlay.subtitle"
+      [placeholderSubtitle]="'Felder ausfüllen und speichern'"
       (click)="onClick(overlayServerService.draftOverlay)"
       [selected]="selectedOverlay == overlayServerService.draftOverlay"
       [favorite]="overlayServerService.draftOverlay.favorit"
@@ -95,9 +110,9 @@
     <ng-container *ngIf="showFavorites">
       <div class="list-divider" *ngIf="showFavorites">
         <i
-        aria-hidden="true"
-        class="v-icon notranslate mdi mdi-heart theme--dark"
-      ></i>
+          aria-hidden="true"
+          class="v-icon notranslate mdi mdi-heart theme--dark"
+        ></i>
         {{ "Favoriten Overlays" | translate }}
       </div>
       <div
@@ -126,9 +141,9 @@
     <ng-container *ngIf="!showFavorites">
       <div class="list-divider" *ngIf="showAllDivider() && !showFavorites">
         <i
-        aria-hidden="true"
-        class="v-icon notranslate mdi mdi-message-text theme--dark"
-      ></i>
+          aria-hidden="true"
+          class="v-icon notranslate mdi mdi-message-text theme--dark"
+        ></i>
         {{ "Alle Overlays" | translate }}
       </div>
       <div

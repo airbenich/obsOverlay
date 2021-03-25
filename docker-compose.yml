@@ -24,3 +24,10 @@ services:
      - AUTHKEY=${AUTHKEY}
     ports:
      - "${MANAGERPORT}:80"
+
+  overlay-screen:
+    container_name: overlay-screen
+    build: 
+      context: ./overlay-screen
+    ports:
+     - "80:80"

@@ -9,7 +9,9 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 export class ButtonTileComponent implements OnInit {
   @Input() id: string;
   @Input() title: string;
+  @Input() placeholderTitle: string;
   @Input() subtitle: string;
+  @Input() placeholderSubtitle: string;
   @Input() selected: boolean;
   @Input() favorite: boolean;
   @Input() pinned: boolean;

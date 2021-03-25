@@ -7,9 +7,12 @@
         type="name"
         class="form-control"
         id="title"
+        placeholder="Name der Person"
         aria-describedby="nameHelp"
         [(ngModel)]="selectedOverlay.title"
         [disabled]="selectedOverlay?.readOnly"
+        (focus)="hotkeyService.lockTypingHotkeys = true"
+        (blur)="hotkeyService.lockTypingHotkeys = false"
       />
       <!-- <small id="nameHelp" class="form-text text-muted">{{ 'First line' | translate }}</small> -->
     </div>
@@ -19,9 +22,12 @@
         type="name"
         class="form-control"
         id="subtitle"
+        placeholder="Rolle oder Untertitel"
         aria-describedby="nameHelp"
         [(ngModel)]="selectedOverlay.subtitle"
         [disabled]="selectedOverlay?.readOnly"
+        (focus)="hotkeyService.lockTypingHotkeys = true"
+        (blur)="hotkeyService.lockTypingHotkeys = false"
       />
       <!-- <small id="nameHelp" class="form-text text-muted">{{ 'Second line' | translate }}</small> -->
       <app-toggle-switch
@@ -43,14 +49,25 @@
   </div>
   <div class="panel-footer">
     <div class="left">
-      <button class="btn btn-danger" (click)="onClickDeleteButton()" *ngIf="overlayServerService.draftOverlay !== selectedOverlay && !selectedOverlay.readOnly">
+      <button
+        class="btn btn-danger"
+        (click)="onClickDeleteButton()"
+        *ngIf="
+          overlayServerService.draftOverlay !== selectedOverlay &&
+          !selectedOverlay.readOnly
+        "
+      >
         <i
           aria-hidden="true"
           class="v-icon notranslate mdi mdi-trash-can theme--dark"
         ></i>
         {{ "Löschen" | translate }}
       </button>
-      <button class="btn btn-warning" (click)="onClickCancelButton()" *ngIf="overlayServerService.draftOverlay === selectedOverlay">
+      <button
+        class="btn btn-warning"
+        (click)="onClickCancelButton()"
+        *ngIf="overlayServerService.draftOverlay === selectedOverlay"
+      >
         <i
           aria-hidden="true"
           class="v-icon notranslate mdi mdi-cancel theme--dark"
@@ -60,14 +77,21 @@
     </div>
 
     <div class="right btn-group">
-      <button class="btn btn-dark" (click)="closeOverlay()" *ngIf="overlayServerService.draftOverlay !== selectedOverlay">
+      <button
+        class="btn btn-dark"
+        (click)="closeOverlay()"
+        *ngIf="overlayServerService.draftOverlay !== selectedOverlay"
+      >
         <i
           aria-hidden="true"
           class="v-icon notranslate mdi mdi-cancel theme--dark"
         ></i>
         {{ "Schließen" | translate }}
       </button>
-      <button class="btn btn-primary" *ngIf="overlayServerService.draftOverlay === selectedOverlay">
+      <button
+        class="btn btn-primary"
+        *ngIf="overlayServerService.draftOverlay === selectedOverlay"
+      >
         <i
           aria-hidden="true"
           class="v-icon notranslate mdi mdi-check theme--dark"

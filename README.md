@@ -30,6 +30,15 @@ cp .env-example .env
 
 edit settings in .env file
 
+
+#### Development
+
+```bash
+docker-compose -f docker-compose-dev.yml up
+```
+
+#### Production
+
 ```bash
 docker-compose up -d overlay-server
 docker-compose up -d overlay-manager

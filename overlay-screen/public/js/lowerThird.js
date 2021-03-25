@@ -1,25 +1,25 @@
 class LowerThird {
   constructor(object) {
-      this.name = object.name;
-      this.description = object.description;
+      this.title = object.title;
+      this.subtitle = object.subtitle;
       this.design = object.design;
   }
 
   setHtml() {
-    $('.lowerThird .name').html(this.name);
-    $('.lowerThird .description').html(this.description);
+    $('.lowerThird .title').html(this.title);
+    $('.lowerThird .subtitle').html(this.subtitle);
   }
 
   show() {
     this.setHtml();
     this.setPresentationProgressBar(101);
-    $('.lowerThird .name').delay(500).fadeIn(1000);
-    $('.lowerThird .description').delay(500).fadeIn(1250);
+    $('.lowerThird .title').delay(500).fadeIn(1000);
+    $('.lowerThird .subtitle').delay(500).fadeIn(1250);
   }
 
   hide() {
-    $('.lowerThird .name').fadeOut(1000);
-    $('.lowerThird .description').fadeOut(1000);
+    $('.lowerThird .title').fadeOut(1000);
+    $('.lowerThird .subtitle').fadeOut(1000);
     var module_this = this;
     setTimeout(function () {
       module_this.setPresentationProgressBar(0);

@@ -2,8 +2,22 @@
   [class.selected]="selected"
   class="list-group-item overlay-list-item text-left"
 >
-  <div class="title">{{ title }}</div>
-  <div class="subtitle">{{ subtitle }}</div>
+  <div class="title">
+    <ng-container *ngIf="title">
+      {{ title }}
+    </ng-container>
+    <ng-container *ngIf="!title">
+      {{ placeholderTitle }}
+    </ng-container>
+  </div>
+  <div class="subtitle">
+    <ng-container *ngIf="subtitle">
+      {{ subtitle }}
+    </ng-container>
+    <ng-container *ngIf="!subtitle">
+      {{ placeholderSubtitle }}
+    </ng-container>
+  </div>
   <div class="icons">
     <div class="favorite" *ngIf="favorite">
       <i

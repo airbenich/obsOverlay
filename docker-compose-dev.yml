@@ -1,0 +1,35 @@
+version: '3.4'
+
+services:
+  overlay-server:
+    container_name: overlay-server
+    image: "node:12"
+    working_dir: /home/node/app
+    command: bash -c "npm install && npm start"
+    environment:
+     - NODE_ENV=development
+     - PORT=${SERVERPORT}
+    ports:
+     - "3000:3000"
+    volumes:
+     - ./overlay-server/:/home/node/app
+
+  overlay-manager:
+    container_name: overlay-manager
+    image: "node:12"
+    working_dir: /home/node/app
+    command: bash -c "npm install && npm start"
+    environment:
+     - NODE_ENV=development
+     - PORT=${MANAGERPORT}
+    volumes:
+      - ./overlay-manager/:/home/node/app
+    ports:
+     - "4200:4200"
+     
+  overlay-screen:
+    container_name: overlay-screen
+    build: 
+      context: ./overlay-screen
+    ports:
+     - "80:80"

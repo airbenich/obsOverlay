@@ -1,4 +1,12 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { IOverlay } from '../../../models/ioverlay';
 import { OverlayServerService } from 'src/app/shared/services/overlay-server/overlay-server.service';
 import {
@@ -6,6 +14,7 @@ import {
   moveItemInArray,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
+import { HotkeyService } from 'src/app/shared/services/hotkey/hotkey.service';
 
 @Component({
   selector: 'app-overlay-list',
@@ -17,16 +26,34 @@ export class OverlayListComponent implements OnInit {
   @Input() selectedOverlay: IOverlay;
   searchTerm = '';
   searchResults: IOverlay[] = [];
+  @ViewChild('searchfield') searchfield: ElementRef;
 
   @Output() selectOverlay = new EventEmitter<IOverlay>();
 
-  constructor(public overlayServerService: OverlayServerService) {}
+  constructor(
+    public overlayServerService: OverlayServerService,
+    public hotkeyService: HotkeyService
+  ) {}
 
   onClick(selectedoverlay: IOverlay): void {
     this.selectOverlay.emit(selectedoverlay);
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.hotkeyService.addShortcut({ keys: 'F' }, false, true).subscribe(() => {
+      this.showFavorites = !this.showFavorites;
+    });
+    this.hotkeyService.addShortcut({ keys: 'control.f' }).subscribe(() => {
+      this.searchfield.nativeElement.focus();
+    });
+    this.hotkeyService.addShortcut({ keys: 'control.space' }).subscribe(() => {
+      this.searchfield.nativeElement.focus();
+    });
+    this.hotkeyService.addShortcut({ keys: 'esc' }).subscribe(() => {
+      this.cancelSearch();
+      this.showFavorites = false;
+    });
+  }
 
   delete(overlay: IOverlay): void {
     // this.overlays = this.overlays.filter((o) => o !== overlay);
@@ -70,8 +97,8 @@ export class OverlayListComponent implements OnInit {
       favorit: false,
       pinnedToTop: false,
       readOnly: false,
-      title: 'Titel des neue Overlays',
-      subtitle: 'Untertitel',
+      title: '',
+      subtitle: '',
     } as IOverlay;
     this.onClick(this.overlayServerService.draftOverlay);
   }
@@ -80,10 +107,17 @@ export class OverlayListComponent implements OnInit {
     this.searchResults = this.searchForOverlay(this.searchTerm);
   }
 
+  public cancelSearch(): void {
+    this.searchTerm = '';
+    this.searchfield.nativeElement.blur();
+  }
+
   public searchForOverlay(term: string): IOverlay[] {
     term = term.toLowerCase();
     return this.overlayServerService.overlays.filter(
-      (e) => e.title.toLowerCase().includes(term) || e.subtitle.toLowerCase().includes(term)
+      (e) =>
+        e.title.toLowerCase().includes(term) ||
+        e.subtitle.toLowerCase().includes(term)
     );
   }
 
