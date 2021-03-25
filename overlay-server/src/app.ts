@@ -11,6 +11,7 @@ const host = process.env.SERVERHOST || config.host;
 const authCode = process.env.AUTHKEY || config.authCode;
 
 const io = require('socket.io')(http, {
+  allowEIO3: true,
   cors: {
     origin: '*',
     methods: ['GET', 'POST'],
