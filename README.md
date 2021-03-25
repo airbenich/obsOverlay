@@ -34,7 +34,9 @@ edit settings in .env file
 #### Development
 
 ```bash
-docker-compose -f docker-compose-dev.yml up
+docker-compose -f docker-compose-dev.yml up overlay-server
+docker-compose -f docker-compose-dev.yml up overlay-manager
+docker-compose -f docker-compose-dev.yml up --build overlay-screen
 ```
 
 #### Production

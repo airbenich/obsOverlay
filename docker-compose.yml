@@ -30,4 +30,4 @@ services:
     build: 
       context: ./overlay-screen
     ports:
-     - "80:80"
+     - "${SCREENPORT}:80"
