@@ -13,6 +13,7 @@
         [disabled]="selectedOverlay?.readOnly"
         (focus)="hotkeyService.lockTypingHotkeys = true"
         (blur)="hotkeyService.lockTypingHotkeys = false"
+        (keyup)="formChange()"
       />
       <!-- <small id="nameHelp" class="form-text text-muted">{{ 'First line' | translate }}</small> -->
     </div>
@@ -28,6 +29,7 @@
         [disabled]="selectedOverlay?.readOnly"
         (focus)="hotkeyService.lockTypingHotkeys = true"
         (blur)="hotkeyService.lockTypingHotkeys = false"
+        (keyup)="formChange()"
       />
       <!-- <small id="nameHelp" class="form-text text-muted">{{ 'Second line' | translate }}</small> -->
       <app-toggle-switch
@@ -35,15 +37,18 @@
         [title]="'Favorit'"
         [description]="'in die Auswahl für diese Veranstaltung nehmen'"
         [disabled]="selectedOverlay?.readOnly"
+        (isCheckedChange)="formChange()"
       ></app-toggle-switch>
       <app-toggle-switch
         [(isChecked)]="selectedOverlay.pinnedToTop"
         [title]="'Anpinnen'"
         [disabled]="selectedOverlay?.readOnly"
+        (isCheckedChange)="formChange()"
       ></app-toggle-switch>
       <app-toggle-switch
         [(isChecked)]="selectedOverlay.readOnly"
         [title]="'Schreibgeschützt'"
+        (isCheckedChange)="formChange()"
       ></app-toggle-switch>
     </div>
   </div>
@@ -53,7 +58,7 @@
         class="btn btn-danger"
         (click)="onClickDeleteButton()"
         *ngIf="
-          overlayServerService.draftOverlay !== selectedOverlay &&
+          !isDraft &&
           !selectedOverlay.readOnly
         "
       >
@@ -66,7 +71,7 @@
       <button
         class="btn btn-warning"
         (click)="onClickCancelButton()"
-        *ngIf="overlayServerService.draftOverlay === selectedOverlay"
+        *ngIf="isDraft"
       >
         <i
           aria-hidden="true"
@@ -80,7 +85,7 @@
       <button
         class="btn btn-dark"
         (click)="closeOverlay()"
-        *ngIf="overlayServerService.draftOverlay !== selectedOverlay"
+        *ngIf="!isDraft"
       >
         <i
           aria-hidden="true"
@@ -90,7 +95,8 @@
       </button>
       <button
         class="btn btn-primary"
-        *ngIf="overlayServerService.draftOverlay === selectedOverlay"
+        (click)="onClickSaveButton()"
+        *ngIf="isDraft"
       >
         <i
           aria-hidden="true"

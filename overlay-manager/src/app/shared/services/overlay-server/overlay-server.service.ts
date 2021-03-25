@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Socket, SocketIoModule } from 'ngx-socket-io';
 import { IOverlay } from 'src/app/models/ioverlay';
 import { IChannel } from 'src/app/models/ichannel';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -20,7 +21,8 @@ export class OverlayServerService {
     // on connection
     this.socket.fromEvent('connect').subscribe((observer) => {
       console.log('Successfully connected to Websocket Server');
-      this.getLowerThirds().then((data) => (this.overlays = data));
+      this.subscribeToLowerThirds();
+
       this.getChannels().then((data) => (this.channels = data));
     });
 
@@ -32,25 +34,58 @@ export class OverlayServerService {
     });
   }
 
-  public getLowerThirds(): Promise<IOverlay[]> {
-    return this.socket
-      .fromOneTimeEvent<any[]>('get_lowerthirds')
-      .then((lowerThirds) => this.parseLowerThirds(lowerThirds));
+  private subscribeToLowerThirds(): void {
+    this.socket
+      .fromEvent<any[]>('get_lowerthirds')
+      .subscribe((lowerThirdsUpdate) => {
+        const parsedLowerThirdsUpdate = this.parseLowerThirds(
+          lowerThirdsUpdate
+        );
+        this.syncLowerThirdUpdate(parsedLowerThirdsUpdate);
+      });
+  }
+
+  private syncLowerThirdUpdate(lowerThirdsUpdate: IOverlay[]): void {
+    // delete lower thirds that need to be deleted
+    const toBeDeletedLowerThirds = lowerThirdsUpdate.filter(
+      (lowerThird) => lowerThird.deleted
+    );
+    toBeDeletedLowerThirds.forEach((toBeDeletedLowerThird) => {
+      this.overlays = this.overlays.filter((overlay) => {
+        return overlay.id !== toBeDeletedLowerThird.id;
+      });
+    });
+
+    // add or update the rest
+    const newOrUpdatedlowerThirds = lowerThirdsUpdate.filter(
+      (overlay) => !overlay.deleted
+    );
+
+    newOrUpdatedlowerThirds.forEach((newOrUpdatedOverlay) => {
+      let wasUpdated = false;
+      this.overlays.forEach((overlay, index) => {
+        if (overlay.id === newOrUpdatedOverlay.id) {
+          Object.assign(this.overlays[index], newOrUpdatedOverlay);
+          wasUpdated = true;
+        }
+      });
+
+      if (!wasUpdated) {
+        this.overlays.push(newOrUpdatedOverlay);
+      }
+    });
   }
 
   public updateLowerThird(data: IOverlay): void {
     this.socket.emit('update_lowerthird', data);
-    this.getLowerThirds().then((lowerThirds) => (this.overlays = lowerThirds));
   }
 
   public addLowerThird(data: IOverlay): void {
     this.socket.emit('add_lowerthird', data);
-    this.getLowerThirds().then((lowerThirds) => (this.overlays = lowerThirds));
   }
 
   public removeLowerThird(data: IOverlay): void {
     this.socket.emit('remove_lowerthird', data);
-    this.getLowerThirds().then((lowerThirds) => (this.overlays = lowerThirds));
   }
 
   public showLowerThird(lowerThird: IOverlay): void {
