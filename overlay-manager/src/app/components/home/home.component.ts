@@ -9,7 +9,7 @@ import { OverlayServerService } from 'src/app/shared/services/overlay-server/ove
 })
 export class HomeComponent implements OnInit {
 
-  isClickShowButtonHidden: boolean = true;
+  isCountdownStarted: boolean = false;
   isCountdownPaused: boolean = false;
   countdownTimer = 10;
 
@@ -24,7 +24,7 @@ export class HomeComponent implements OnInit {
 
   public onClickShow10Button(): void {
     this.overlayServerService.showLowerThird(this.selectedOverlay);
-    this.isClickShowButtonHidden = false;
+    this.isCountdownStarted = true;
     this.countdown(10);
   }
 
@@ -39,20 +39,17 @@ export class HomeComponent implements OnInit {
   private countdown(counter: any): void {
     this.countdownTimer = counter
     setTimeout(() => {
-      if (counter <= 0) {
+      if (counter <= 0 || !this.isCountdownStarted) {
         this.overlayServerService.hideLowerThird(this.selectedOverlay);
         this.countdownTimer = 10;
-        this.isClickShowButtonHidden = true;
+        this.isCountdownStarted = false;
       }
       else {
         if (!this.isCountdownPaused) {
           counter--;
-
         }
         this.countdown(counter)
       }
-
-
     }, 1000);
   }
 
@@ -63,6 +60,8 @@ export class HomeComponent implements OnInit {
 
   public onClickHideButton(): void {
     this.overlayServerService.hideLowerThird(this.selectedOverlay);
+    this.isCountdownStarted = false;
+    this.isCountdownPaused = false;
   }
 
   public overlaySelected(overlay: IOverlay): void {
