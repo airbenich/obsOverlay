@@ -1,9 +1,10 @@
 /* eslint-disable no-param-reassign */
 // eslint-disable-next-line import/prefer-default-export
 import storedLoverthirds from './loverthirds.json';
-import storedChannels from './channels.json';
+import config from './config.json';
 
 const fs = require('fs');
+const { v4: uuid } = require('uuid');
 
 export type Lowerthird = {
   id: number | null;
@@ -14,21 +15,20 @@ export type Lowerthird = {
   sort: number | null;
   favorit: boolean | null;
   readOnly: boolean | null;
+  deleted: boolean;
 };
 
 export class LowerthirdsManager {
   private lowerthirds: Lowerthird[] = [];
 
-  private idCounter: number = 1;
-
   constructor() {
-
+    // Load initially all lower thirds from the file
+    this.load();
   }
 
   public add(lowerthird: Lowerthird): void {
     lowerthird.lastChange = new Date().toJSON().slice(0, 19).replace('T', ' ');
-    lowerthird.id = this.idCounter;
-    this.idCounter += 1;
+    lowerthird.id = uuid();
     this.lowerthirds.push(lowerthird);
     this.store();
   }
@@ -46,6 +46,7 @@ export class LowerthirdsManager {
         console.log(this.lowerthirds);
       }
     }
+
     this.store();
   }
 
@@ -62,15 +63,16 @@ export class LowerthirdsManager {
         }
       }
     }
+
     this.store();
   }
 
   private store(): void {
     const json = JSON.stringify(this.lowerthirds);
-    fs.writeFile('loverthirds.json', json, (err: any) => {
-      if (err) throw err;
-      console.log('Lowerthirds stored');
-    });
+
+    // Uses the sync version to prevent congruent file writing
+    fs.writeFileSync(config.lowerthirdsFile, json);
+    console.log('Lowerthirds stored');
   }
 
   private load(): void {

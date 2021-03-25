@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Overlay Server Tests</title>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+
+        socket.on('get_lowerthirds', function(msg) {
+            console.log(msg);
+        });
+    </script>
+  </head>
+  <body>
+
+  </body>
+</html>

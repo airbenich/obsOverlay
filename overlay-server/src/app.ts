@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import { LowerthirdsManager } from './LowerthirdsManager';
 import { ChannelManager } from './ChannelManager';
 
@@ -5,6 +6,7 @@ import config from './config.json';
 
 const app = require('express')();
 const http = require('http').Server(app);
+const path = require('path');
 
 const port = process.env.SERVERPORT || config.port;
 const host = process.env.SERVERHOST || config.host;
@@ -21,7 +23,7 @@ const io = require('socket.io')(http, {
 });
 
 app.get('/', (req: any, res: any) => {
-  res.sendFile(`${__dirname}/index.html`);
+  res.sendFile(path.resolve('src/test.html'));
 });
 
 // Authentication
@@ -51,7 +53,7 @@ io.on('connection', (socket: any) => {
 
   // Send all available lowerthirds to the client
   console.log('Send all available lowerthirds to a client');
-  socket.emit('get_lowerthirds', lowerthirds.getLowerThirds());
+  socket.emit('get_lowerthirds', lowerthirds.getAll());
 
   console.log('Send all available channels to a client');
   socket.emit('get_channels', channels.getChannels());
@@ -60,19 +62,30 @@ io.on('connection', (socket: any) => {
   socket.on('add_lowerthird', (data: any) => {
     console.log('Add lowerthird: ', data);
     lowerthirds.add(data);
-    io.emit('get_lowerthirds', lowerthirds.getLowerThirds());
+
+    clients.forEach((client) => {
+      if (client.id !== socket.id) client.emit('get_lowerthirds', data);
+    });
   });
 
   socket.on('update_lowerthird', (data: any) => {
     console.log('Update lowerthird: ', data);
     lowerthirds.update(data);
-    io.emit('get_lowerthirds', lowerthirds.getLowerThirds());
+
+    clients.forEach((client) => {
+      if (client.id !== socket.id) client.emit('get_lowerthirds', data);
+    });
   });
 
   socket.on('remove_lowerthird', (data: any) => {
     console.log('Remove lowerthird: ', data);
     lowerthirds.remove(data);
-    io.emit('get_lowerthirds', lowerthirds.getLowerThirds());
+
+    data.deleted = true;
+
+    clients.forEach((client) => {
+      if (client.id !== socket.id) client.emit('get_lowerthirds', data);
+    });
   });
 
   // Transfer content to all clients except self
