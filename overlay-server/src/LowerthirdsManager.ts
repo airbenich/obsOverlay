@@ -5,8 +5,9 @@ import config from './config.json';
 
 const fs = require('fs');
 const { v4: uuid } = require('uuid');
+const colors = require('colors/safe');
 
-export type Lowerthird = {
+export type IOverlay = {
   id: number | null;
   title: string | null;
   subtitle: string | null;
@@ -19,21 +20,21 @@ export type Lowerthird = {
 };
 
 export class LowerthirdsManager {
-  private lowerthirds: Lowerthird[] = [];
+  private lowerthirds: IOverlay[] = [];
 
   constructor() {
     // Load initially all lower thirds from the file
     this.load();
   }
 
-  public add(lowerthird: Lowerthird): void {
+  public add(lowerthird: IOverlay): void {
     lowerthird.lastChange = new Date().toJSON().slice(0, 19).replace('T', ' ');
     lowerthird.id = uuid();
     this.lowerthirds.push(lowerthird);
     this.store();
   }
 
-  public update(lowerthird: Lowerthird): void {
+  public update(lowerthird: IOverlay): void {
     lowerthird.lastChange = new Date().toJSON().slice(0, 19).replace('T', ' ');
 
     // Search for a lowerthird with the specific item
@@ -50,7 +51,7 @@ export class LowerthirdsManager {
     this.store();
   }
 
-  public remove(lowerthird: Lowerthird): void {
+  public remove(lowerthird: IOverlay): void {
     // Search for a lowerthird with the specific item
     if (lowerthird.id) {
       const temp = this.lowerthirds.find((item) => item.id === lowerthird.id);
@@ -72,15 +73,15 @@ export class LowerthirdsManager {
 
     // Uses the sync version to prevent congruent file writing
     fs.writeFileSync(config.lowerthirdsFile, json);
-    console.log('Lowerthirds stored');
+    console.log(colors.gray('Lowerthirds stored'));
   }
 
   private load(): void {
     this.lowerthirds = storedLoverthirds;
-    console.log('Lowerthirds loaded');
+    console.log(colors.gray('Lowerthirds loaded'));
   }
 
-  public getAll(): Lowerthird[] {
+  public getAll(): IOverlay[] {
     return this.lowerthirds;
   }
 }
