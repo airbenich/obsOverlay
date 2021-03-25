@@ -15,7 +15,7 @@ const authCode = process.env.AUTHKEY || config.authCode;
 const io = require('socket.io')(http, {
   allowEIO3: true,
   cors: {
-    origin: ['http://localhost', 'http://localhost:3000', 'http://localhost:4200', 'http://'+host, 'http://'+host+':'+port],
+    origin: ['http://localhost', 'http://localhost:3000', 'http://localhost:4200', `http://${host}`, `http://${host}:${port}`],
     methods: ['GET', 'POST'],
     allowedHeaders: ['my-custom-header'],
     credentials: true,
@@ -84,7 +84,7 @@ io.on('connection', (socket: any) => {
     data.deleted = true;
 
     clients.forEach((client) => {
-      if (client.id !== socket.id) client.emit('get_lowerthirds', data);
+      client.emit('get_lowerthirds', data);
     });
   });
 
