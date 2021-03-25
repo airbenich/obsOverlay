@@ -1,5 +1,5 @@
 export interface IOverlay {
-    id: number | null;
+    id: string | null;
     title: string;
     subtitle: string;
     design: string;

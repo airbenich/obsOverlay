@@ -6,7 +6,7 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import {
   debounceTime,
   distinctUntilChanged,
@@ -23,7 +23,6 @@ import { OverlayServerService } from 'src/app/shared/services/overlay-server/ove
 })
 export class OverlayEditComponent implements OnInit, OnDestroy {
   isDraft: boolean;
-
   @Input() set selectedOverlay(value: IOverlay) {
     this.privateSelectedOverlay = value;
     this.selectedOverlayChanged();
@@ -32,30 +31,36 @@ export class OverlayEditComponent implements OnInit, OnDestroy {
     return this.privateSelectedOverlay;
   }
   privateSelectedOverlay: IOverlay;
-
   @Output() closedOverlay: EventEmitter<void> = new EventEmitter();
-
   formDataChanged: Subject<string> = new Subject<string>();
+  overlayWasDeletedWithIdSubscription: Subscription;
 
   constructor(
     public overlayServerService: OverlayServerService,
     public hotkeyService: HotkeyService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.overlayWasDeletedWithIdSubscription = this.overlayServerService.overlayWasDeletedWithId.subscribe(
+      (id) => {
+        if (id === this.selectedOverlay.id) {
+          this.closeOverlay();
+        }
+      }
+    );
+  }
 
   ngOnDestroy(): void {
     this.hotkeyService.lockTypingHotkeys = false;
+    this.overlayWasDeletedWithIdSubscription.unsubscribe();
   }
 
   public formChange(): void {
     if (!this.isDraft) {
       if (this.formDataChanged.observers.length === 0) {
-        this.formDataChanged
-          .pipe(debounceTime(1000))
-          .subscribe(() => {
-            this.overlayServerService.updateLowerThird(this.selectedOverlay);
-          });
+        this.formDataChanged.pipe(debounceTime(1000)).subscribe(() => {
+          this.overlayServerService.updateLowerThird(this.selectedOverlay);
+        });
       }
       this.formDataChanged.next();
     }
