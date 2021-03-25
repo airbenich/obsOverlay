@@ -64,7 +64,7 @@ io.on('connection', (socket: any) => {
     lowerthirds.add(data);
 
     clients.forEach((client) => {
-      if (client.id !== socket.id) client.emit('get_lowerthirds', data);
+      client.emit('get_lowerthirds', [data]);
     });
   });
 
@@ -73,7 +73,7 @@ io.on('connection', (socket: any) => {
     lowerthirds.update(data);
 
     clients.forEach((client) => {
-      if (client.id !== socket.id) client.emit('get_lowerthirds', data);
+      client.emit('get_lowerthirds', [data]);
     });
   });
 
@@ -84,7 +84,7 @@ io.on('connection', (socket: any) => {
     data.deleted = true;
 
     clients.forEach((client) => {
-      client.emit('get_lowerthirds', data);
+      client.emit('get_lowerthirds', [data]);
     });
   });
 
