@@ -13,10 +13,10 @@ export type IOverlay = {
   subtitle: string | null;
   lastChange: string | null,
   pinnedToTop: boolean;
-  sort: number | null;
+  sort?: number | null;
   favorit: boolean | null;
   readOnly: boolean | null;
-  deleted: boolean;
+  deleted?: boolean | null;
 };
 
 export class LowerthirdsManager {
