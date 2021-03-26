@@ -4,6 +4,8 @@ import { ChannelManager } from './ChannelManager';
 
 import config from './config.json';
 
+const { Address6 } = require('ip-address');
+
 const app = require('express')();
 const http = require('http').Server(app);
 const path = require('path');
@@ -50,16 +52,18 @@ const channels = new ChannelManager();
 
 io.on('connection', (socket: any) => {
   // Try to find which computer is connecting
+
+  const ip = new Address6(socket.handshake.address).to4().address;
   try {
-    dns.reverse(socket.handshake.address.slice(7), (err: any, result: any) => {
+    dns.reverse(ip, (err: any, result: any) => {
       if (result.length === 0) {
-        console.log(colors.gray('unknown has connected'));
+        console.log(colors.gray(`unknown has connected from ${ip}`));
       } else {
-        console.log(colors.gray(`${result} has connected`));
+        console.log(colors.gray(`${result} has connected from ${ip}`));
       }
     });
   } catch (error) {
-    console.log(error);
+    console.log(colors.gray(`unknown has connected from ${socket.handshake.address}`));
   }
 
   // Add client to list
