@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  overlay-manager-builder:
+    container_name: overlay-manager-builder
+    image: "node:12"
+    working_dir: /overlay-manager
+    environment:
+      - NODE_ENV=production
+    command: bash -c "npm install && npm run ng build --prod"
+    environment:
+     - MANAGERHOST=${MANAGERHOST}
+     - MANAGERPORT=${MANAGERPORT}
+     - SERVERHOST=${SERVERHOST}
+     - SERVERPORT=${SERVERPORT}
+     - AUTHKEY=${AUTHKEY}
+    volumes:
+      - ./overlay-manager/:/overlay-manager

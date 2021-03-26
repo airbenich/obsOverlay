@@ -13,21 +13,24 @@ services:
      - "${SERVERPORT}:${SERVERPORT}"
 
   overlay-manager:
-    container_name: overlay-manager
-    build: 
-      context: ./overlay-manager
-    environment:
-     - MANAGERHOST=${MANAGERHOST}
-     - MANAGERPORT=${MANAGERPORT}
-     - SERVERHOST=${SERVERHOST}
-     - SERVERPORT=${SERVERPORT}
-     - AUTHKEY=${AUTHKEY}
+    image: nginx:alpine
+    volumes:
+      - ./overlay-manager/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./overlay-manager/dist/overlay-manager:/overlay-manager
+    command: [nginx-debug, '-g', 'daemon off;']
     ports:
      - "${MANAGERPORT}:80"
-
+    depends_on:
+      - "overlay-server"
+  
   overlay-screen:
+    image: nginx:alpine
     container_name: overlay-screen
-    build: 
-      context: ./overlay-screen
+    volumes:
+      - ./overlay-screen/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./overlay-screen/:/overlay-screen
+    command: [nginx-debug, '-g', 'daemon off;'] 
     ports:
      - "${SCREENPORT}:80"
+    depends_on:
+      - "overlay-server"

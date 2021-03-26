@@ -41,8 +41,16 @@ docker-compose -f docker-compose-dev.yml up --build overlay-screen
 
 #### Production
 
+build
+
+```bash
+docker-compose -f docker-compose-build.yml up
+```
+run
+
 ```bash
 docker-compose up -d overlay-server
+docker-compose up -d overlay-screen
 docker-compose up -d overlay-manager
 ```
 ## Add overlay-screen to the OBS as Web View

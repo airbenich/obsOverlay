@@ -28,8 +28,13 @@ services:
      - "4200:4200"
      
   overlay-screen:
+    image: nginx:alpine
     container_name: overlay-screen
-    build: 
-      context: ./overlay-screen
+    volumes:
+      - ./overlay-screen/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./overlay-screen/:/overlay-screen
+    command: [nginx-debug, '-g', 'daemon off;'] 
     ports:
-     - "80:80"
+     - "${SCREENPORT}:80"
+    depends_on:
+      - "overlay-server"
