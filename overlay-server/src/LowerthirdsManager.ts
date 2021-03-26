@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 // eslint-disable-next-line import/prefer-default-export
-import storedLoverthirds from './loverthirds.json';
 import config from './config.json';
+import storedLowerthirds from './lowerthirds.json';
 
 const fs = require('fs');
 const { v4: uuid } = require('uuid');
@@ -27,14 +27,16 @@ export class LowerthirdsManager {
     this.load();
   }
 
-  public add(lowerthird: IOverlay): void {
+  public add(lowerthird: IOverlay): IOverlay {
     lowerthird.lastChange = new Date().toJSON().slice(0, 19).replace('T', ' ');
     lowerthird.id = uuid();
     this.lowerthirds.push(lowerthird);
     this.store();
+
+    return lowerthird;
   }
 
-  public update(lowerthird: IOverlay): void {
+  public update(lowerthird: IOverlay): IOverlay {
     lowerthird.lastChange = new Date().toJSON().slice(0, 19).replace('T', ' ');
 
     // Search for a lowerthird with the specific item
@@ -49,6 +51,8 @@ export class LowerthirdsManager {
     }
 
     this.store();
+
+    return lowerthird;
   }
 
   public remove(lowerthird: IOverlay): void {
@@ -72,12 +76,12 @@ export class LowerthirdsManager {
     const json = JSON.stringify(this.lowerthirds);
 
     // Uses the sync version to prevent congruent file writing
-    fs.writeFileSync(config.lowerthirdsFile, json);
+    fs.writeFileSync('lowerthirds.json', json);
     console.log(colors.gray('Lowerthirds stored'));
   }
 
   private load(): void {
-    this.lowerthirds = storedLoverthirds;
+    this.lowerthirds = storedLowerthirds;
     console.log(colors.gray('Lowerthirds loaded'));
   }
 

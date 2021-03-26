@@ -50,13 +50,17 @@ const channels = new ChannelManager();
 
 io.on('connection', (socket: any) => {
   // Try to find which computer is connecting
-  dns.reverse(socket.handshake.address.slice(7), (err: any, result: any) => {
-    if (result.length === 0) {
-      console.log(colors.gray('unknown has connected'));
-    } else {
-      console.log(colors.gray(`${result} has connected`));
-    }
-  });
+  try {
+    dns.reverse(socket.handshake.address.slice(7), (err: any, result: any) => {
+      if (result.length === 0) {
+        console.log(colors.gray('unknown has connected'));
+      } else {
+        console.log(colors.gray(`${result} has connected`));
+      }
+    });
+  } catch (error) {
+    console.log(error);
+  }
 
   // Add client to list
   clients.push(socket);
@@ -72,7 +76,8 @@ io.on('connection', (socket: any) => {
   // Adds a new lowerthird
   socket.on('add_lowerthird', (data: any) => {
     console.log('Add lowerthird: ', data);
-    lowerthirds.add(data);
+
+    socket.emit('add_lowerthird', lowerthirds.add(data));
 
     clients.forEach((client) => {
       client.emit('get_lowerthirds', [data]);
@@ -82,7 +87,8 @@ io.on('connection', (socket: any) => {
   // Updates a new lowerthird
   socket.on('update_lowerthird', (data: any) => {
     console.log('Update lowerthird: ', data);
-    lowerthirds.update(data);
+
+    socket.emit('add_lowerthird', lowerthirds.update(data));
 
     clients.forEach((client) => {
       client.emit('get_lowerthirds', [data]);
