@@ -1,8 +1,7 @@
-import { Injectable } from '@angular/core';
-import { Socket, SocketIoModule } from 'ngx-socket-io';
+import { EventEmitter, Injectable } from '@angular/core';
+import { Socket } from 'ngx-socket-io';
 import { IOverlay } from 'src/app/models/ioverlay';
 import { IChannel } from 'src/app/models/ichannel';
-import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -12,6 +11,8 @@ export class OverlayServerService {
   public channels: IChannel[] = [];
 
   public draftOverlay: IOverlay;
+
+  public overlayWasDeletedWithId: EventEmitter<string> = new EventEmitter();
 
   constructor(private socket: Socket) {
     this.startConnectionMonitoring();
@@ -51,6 +52,7 @@ export class OverlayServerService {
       (lowerThird) => lowerThird.deleted
     );
     toBeDeletedLowerThirds.forEach((toBeDeletedLowerThird) => {
+      this.overlayWasDeletedWithId.emit(toBeDeletedLowerThird.id);
       this.overlays = this.overlays.filter((overlay) => {
         return overlay.id !== toBeDeletedLowerThird.id;
       });
