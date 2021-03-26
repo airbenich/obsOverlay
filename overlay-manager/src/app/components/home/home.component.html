@@ -15,7 +15,12 @@
     </div>
   </ng-container>
   <div class="previews tab-content">
-    <div id="preview0" class="preview tab-pane active embed-responsive embed-responsive-16by9"></div>
+    <div id="preview0" class="preview tab-pane active embed-responsive embed-responsive-16by9">
+      <object data="http://localhost" width="800" height="600">
+        <embed src="http://localhost" width="800" height="600" />
+        Error: Preview could not be displayed.
+      </object>
+    </div>
   </div>
 
   <h5>{{ " Live Control" | translate }}</h5>
