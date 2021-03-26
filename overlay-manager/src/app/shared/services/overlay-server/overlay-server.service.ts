@@ -40,8 +40,8 @@ export class OverlayServerService {
       );
 
       // unsubscribe from all observables
-      this.getOverlaysSubscription.unsubscribe();
-      this.addedOwnOverlaysSubscription.unsubscribe();
+      // this.getOverlaysSubscription.unsubscribe();
+      // this.addedOwnOverlaysSubscription.unsubscribe();
     });
   }
 
