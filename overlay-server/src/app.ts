@@ -56,7 +56,7 @@ io.on('connection', (socket: any) => {
   const ip = new Address6(socket.handshake.address).to4().address;
   try {
     dns.reverse(ip, (err: any, result: any) => {
-      if (result.length === 0) {
+      if (!result.length) {
         console.log(colors.gray(`unknown has connected from ${ip}`));
       } else {
         console.log(colors.gray(`${result} has connected from ${ip}`));
