@@ -56,7 +56,7 @@ io.on('connection', (socket: any) => {
   const ip = new Address6(socket.handshake.address).to4().address;
   try {
     dns.reverse(ip, (err: any, result: any) => {
-      if (result.length === 0) {
+      if (!result || result.size < 1) {
         console.log(colors.gray(`unknown has connected from ${ip}`));
       } else {
         console.log(colors.gray(`${result} has connected from ${ip}`));
@@ -83,9 +83,7 @@ io.on('connection', (socket: any) => {
 
     socket.emit('add_lowerthird', lowerthirds.add(data));
 
-    clients.forEach((client) => {
-      client.emit('get_lowerthirds', [data]);
-    });
+    socket.broadcast.emit('get_lowerthirds', [data]);
   });
 
   // Updates a new lowerthird
@@ -94,9 +92,7 @@ io.on('connection', (socket: any) => {
 
     socket.emit('add_lowerthird', lowerthirds.update(data));
 
-    clients.forEach((client) => {
-      client.emit('get_lowerthirds', [data]);
-    });
+    socket.broadcast.emit('get_lowerthirds', [data]);
   });
 
   // removes a lowerthird
@@ -115,9 +111,12 @@ io.on('connection', (socket: any) => {
   socket.on('content', (data: any) => {
     console.log('Incomming data: ', data);
 
+    /*
     clients.forEach((client) => {
       if (client.id !== socket.id) client.emit('content', data);
-    });
+    }); */
+
+    socket.broadcast.emit('content', data);
   });
 });
 //

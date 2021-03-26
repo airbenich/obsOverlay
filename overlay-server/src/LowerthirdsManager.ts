@@ -8,7 +8,7 @@ const { v4: uuid } = require('uuid');
 const colors = require('colors/safe');
 
 export type IOverlay = {
-  id: number | null;
+  id: string | null;
   title: string | null;
   subtitle: string | null;
   lastChange: string | null,
@@ -76,7 +76,7 @@ export class LowerthirdsManager {
     const json = JSON.stringify(this.lowerthirds);
 
     // Uses the sync version to prevent congruent file writing
-    fs.writeFileSync('lowerthirds.json', json);
+    fs.writeFileSync('./src/lowerthirds.json', json);
     console.log(colors.gray('Lowerthirds stored'));
   }
 
