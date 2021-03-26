@@ -55,7 +55,7 @@ export class OverlayEditComponent implements OnInit, OnDestroy {
     this.overlayWasDeletedWithIdSubscription.unsubscribe();
   }
 
-  public formChange(): void {
+  public debouncedFormChange(): void {
     if (!this.isDraft) {
       if (this.formDataChanged.observers.length === 0) {
         this.formDataChanged.pipe(debounceTime(1000)).subscribe(() => {
@@ -63,6 +63,12 @@ export class OverlayEditComponent implements OnInit, OnDestroy {
         });
       }
       this.formDataChanged.next();
+    }
+  }
+
+  public instantFormChange(): void {
+    if (!this.isDraft) {
+      this.overlayServerService.updateLowerThird(this.selectedOverlay);
     }
   }
 

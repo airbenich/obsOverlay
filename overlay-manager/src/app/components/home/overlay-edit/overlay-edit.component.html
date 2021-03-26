@@ -13,7 +13,7 @@
         [disabled]="selectedOverlay?.readOnly"
         (focus)="hotkeyService.lockTypingHotkeys = true"
         (blur)="hotkeyService.lockTypingHotkeys = false"
-        (keyup)="formChange()"
+        (keyup)="debouncedFormChange()"
       />
       <!-- <small id="nameHelp" class="form-text text-muted">{{ 'First line' | translate }}</small> -->
     </div>
@@ -29,7 +29,7 @@
         [disabled]="selectedOverlay?.readOnly"
         (focus)="hotkeyService.lockTypingHotkeys = true"
         (blur)="hotkeyService.lockTypingHotkeys = false"
-        (keyup)="formChange()"
+        (keyup)="debouncedFormChange()"
       />
       <!-- <small id="nameHelp" class="form-text text-muted">{{ 'Second line' | translate }}</small> -->
       <app-toggle-switch
@@ -37,18 +37,18 @@
         [title]="'Favorit'"
         [description]="'in die Auswahl für diese Veranstaltung nehmen'"
         [disabled]="selectedOverlay?.readOnly"
-        (isCheckedChange)="formChange()"
+        (isCheckedChange)="instantFormChange()"
       ></app-toggle-switch>
       <app-toggle-switch
         [(isChecked)]="selectedOverlay.pinnedToTop"
         [title]="'Anpinnen'"
         [disabled]="selectedOverlay?.readOnly"
-        (isCheckedChange)="formChange()"
+        (isCheckedChange)="instantFormChange()"
       ></app-toggle-switch>
       <app-toggle-switch
         [(isChecked)]="selectedOverlay.readOnly"
         [title]="'Schreibgeschützt'"
-        (isCheckedChange)="formChange()"
+        (isCheckedChange)="instantFormChange()"
       ></app-toggle-switch>
     </div>
   </div>
