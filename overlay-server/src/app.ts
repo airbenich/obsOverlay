@@ -90,7 +90,7 @@ io.on('connection', (socket: any) => {
   socket.on('update_lowerthird', (data: any) => {
     console.log('Update lowerthird: ', data);
 
-    socket.emit('add_lowerthird', lowerthirds.update(data));
+    socket.emit('update_lowerthird', lowerthirds.update(data));
 
     socket.broadcast.emit('get_lowerthirds', [data]);
   });
