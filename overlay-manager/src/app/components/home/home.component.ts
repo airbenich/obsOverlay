@@ -1,4 +1,11 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
+import { Subscription } from 'rxjs';
 import { IOverlay } from 'src/app/models/ioverlay';
 import { HotkeyService } from 'src/app/shared/services/hotkey/hotkey.service';
 import { OverlayServerService } from 'src/app/shared/services/overlay-server/overlay-server.service';
@@ -8,7 +15,7 @@ import { OverlayServerService } from 'src/app/shared/services/overlay-server/ove
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
   isCountdownStarted = false;
   isCountdownPaused = false;
   countdownTimer = 10;
@@ -19,11 +26,21 @@ export class HomeComponent implements OnInit {
   ) {}
   selectedOverlay: IOverlay;
   @Output() selectedOverlayChange: EventEmitter<IOverlay>;
+  newCreatedOverlaySubscription: Subscription;
 
   ngOnInit(): void {
     this.hotkeyService.addShortcut({ keys: 'esc' }).subscribe(() => {
       this.closeOverlay();
     });
+
+    // open overlay when newly created
+    this.overlayServerService.newCreatedOverlay.subscribe(overlay => {
+      this.selectedOverlay = overlay;
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.newCreatedOverlaySubscription.unsubscribe();
   }
 
   public onClickShow10Button(): void {

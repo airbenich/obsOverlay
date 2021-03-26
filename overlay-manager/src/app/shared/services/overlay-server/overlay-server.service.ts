@@ -2,6 +2,7 @@ import { EventEmitter, Injectable } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
 import { IOverlay } from 'src/app/models/ioverlay';
 import { IChannel } from 'src/app/models/ichannel';
+import { Subscription } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +13,11 @@ export class OverlayServerService {
 
   public draftOverlay: IOverlay;
 
+  private getOverlaysSubscription: Subscription;
+  private addedOwnOverlaysSubscription: Subscription;
+
   public overlayWasDeletedWithId: EventEmitter<string> = new EventEmitter();
+  public newCreatedOverlay: EventEmitter<IOverlay> = new EventEmitter();
 
   constructor(private socket: Socket) {
     this.startConnectionMonitoring();
@@ -23,6 +28,7 @@ export class OverlayServerService {
     this.socket.fromEvent('connect').subscribe((observer) => {
       console.log('Successfully connected to Websocket Server');
       this.subscribeToLowerThirds();
+      this.subscribeToOwnAddedOverlays();
 
       this.getChannels().then((data) => (this.channels = data));
     });
@@ -32,18 +38,24 @@ export class OverlayServerService {
       console.error(
         'Lost connection to Websocket Server - Reason: ' + observer
       );
+
+      // unsubscribe from all observables
+      this.getOverlaysSubscription.unsubscribe();
+      this.addedOwnOverlaysSubscription.unsubscribe();
     });
   }
 
   private subscribeToLowerThirds(): void {
-    this.socket
-      .fromEvent<any[]>('get_lowerthirds')
-      .subscribe((lowerThirdsUpdate) => {
-        const parsedLowerThirdsUpdate = this.parseLowerThirds(
-          lowerThirdsUpdate
-        );
-        this.syncLowerThirdUpdate(parsedLowerThirdsUpdate);
-      });
+    if (!this.getOverlaysSubscription) {
+      this.getOverlaysSubscription = this.socket
+        .fromEvent<any[]>('get_lowerthirds')
+        .subscribe((lowerThirdsUpdate) => {
+          const parsedLowerThirdsUpdate = this.parseLowerThirds(
+            lowerThirdsUpdate
+          );
+          this.syncLowerThirdUpdate(parsedLowerThirdsUpdate);
+        });
+    }
   }
 
   private syncLowerThirdUpdate(lowerThirdsUpdate: IOverlay[]): void {
@@ -84,6 +96,14 @@ export class OverlayServerService {
 
   public addLowerThird(data: IOverlay): void {
     this.socket.emit('add_lowerthird', data);
+  }
+
+  private subscribeToOwnAddedOverlays(): void {
+    this.addedOwnOverlaysSubscription = this.socket.fromEvent<any>('add_lowerthird').subscribe((data) => {
+      const newlyCreatedOverlay = this.parseLowerThirds([data])[0];
+      this.overlays.push(newlyCreatedOverlay);
+      this.newCreatedOverlay.emit(newlyCreatedOverlay);
+    });
   }
 
   public removeLowerThird(data: IOverlay): void {
