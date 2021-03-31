@@ -1,4 +1,4 @@
 export interface Status {
     service: string;
-    status: string;
+    status: 'offline' | 'online' | 'connecting';
 }

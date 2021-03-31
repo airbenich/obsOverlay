@@ -58,14 +58,6 @@ body {
     display: none;
 }
 
-.online {
-    color: rgb(15, 199, 15);
-}
-
-.offline {
-    color: red;
-}
-
 pre {
   color: #fff;
   border: 1px solid #f00;

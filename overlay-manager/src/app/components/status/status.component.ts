@@ -1,27 +1,45 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { OverlayServerService } from 'src/app/shared/services/overlay-server/overlay-server.service';
 import { Status } from './status';
 
 @Component({
   selector: 'app-status',
   templateUrl: './status.component.html',
-  styleUrls: ['./status.component.scss']
+  styleUrls: ['./status.component.scss'],
 })
-export class StatusComponent implements OnInit {
-  status: Status[] = [{
-    service: 'Overlay Server',
-    status: 'online'
-  },
-  {
-    service: 'Livestream Software OBS',
-    status: 'offline'
-  }];
-  constructor() { }
+export class StatusComponent implements OnInit, OnDestroy {
+  status: Status[] = [
+    {
+      service: 'Overlay Server',
+      status: 'connecting',
+    },
+    {
+      service: 'Livestream Software OBS',
+      status: 'connecting',
+    },
+  ];
+
+  private overlayServerStatusSubscription: Subscription;
+
+  constructor(private overlayServerService: OverlayServerService) {}
 
   ngOnInit(): void {
-    this.getStatus();
+    this.subscribeToStates();
   }
 
-  getStatus(): void {
-    // this.statusService.getStatus().subscribe(status => this.status = status);
+  ngOnDestroy(): void {
+    this.overlayServerStatusSubscription.unsubscribe();
+  }
+
+  subscribeToStates(): void {
+    this.overlayServerStatusSubscription = this.overlayServerService.serverAvailable.subscribe(
+      (status) => {
+        const overlayServerStatus = this.status.filter(
+          (data) => data.service === 'Overlay Server'
+        )[0];
+        overlayServerStatus.status = status ? 'online' : 'offline';
+      }
+    );
   }
 }

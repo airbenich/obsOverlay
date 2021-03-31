@@ -16,10 +16,6 @@ import { OverlayServerService } from 'src/app/shared/services/overlay-server/ove
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit, OnDestroy {
-  isCountdownStarted = false;
-  isCountdownPaused = false;
-  countdownTimer = 10;
-
   constructor(
     public overlayServerService: OverlayServerService,
     private hotkeyService: HotkeyService
@@ -41,46 +37,6 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.newCreatedOverlaySubscription.unsubscribe();
-  }
-
-  public onClickShow10Button(): void {
-    this.overlayServerService.showLowerThird(this.selectedOverlay);
-    this.isCountdownStarted = true;
-    this.countdown(this.countdownTimer);
-  }
-
-  public onClickPauseCountdownButton(): void {
-    this.isCountdownPaused = true;
-  }
-
-  public onClickResumeCountdownButton(): void {
-    this.isCountdownPaused = false;
-  }
-
-  private countdown(counter: any): void {
-    this.countdownTimer = counter;
-    if (counter <= 0 || !this.isCountdownStarted) {
-      this.overlayServerService.hideLowerThird(this.selectedOverlay);
-      this.countdownTimer = 10;
-      this.isCountdownStarted = false;
-    } else {
-      if (!this.isCountdownPaused) {
-        counter--;
-      }
-      setTimeout(() => {
-        this.countdown(counter);
-      }, 1000);
-    }
-  }
-
-  public onClickShowButton(): void {
-    this.overlayServerService.showLowerThird(this.selectedOverlay);
-  }
-
-  public onClickHideButton(): void {
-    this.overlayServerService.hideLowerThird(this.selectedOverlay);
-    this.isCountdownStarted = false;
-    this.isCountdownPaused = false;
   }
 
   public overlaySelected(overlay: IOverlay): void {

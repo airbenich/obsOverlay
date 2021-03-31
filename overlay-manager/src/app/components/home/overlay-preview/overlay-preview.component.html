@@ -1,0 +1,17 @@
+<h5>{{ "Vorschau" | translate }}</h5>
+<ng-container *ngFor="let channel of overlayServerService.channels">
+  <div class="btn-group">
+    <button type="menu" class="btn btn-secondary">{{ channel.title }}</button>
+  </div>
+</ng-container>
+<div class="previews tab-content">
+  <div
+    id="preview0"
+    class="preview tab-pane active embed-responsive embed-responsive-16by9"
+  >
+    <object data="http://localhost:4200" width="1920" height="1080">
+      <embed src="http://localhost:4200" width="1920" height="1080" />
+      Error: Preview could not be displayed.
+    </object>
+  </div>
+</div>

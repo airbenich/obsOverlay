@@ -16,6 +16,8 @@ import { HeaderComponent } from './components/header/header.component';
 import { ToggleSwitchComponent } from './shared/components/toggle-switch/toggle-switch.component';
 import { FormsModule } from '@angular/forms';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { OverlayPreviewComponent } from './components/home/overlay-preview/overlay-preview.component';
+import { OverlayLiveControlComponent } from './components/home/overlay-live-control/overlay-live-control.component';
 
 const port = 3000;
 const host = 'localhost';
@@ -39,6 +41,8 @@ const config: SocketIoConfig = {
     ButtonTileComponent,
     HeaderComponent,
     ToggleSwitchComponent,
+    OverlayPreviewComponent,
+    OverlayLiveControlComponent,
   ],
   imports: [
     BrowserModule,

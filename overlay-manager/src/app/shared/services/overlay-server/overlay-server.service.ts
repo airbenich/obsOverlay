@@ -2,7 +2,7 @@ import { EventEmitter, Injectable } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
 import { IOverlay } from 'src/app/models/ioverlay';
 import { IChannel } from 'src/app/models/ichannel';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -16,6 +16,8 @@ export class OverlayServerService {
   private getOverlaysSubscription: Subscription;
   private addedOwnOverlaysSubscription: Subscription;
 
+  public serverAvailable: Subject<boolean> = new Subject();
+
   public overlayWasDeletedWithId: EventEmitter<string> = new EventEmitter();
   public newCreatedOverlay: EventEmitter<IOverlay> = new EventEmitter();
 
@@ -27,6 +29,7 @@ export class OverlayServerService {
     // on connection
     this.socket.fromEvent('connect').subscribe((observer) => {
       console.log('Successfully connected to Websocket Server');
+      this.serverAvailable.next(true);
       this.subscribeToLowerThirds();
       this.subscribeToOwnAddedOverlays();
 
@@ -35,6 +38,7 @@ export class OverlayServerService {
 
     // on disconnect
     this.socket.fromEvent('disconnect').subscribe((observer) => {
+      this.serverAvailable.next(false);
       console.error(
         'Lost connection to Websocket Server - Reason: ' + observer
       );
@@ -99,11 +103,13 @@ export class OverlayServerService {
   }
 
   private subscribeToOwnAddedOverlays(): void {
-    this.addedOwnOverlaysSubscription = this.socket.fromEvent<any>('add_lowerthird').subscribe((data) => {
-      const newlyCreatedOverlay = this.parseLowerThirds([data])[0];
-      this.overlays.push(newlyCreatedOverlay);
-      this.newCreatedOverlay.emit(newlyCreatedOverlay);
-    });
+    this.addedOwnOverlaysSubscription = this.socket
+      .fromEvent<any>('add_lowerthird')
+      .subscribe((data) => {
+        const newlyCreatedOverlay = this.parseLowerThirds([data])[0];
+        this.overlays.push(newlyCreatedOverlay);
+        this.newCreatedOverlay.emit(newlyCreatedOverlay);
+      });
   }
 
   public removeLowerThird(data: IOverlay): void {

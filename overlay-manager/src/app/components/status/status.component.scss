@@ -1,3 +1,15 @@
 li {
   display: inline-block;
 }
+
+.online {
+  color: rgb(15, 199, 15);
+}
+
+.offline {
+  color: red;
+}
+
+.connecting {
+  color: orange;
+}

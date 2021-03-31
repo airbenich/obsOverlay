@@ -1,0 +1,60 @@
+<h5>{{ " Live Control" | translate }}</h5>
+<div class="panel">
+  <div class="panel-body">
+    <span class="btn-group">
+      <button class="btn btn-primary" (click)="onClickShow10Button()">
+        <i
+          aria-hidden="true"
+          class="v-icon notranslate mdi mdi-camera-timer theme--dark"
+        ></i>
+        <i
+          aria-hidden="true"
+          class="v-icon notranslate mdi mdi-numeric mdi-numeric-{{
+            countdownTimer
+          }}-box"
+        ></i>
+        {{ "Anzeigen" | translate }}
+      </button>
+      <button
+        class="btn btn-warning"
+        *ngIf="isCountdownStarted && !isCountdownPaused"
+        (click)="onClickPauseCountdownButton()"
+      >
+        <i
+          aria-hidden="true"
+          class="v-icon notranslate mdi mdi-pause theme--dark"
+        ></i>
+      </button>
+      <button
+        class="btn btn-warning"
+        *ngIf="isCountdownStarted && isCountdownPaused"
+        (click)="onClickResumeCountdownButton()"
+      >
+        <i
+          aria-hidden="true"
+          class="v-icon notranslate mdi mdi-play theme--dark"
+        ></i>
+      </button>
+    </span>
+    <span class="float-right btn-group">
+      <button
+        class="btn btn-success"
+        (click)="onClickShowButton()"
+        *ngIf="!isCountdownStarted"
+      >
+        <i
+          aria-hidden="true"
+          class="v-icon notranslate mdi mdi-play theme--dark"
+        ></i>
+        {{ "Einblenden" | translate }}
+      </button>
+      <button class="btn btn-danger" (click)="onClickHideButton()">
+        <i
+          aria-hidden="true"
+          class="v-icon notranslate mdi mdi-stop theme--dark"
+        ></i>
+        {{ "Ausblenden" | translate }}
+      </button></span
+    >
+  </div>
+</div>
