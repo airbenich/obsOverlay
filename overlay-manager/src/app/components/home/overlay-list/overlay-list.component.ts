@@ -53,11 +53,40 @@ export class OverlayListComponent implements OnInit {
       this.cancelSearch();
       this.showFavorites = false;
     });
+    this.hotkeyService.addShortcut({ keys: 'ArrowUp' }).subscribe(() => {
+      this.upDownSelect('up');
+    });
+    this.hotkeyService.addShortcut({ keys: 'ArrowDown' }).subscribe(() => {
+      this.upDownSelect('down');
+    });
+    // this.hotkeyService.addShortcut({ keys: 'Enter' }).subscribe(() => {
+    //   console.log('Enter');
+    // });
   }
 
-  delete(overlay: IOverlay): void {
-    // this.overlays = this.overlays.filter((o) => o !== overlay);
-    // this.overlaysApiService.deleteOverlay(overlay).subscribe();
+  private upDownSelect(direction: 'up' | 'down'): void {
+    let searchList: IOverlay[];
+    if (this.showFavorites) {
+      // search in pinnend & favorites
+      searchList = this.overlayServerService.overlays.filter((item) => item.pinnedToTop);
+      searchList = searchList.concat(this.overlayServerService.overlays.filter((item) => item.favorit && !item.pinnedToTop));
+    } else if (this.searchTerm) {
+      // search in search results
+      searchList = this.searchResults;
+    } else {
+      searchList = this.overlayServerService.overlays.filter((item) => item.pinnedToTop);
+      searchList = searchList.concat(this.overlayServerService.overlays.filter((item) => !item.pinnedToTop));
+    }
+
+    // search in pinned & normal list
+    const selectedIndex = searchList.indexOf(this.selectedOverlay);
+    if (selectedIndex >= 0) {
+      const nextIndex = direction === 'up' ? selectedIndex-1 : selectedIndex+1;
+      if (nextIndex < searchList.length && nextIndex >= 0) {
+        this.onClick(searchList[nextIndex]);
+      }
+    }
+
   }
 
   showPinnedToTopDivider(): boolean {
@@ -82,7 +111,13 @@ export class OverlayListComponent implements OnInit {
   }
 
   public onUserClickedOnFavorites(): void {
+    this.resetSearch();
     this.showFavorites = !this.showFavorites;
+  }
+
+  private resetSearch() {
+    this.searchResults = [];
+    this.searchTerm = '';
   }
 
   private switchToDraftOverlay(): void {
