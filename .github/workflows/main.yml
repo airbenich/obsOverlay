@@ -18,13 +18,12 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 10
-          package_root: overlay-desktop-client
 
       - name: Build/release Electron app
         uses: samuelmeuli/action-electron-builder@v1
         with:
         
-          package_root: overlay-desktop-client
+          package_root: ./overlay-desktop-client
 
           # GitHub token, automatically provided to the action
           # (No need to define this secret in the repo settings)
