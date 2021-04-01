@@ -10,24 +10,24 @@ function createWindow () {
     }
   })
 
-//   win.loadFile('index.html')
+  win.loadFile('index.html')
 
-const view = new BrowserView()
-win.setBrowserView(view)
-view.setBounds({ x: 0, y: 0, width: 800, height: 600 })
-view.setAutoResize({width: true, height: false});
+  // const view = new BrowserView()
+  // win.setBrowserView(view)
+  // view.setBounds({ x: 0, y: 0, width: 800, height: 600 })
+  // view.setAutoResize({width: true, height: false});
 
-// catch resize event emitted on window
-win.on('resize', function() {
+  // // catch resize event emitted on window
+  // win.on('resize', function() {
 
-    // store window's new size in variable
-    let newBounds = win.getBounds()
-  
-    // set BrowserView's bounds explicitly
-    view.setBounds({ x: 0, y: 0, width: newBounds.width, height: newBounds.height })
-});
+  //     // store window's new size in variable
+  //     let newBounds = win.getBounds()
+    
+  //     // set BrowserView's bounds explicitly
+  //     view.setBounds({ x: 0, y: 0, width: newBounds.width, height: newBounds.height })
+  // });
 
-view.webContents.loadURL('http://localhost:4200')
+  // view.webContents.loadURL('http://localhost:4200')
 
 }
 
