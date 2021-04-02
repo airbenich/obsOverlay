@@ -65,28 +65,28 @@ export class OverlayListComponent implements OnInit {
   }
 
   private upDownSelect(direction: 'up' | 'down'): void {
-    let searchList: IOverlay[];
+    let selectionList: IOverlay[];
     if (this.showFavorites) {
       // search in pinnend & favorites
-      searchList = this.overlayServerService.overlays.filter((item) => item.pinnedToTop);
-      searchList = searchList.concat(this.overlayServerService.overlays.filter((item) => item.favorit && !item.pinnedToTop));
+      selectionList = this.overlayServerService.overlays.filter((item) => item.pinnedToTop);
+      selectionList = selectionList.concat(this.overlayServerService.overlays.filter((item) => item.favorit && !item.pinnedToTop));
     } else if (this.searchTerm) {
       // search in search results
-      searchList = this.searchResults;
+      selectionList = this.searchResults;
     } else {
-      searchList = this.overlayServerService.overlays.filter((item) => item.pinnedToTop);
-      searchList = searchList.concat(this.overlayServerService.overlays.filter((item) => !item.pinnedToTop));
+      selectionList = this.overlayServerService.overlays.filter((item) => item.pinnedToTop);
+      selectionList = selectionList.concat(this.overlayServerService.overlays.filter((item) => !item.pinnedToTop));
     }
 
     // search in pinned & normal list
-    const selectedIndex = searchList.indexOf(this.selectedOverlay);
+    let selectedIndex = selectionList.indexOf(this.selectedOverlay);
+    let nextIndex = 0;
     if (selectedIndex >= 0) {
-      const nextIndex = direction === 'up' ? selectedIndex-1 : selectedIndex+1;
-      if (nextIndex < searchList.length && nextIndex >= 0) {
-        this.onClick(searchList[nextIndex]);
-      }
+      nextIndex = direction === 'up' ? selectedIndex-1 : selectedIndex+1;
     }
-
+    if (nextIndex < selectionList.length && nextIndex >= 0) {
+      this.onClick(selectionList[nextIndex]);
+    }
   }
 
   showPinnedToTopDivider(): boolean {
