@@ -7,60 +7,42 @@ import { OverlayServerService } from 'src/app/shared/services/overlay-server/ove
   templateUrl: './overlay-live-control.component.html',
   styleUrls: ['./overlay-live-control.component.scss'],
 })
-export class OverlayLiveControlComponent implements OnInit, OnDestroy {
+export class OverlayLiveControlComponent implements OnInit {
   isOverlayShown = false;
   isAutomationActive = false;
   isAutomationPaused = false;
   automationDuration = new Date(10000);
-  currentAutomationTime = new Date(this.automationDuration.getTime());
-  currentAutomationProgress = 100;
-  currentAutomationTimeString: string;
 
-  automationClock: NodeJS.Timeout;
-  automationClockTickTime = 10;
+  currentAutomationDuration: Date;
+  currentAutomationStartTime: Date;
+  currentRemainingAutomationTime = new Date(this.automationDuration.getTime());
+  currentAutomationProgress = 100;
+  currentRemainingAutomationTimeString: string;
 
   @Input() selectedOverlay: IOverlay;
 
   constructor(public overlayServerService: OverlayServerService) {
-    this.calculateTimes();
-  }
-
-  ngOnDestroy(): void {
-    clearInterval(this.automationClockTickTime);
+    this.generateTimeString();
   }
 
   ngOnInit(): void {
-    this.automationClock = setInterval(
-      () => this.clockTick(),
-      this.automationClockTickTime
-    );
   }
 
-  private clockTick(): void {
-    if (this.isAutomationActive && !this.isAutomationPaused) {
-      this.currentAutomationTime.setTime(
-        this.currentAutomationTime.getTime() - this.automationClockTickTime
-      );
-      this.currentAutomationProgress =
-        (this.currentAutomationTime.getTime() /
-          this.automationDuration.getTime()) *
-        100;
-      this.calculateTimes();
-      if (this.currentAutomationTime.getTime() <= 0) {
-        this.stopAutomation();
-      }
-    }
-  }
-
-  private calculateTimes(): void {
-    this.currentAutomationTimeString =
-//      this.currentAutomationTime.getUTCHours().toString().padStart(2, '0') +
-//      ':' +
-      this.currentAutomationTime.getUTCMinutes().toString().padStart(2, '0') +
+  private generateTimeString(): void {
+    this.currentRemainingAutomationTimeString =
+      //      this.currentRemainingAutomationTime.getUTCHours().toString().padStart(2, '0') +
+      //      ':' +
+      this.currentRemainingAutomationTime
+        .getUTCMinutes()
+        .toString()
+        .padStart(2, '0') +
       ':' +
-      this.currentAutomationTime.getUTCSeconds().toString().padStart(2, '0') +
-      ':' +
-      this.currentAutomationTime
+      this.currentRemainingAutomationTime
+        .getUTCSeconds()
+        .toString()
+        .padStart(2, '0') +
+      '.' +
+      this.currentRemainingAutomationTime
         .getUTCMilliseconds()
         .toString()
         .padStart(3, '0')
@@ -72,11 +54,11 @@ export class OverlayLiveControlComponent implements OnInit, OnDestroy {
   }
 
   public onClickPauseCountdownButton(): void {
-    this.isAutomationPaused = true;
+    this.pauseAutomation();
   }
 
   public onClickResumeCountdownButton(): void {
-    this.isAutomationPaused = false;
+    this.resumeAutomation();
   }
 
   private showOverlay(): void {
@@ -90,10 +72,67 @@ export class OverlayLiveControlComponent implements OnInit, OnDestroy {
   }
 
   private startAutomation(): void {
-    this.currentAutomationTime = new Date(this.automationDuration.getTime());
+    // copy automation time to curren tautomation time
+    this.currentAutomationDuration = new Date(
+      this.automationDuration.getTime()
+    );
+
+    // copy automation time to curren remaining time
+    this.currentRemainingAutomationTime = new Date(
+      this.currentAutomationDuration.getTime()
+    );
+
+    // set curren tautomation start time
+    this.currentAutomationStartTime = new Date();
+
+    // set automation running
     this.isAutomationActive = true;
     this.isAutomationPaused = false;
     this.showOverlay();
+
+    // start automation runner
+    requestAnimationFrame(() => this.updateAutomation());
+  }
+
+  private updateAutomation(): void {
+    // exect only when automation is still running
+    if (this.isAutomationActive && !this.isAutomationPaused) {
+      const currentTime = new Date();
+      // calculate remaining time
+      this.currentRemainingAutomationTime.setTime(
+        this.automationDuration.getTime() -
+          (currentTime.getTime() - this.currentAutomationStartTime.getTime())
+      );
+
+      // calculate percentage progress
+      this.currentAutomationProgress =
+        (this.currentRemainingAutomationTime.getTime() /
+          this.automationDuration.getTime()) *
+        100;
+
+      this.generateTimeString();
+
+      // control automation runner – repeat or stop
+      if (this.currentRemainingAutomationTime.getTime() > 0) {
+        requestAnimationFrame(() => this.updateAutomation());
+      } else {
+        this.stopAutomation();
+      }
+    }
+  }
+
+  private pauseAutomation(): void {
+    this.isAutomationPaused = true;
+  }
+
+  private resumeAutomation(): void {
+    this.isAutomationPaused = false;
+    this.currentAutomationStartTime.setTime(
+      new Date().getTime() -
+        (this.currentAutomationDuration.getTime() -
+          this.currentRemainingAutomationTime.getTime())
+    );
+    requestAnimationFrame(() => this.updateAutomation());
   }
 
   private stopAutomation(): void {
@@ -104,9 +143,11 @@ export class OverlayLiveControlComponent implements OnInit, OnDestroy {
   private resetAutomation(): void {
     this.isAutomationPaused = false;
     this.isAutomationActive = false;
-    this.currentAutomationTime = new Date(this.automationDuration.getTime());
+    this.currentRemainingAutomationTime = new Date(
+      this.automationDuration.getTime()
+    );
     this.currentAutomationProgress = 100;
-    this.calculateTimes();
+    this.generateTimeString();
   }
 
   public onClickShowButton(): void {

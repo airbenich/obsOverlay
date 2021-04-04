@@ -1,4 +1,4 @@
-<h5>{{ " Live Control" | translate }}</h5>
+<h5>{{ "Live Control" | translate }}</h5>
 <div class="panel">
   <div class="panel-body">
     <span class="btn-group">
@@ -52,7 +52,7 @@
     >
   </div>
   <div class="progressBar">
-    <div class="time">{{ currentAutomationTimeString }}</div>
+    <div class="time">Dauer {{ currentRemainingAutomationTimeString }}</div>
     <div class="bar" [class.active]="isAutomationActive" [style.width.%]="currentAutomationProgress"></div>
   </div>
 </div>
