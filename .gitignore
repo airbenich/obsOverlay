@@ -110,3 +110,6 @@ dist
 .tern-port
 
 package-lock.json
+yarn.lock
+electron.js
+electron.js.map
