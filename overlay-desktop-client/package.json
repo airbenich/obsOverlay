@@ -8,14 +8,14 @@
   "main": "electron.js",
   "version": "0.1.0",
   "license": "GNU General Public License v3.0",
-  "description": "",
+  "description": "Overlay Manager desctop client",
   "dependencies": {
     "electron-squirrel-startup": "^1.0.0"
   },
   "scripts": {
     "start": "electron-forge start",
     "package": "electron-forge package",
-    "make": "electron-forge make"
+    "build": "electron-forge make"
   },
   "devDependencies": {
     "@electron-forge/cli": "^6.0.0-beta.54",
@@ -35,7 +35,9 @@
         {
           "name": "@electron-forge/maker-squirrel",
           "config": {
-            "name": "app"
+            "name": "OverlayManager",
+            "author": "airbenich",
+            "description": "Overlay Manager desctop client"
           }
         },
         {
