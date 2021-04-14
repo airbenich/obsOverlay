@@ -12,16 +12,12 @@
       <ul class="navbar-nav" id="topbarnav">
         <app-status></app-status>
         <li class="nav-item">
-          <a class="nav-link" href="/home"><i aria-hidden="true"
-              class="v-icon notranslate mdi mdi-view-dashboard-variant theme--dark"></i> {{ 'Home' | translate }}</a>
+          <a class="nav-link" href="#settings"><i aria-hidden="true"
+              class="v-icon notranslate mdi mdi-cog theme--dark"></i></a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/settings"><i aria-hidden="true"
-              class="v-icon notranslate mdi mdi-cog theme--dark"></i> {{ 'Einstellungen' | translate }}</a>
-        </li>
-          <li class="nav-item electron_window_controll"><button type="button" id="min-btn" class="nav-button btn"><i aria-hidden="true" class="v-icon notranslate mdi mdi-window-minimize theme--dark"></i></button></li>
-          <li class="nav-item electron_window_controll"><button type="button" id="max-btn" class="nav-button btn"><i aria-hidden="true" class="v-icon notranslate mdi mdi-window-maximize theme--dark"></i></button></li>
-          <li class="nav-item electron_window_controll"><button type="button" id="close-btn" class="nav-button btn"><i aria-hidden="true" class="v-icon notranslate mdi mdi-close theme--dark"></i></button></li>
+          <li [hidden]="!iselectron" class="nav-item electron_window_controll"><button type="button" id="min-btn" class="nav-button btn"><i aria-hidden="true" class="v-icon notranslate mdi mdi-window-minimize theme--dark"></i></button></li>
+          <li [hidden]="!iselectron" class="nav-item electron_window_controll"><button type="button" id="max-btn" class="nav-button btn"><i aria-hidden="true" class="v-icon notranslate mdi mdi-window-maximize theme--dark"></i></button></li>
+          <li [hidden]="!iselectron" class="nav-item electron_window_controll"><button type="button" id="close-btn" class="nav-button btn"><i aria-hidden="true" class="v-icon notranslate mdi mdi-close theme--dark"></i></button></li>
       </ul>
     </div>
   </nav>
