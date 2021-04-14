@@ -14,7 +14,7 @@ function createWindow() {
         frame: false,
         autoHideMenuBar: true,
         darkTheme: true,
-        icon: __dirname + "/Icon/Icon.icns",
+        icon: __dirname + "/icons/win/icon.ico",
         webPreferences: {
             preload: path.join(__dirname, 'preload.js'),
             nodeIntegration: true

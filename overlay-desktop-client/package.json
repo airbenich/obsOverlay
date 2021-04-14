@@ -29,17 +29,9 @@
   "config": {
     "forge": {
       "packagerConfig": {
-        "icon": "Icon/Icon.icns"
+        "icon": "icons/win/icon.ico"
       },
       "makers": [
-        {
-          "name": "@electron-forge/maker-squirrel",
-          "config": {
-            "name": "OverlayManager",
-            "author": "airbenich",
-            "description": "Overlay Manager desctop client"
-          }
-        },
         {
           "name": "@electron-forge/maker-dmg",
           "platforms": [
@@ -53,7 +45,9 @@
           "name": "@electron-forge/maker-zip",
           "config": {},
           "platforms": [
-            "darwin"
+            "darwin",
+            "win32",
+            "linux"
           ]
         },
         {
