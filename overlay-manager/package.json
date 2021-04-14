@@ -1,14 +1,11 @@
 {
   "name": "overlay-manager",
   "version": "1.0.0",
-
   "author": {
     "name": "airbenich",
     "url": "https://github.com/airbenich/"
   },
-  
   "main": "electron.js",
-
   "scripts": {
     "ng": "ng",
     "start": "ng serve --host 0.0.0.0",
@@ -16,12 +13,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "electron:serve-tsc": "tsc -p tsconfig.serve.json",
-    "electron:build": "npm run electron:serve-tsc && ng build --base-href ./",
-    "electron:start": "npm run electron:build && npx electron .",
-    "electron:buildapp:windows": "npm run electron:build && electron-builder -w",
-    "electron:buildapp:linux": "npm run electron:build && electron-builder -l",
-    "electron:buildapp:mac": "npm run electron:build && electron-builder -m"
+    "buildforelectron": "ng build --base-href ./"
   },
   "private": true,
   "dependencies": {
@@ -34,7 +26,6 @@
     "@angular/platform-browser": "~10.0.14",
     "@angular/platform-browser-dynamic": "~10.0.14",
     "@angular/router": "~10.0.14",
-    "@electron/remote": "1.0.4",
     "@ngx-translate/core": "^13.0.0",
     "ngx-socket-io": "~3.2.0",
     "rxjs": "~6.5.5",
@@ -49,9 +40,6 @@
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "^14.14.37",
     "codelyzer": "^6.0.0",
-    "electron": "^12.0.2",
-    "electron-builder": "^22.10.5",
-    "electron-reload": "1.5.0",
     "jasmine-core": "~3.5.0",
     "jasmine-spec-reporter": "~5.0.0",
     "karma": "~5.0.0",

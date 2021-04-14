@@ -1,4 +1,4 @@
-<div class="header">
+<div class="header" id="topbar">
   <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     <a class="navbar-brand" href="#"><i aria-hidden="true"
       class="v-icon notranslate mdi mdi-format-align-bottom theme--dark"></i> {{ 'Overlay Manager' | translate }}</a>
@@ -9,7 +9,7 @@
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <ul class="navbar-nav mr-auto">
       </ul>
-      <ul class="navbar-nav">
+      <ul class="navbar-nav" id="topbarnav">
         <app-status></app-status>
         <li class="nav-item">
           <a class="nav-link" href="/home"><i aria-hidden="true"
@@ -19,6 +19,9 @@
           <a class="nav-link" href="/settings"><i aria-hidden="true"
               class="v-icon notranslate mdi mdi-cog theme--dark"></i> {{ 'Einstellungen' | translate }}</a>
         </li>
+          <li class="nav-item electron_window_controll"><button type="button" id="min-btn" class="nav-button btn"><i aria-hidden="true" class="v-icon notranslate mdi mdi-window-minimize theme--dark"></i></button></li>
+          <li class="nav-item electron_window_controll"><button type="button" id="max-btn" class="nav-button btn"><i aria-hidden="true" class="v-icon notranslate mdi mdi-window-maximize theme--dark"></i></button></li>
+          <li class="nav-item electron_window_controll"><button type="button" id="close-btn" class="nav-button btn"><i aria-hidden="true" class="v-icon notranslate mdi mdi-close theme--dark"></i></button></li>
       </ul>
     </div>
   </nav>
