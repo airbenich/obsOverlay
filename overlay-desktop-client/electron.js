@@ -12,11 +12,12 @@ function createWindow() {
         autoHideMenuBar: false,
         backgroundColor: '#414144',
         frame: false,
-        titleBarStyle: 'customButtonsOnHover',
+        autoHideMenuBar: true,
         darkTheme: true,
         icon: __dirname + "/Icon/Icon.icns",
         webPreferences: {
-            preload: path.join(__dirname, 'preload.js')
+            preload: path.join(__dirname, 'preload.js'),
+            nodeIntegration: true
         }
     })
 

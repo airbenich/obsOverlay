@@ -21,15 +21,4 @@ window.addEventListener('DOMContentLoaded', () => {
     document.getElementById("close-btn").addEventListener("click", function (e) {
         ipcRenderer.send('window-control', 'app_close')
     });
-
-
-    var windowTopBar = document.createElement('div')
-    windowTopBar.style.width = "100%"
-    windowTopBar.style.height = "56px"
-    windowTopBar.style.backgroundColor = "#000"
-    windowTopBar.style.position = "absolute"
-    windowTopBar.style.top = windowTopBar.style.left = 0
-    windowTopBar.style.webkitAppRegion = "drag"
-    document.body.appendChild(windowTopBar)
-
 })

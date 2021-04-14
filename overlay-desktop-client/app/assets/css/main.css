@@ -3,6 +3,18 @@ body {
     color: #eee;
 }
 
+button {
+    -webkit-app-region: no-drag;
+  }
+
+.navbar {
+    -webkit-user-select: none;
+    -webkit-app-region: drag;
+ }
+button, a {
+    -webkit-app-region: no-drag;
+}
+
 .bg-dark {
     background-color: #444 !important;
 }
