@@ -5,7 +5,6 @@
     "name": "airbenich",
     "url": "https://github.com/airbenich/"
   },
-  "main": "electron.js",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --host 0.0.0.0 -o",
