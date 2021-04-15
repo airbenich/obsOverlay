@@ -50,12 +50,12 @@ const routes = [
 class AppRoutingModule {
 }
 AppRoutingModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: AppRoutingModule });
-AppRoutingModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function AppRoutingModule_Factory(t) { return new (t || AppRoutingModule)(); }, imports: [[_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forRoot(routes)], _angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"]] });
+AppRoutingModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function AppRoutingModule_Factory(t) { return new (t || AppRoutingModule)(); }, imports: [[_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forRoot(routes, { useHash: true })], _angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"]] });
 (function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsetNgModuleScope"](AppRoutingModule, { imports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"]], exports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"]] }); })();
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](AppRoutingModule, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"],
         args: [{
-                imports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forRoot(routes)],
+                imports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forRoot(routes, { useHash: true })],
                 exports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"]]
             }]
     }], null, null); })();
@@ -255,7 +255,7 @@ class HeaderComponent {
     }
 }
 HeaderComponent.ɵfac = function HeaderComponent_Factory(t) { return new (t || HeaderComponent)(); };
-HeaderComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: HeaderComponent, selectors: [["app-header"]], decls: 24, vars: 6, consts: [["id", "topbar", 1, "header"], [1, "navbar", "navbar-expand-md", "navbar-dark", "fixed-top", "bg-dark"], ["href", "#", 1, "navbar-brand"], ["aria-hidden", "true", 1, "v-icon", "notranslate", "mdi", "mdi-format-align-bottom", "theme--dark"], ["type", "button", "data-toggle", "collapse", "data-target", "#navbarCollapse", "aria-controls", "navbarCollapse", "aria-expanded", "false", "aria-label", "Toggle navigation", 1, "navbar-toggler"], [1, "navbar-toggler-icon"], ["id", "navbarCollapse", 1, "collapse", "navbar-collapse"], [1, "navbar-nav", "mr-auto"], ["id", "topbarnav", 1, "navbar-nav"], [1, "nav-item"], ["href", "/index.html/settings", 1, "nav-link"], ["aria-hidden", "true", 1, "v-icon", "notranslate", "mdi", "mdi-cog", "theme--dark"], [1, "nav-item", "electron_window_controll", 3, "hidden"], ["type", "button", "id", "min-btn", 1, "nav-button", "btn"], ["aria-hidden", "true", 1, "v-icon", "notranslate", "mdi", "mdi-window-minimize", "theme--dark"], ["type", "button", "id", "max-btn", 1, "nav-button", "btn"], ["aria-hidden", "true", 1, "v-icon", "notranslate", "mdi", "mdi-window-maximize", "theme--dark"], ["type", "button", "id", "close-btn", 1, "nav-button", "btn"], ["aria-hidden", "true", 1, "v-icon", "notranslate", "mdi", "mdi-close", "theme--dark"]], template: function HeaderComponent_Template(rf, ctx) { if (rf & 1) {
+HeaderComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: HeaderComponent, selectors: [["app-header"]], decls: 24, vars: 6, consts: [["id", "topbar", 1, "header"], [1, "navbar", "navbar-expand-md", "navbar-dark", "fixed-top", "bg-dark"], ["href", "index.html", 1, "navbar-brand"], ["aria-hidden", "true", 1, "v-icon", "notranslate", "mdi", "mdi-format-align-bottom", "theme--dark"], ["type", "button", "data-toggle", "collapse", "data-target", "#navbarCollapse", "aria-controls", "navbarCollapse", "aria-expanded", "false", "aria-label", "Toggle navigation", 1, "navbar-toggler"], [1, "navbar-toggler-icon"], ["id", "navbarCollapse", 1, "collapse", "navbar-collapse"], [1, "navbar-nav", "mr-auto"], ["id", "topbarnav", 1, "navbar-nav"], [1, "nav-item"], ["href", "index.html#/settings", 1, "nav-link"], ["aria-hidden", "true", 1, "v-icon", "notranslate", "mdi", "mdi-cog", "theme--dark"], [1, "nav-item", "electron_window_controll", 3, "hidden"], ["type", "button", "id", "min-btn", 1, "nav-button", "btn"], ["aria-hidden", "true", 1, "v-icon", "notranslate", "mdi", "mdi-window-minimize", "theme--dark"], ["type", "button", "id", "max-btn", 1, "nav-button", "btn"], ["aria-hidden", "true", 1, "v-icon", "notranslate", "mdi", "mdi-window-maximize", "theme--dark"], ["type", "button", "id", "close-btn", 1, "nav-button", "btn"], ["aria-hidden", "true", 1, "v-icon", "notranslate", "mdi", "mdi-close", "theme--dark"]], template: function HeaderComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "nav", 1);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "a", 2);
@@ -2078,7 +2078,7 @@ _angular_platform_browser__WEBPACK_IMPORTED_MODULE_3__["platformBrowser"]().boot
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\andee\Desktop\obsOverlay\overlay-manager\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! /Users/andee/Desktop/obsOverlay/overlay-manager/src/main.ts */"./src/main.ts");
 
 
 /***/ }),
