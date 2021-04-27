@@ -1,6 +1,6 @@
 <div class="header" id="topbar">
   <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-    <a class="navbar-brand" href="index.html"><i aria-hidden="true"
+    <a class="navbar-brand" routerLink="./"><i aria-hidden="true"
       class="v-icon notranslate mdi mdi-format-align-bottom theme--dark"></i> {{ 'Overlay Manager' | translate }}</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
       aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -12,7 +12,7 @@
       <ul class="navbar-nav" id="topbarnav">
         <app-status></app-status>
         <li class="nav-item">
-          <a class="nav-link" href="index.html#/settings"><i aria-hidden="true"
+          <a class="nav-link" routerLink="/settings"><i aria-hidden="true"
               class="v-icon notranslate mdi mdi-cog theme--dark"></i></a>
         </li>
           <li [hidden]="!iselectron" class="nav-item electron_window_controll"><button type="button" id="min-btn" class="nav-button btn"><i aria-hidden="true" class="v-icon notranslate mdi mdi-window-minimize theme--dark"></i></button></li>
