@@ -36,7 +36,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.newCreatedOverlaySubscription.unsubscribe();
+    if (this.newCreatedOverlaySubscription) {
+      this.newCreatedOverlaySubscription.unsubscribe();
+    }
   }
 
   public overlaySelected(overlay: IOverlay): void {
