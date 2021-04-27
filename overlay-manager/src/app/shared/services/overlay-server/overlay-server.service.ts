@@ -3,12 +3,29 @@ import { Socket } from 'ngx-socket-io';
 import { IOverlay } from 'src/app/models/ioverlay';
 import { IChannel } from 'src/app/models/ichannel';
 import { Subject, Subscription } from 'rxjs';
-
 @Injectable({
   providedIn: 'root',
 })
 export class OverlayServerService {
   public overlays: IOverlay[] = [];
+  public get favoriteOverlays(): IOverlay[] {
+    return this.overlays
+      .filter((item) => item.favorit && !item.pinnedToTop)
+      .sort((a, b) => a.favoritSorting - b.favoritSorting);
+  }
+
+  public get pinnedToTopOverlays(): IOverlay[] {
+    return this.overlays
+      .filter((item) => item.pinnedToTop)
+      .sort((a, b) => a.pinnedToTopSorting - b.pinnedToTopSorting);
+  }
+
+  public get overlaysWithoutPinnedToTop(): IOverlay[] {
+    return this.overlays
+      .filter((item) => !item.pinnedToTop)
+      .sort((a, b) => a.title.localeCompare(b.title));
+  }
+
   public channels: IChannel[] = [];
 
   public draftOverlay: IOverlay;
@@ -155,6 +172,16 @@ export class OverlayServerService {
       const parsed = {};
       Object.assign(parsed, element);
       return parsed as IChannel;
+    });
+  }
+  public sortingChanged(event: any, sortedArray: IOverlay[], sortKey: string): void {
+    const temp = sortedArray[event.previousIndex];
+    sortedArray[event.previousIndex] = sortedArray[event.currentIndex];
+    sortedArray[event.currentIndex] = temp;
+
+    sortedArray.forEach((item, index) => {
+      item[sortKey] = index;
+      this.updateLowerThird(item);
     });
   }
 }
