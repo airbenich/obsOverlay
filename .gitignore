@@ -112,3 +112,4 @@ dist
 package-lock.json
 yarn.lock
 out
+overlay-desktop-client/app
