@@ -174,6 +174,15 @@ export class OverlayServerService {
       return parsed as IChannel;
     });
   }
+
+  public cleanUpLowerThirds(): void {
+    this.overlays.forEach((lowerThird) => {
+      if (!lowerThird.readOnly) {
+        this.removeLowerThird(lowerThird);
+      }
+    });
+  }
+
   public sortingChanged(event: any, sortedArray: IOverlay[], sortKey: string): void {
     const temp = sortedArray[event.previousIndex];
     sortedArray[event.previousIndex] = sortedArray[event.currentIndex];

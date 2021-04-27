@@ -1,24 +1,113 @@
 <div class="header" id="topbar">
   <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-    <a class="navbar-brand" routerLink="./"><i aria-hidden="true"
-      class="v-icon notranslate mdi mdi-format-align-bottom theme--dark"></i> {{ 'Overlay Manager' | translate }}</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
-      aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+    <a class="navbar-brand" routerLink="./"
+      ><i
+        aria-hidden="true"
+        class="v-icon notranslate mdi mdi-format-align-bottom theme--dark"
+      ></i>
+      {{ "Overlay Manager" | translate }}</a
+    >
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarCollapse"
+      aria-controls="navbarCollapse"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
-      <ul class="navbar-nav mr-auto">
-      </ul>
+      <ul class="navbar-nav mr-auto"></ul>
       <ul class="navbar-nav" id="topbarnav">
         <app-status></app-status>
+
+        <!-- <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Theme
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="#">Gemeinde</a>
+            <a class="dropdown-item" href="#">Schule</a>
+          </div>
+        </div> -->
+
+        <button
+          class="btn btn-secondary"
+          (click)="openModal('confirmCleanUpOverlaysModal')"
+        >
+          Aufräumen
+        </button>
+
         <li class="nav-item">
-          <a class="nav-link" routerLink="/settings"><i aria-hidden="true"
-              class="v-icon notranslate mdi mdi-cog theme--dark"></i></a>
+          <!-- <div class="nav-link" (click)="onUserConfirmedOberlayCleanUp('confirmCleanUpOverlaysModal')">
+            <i
+              aria-hidden="true"
+              class="v-icon notranslate mdi mdi-basket-unfill theme--dark"
+            ></i>
+          </div> -->
+          <a class="nav-link" routerLink="/settings"
+            ><i
+              aria-hidden="true"
+              class="v-icon notranslate mdi mdi-cog theme--dark"
+            ></i
+          ></a>
         </li>
-          <li [hidden]="!iselectron" class="nav-item electron_window_controll"><button type="button" id="min-btn" class="nav-button btn"><i aria-hidden="true" class="v-icon notranslate mdi mdi-window-minimize theme--dark"></i></button></li>
-          <li [hidden]="!iselectron" class="nav-item electron_window_controll"><button type="button" id="max-btn" class="nav-button btn"><i aria-hidden="true" class="v-icon notranslate mdi mdi-window-maximize theme--dark"></i></button></li>
-          <li [hidden]="!iselectron" class="nav-item electron_window_controll"><button type="button" id="close-btn" class="nav-button btn"><i aria-hidden="true" class="v-icon notranslate mdi mdi-close theme--dark"></i></button></li>
+        <li [hidden]="!iselectron" class="nav-item electron_window_controll">
+          <button type="button" id="min-btn" class="nav-button btn">
+            <i
+              aria-hidden="true"
+              class="v-icon notranslate mdi mdi-window-minimize theme--dark"
+            ></i>
+          </button>
+        </li>
+        <li [hidden]="!iselectron" class="nav-item electron_window_controll">
+          <button type="button" id="max-btn" class="nav-button btn">
+            <i
+              aria-hidden="true"
+              class="v-icon notranslate mdi mdi-window-maximize theme--dark"
+            ></i>
+          </button>
+        </li>
+        <li [hidden]="!iselectron" class="nav-item electron_window_controll">
+          <button type="button" id="close-btn" class="nav-button btn">
+            <i
+              aria-hidden="true"
+              class="v-icon notranslate mdi mdi-close theme--dark"
+            ></i>
+          </button>
+        </li>
       </ul>
     </div>
   </nav>
 </div>
+
+<jw-modal id="confirmCleanUpOverlaysModal">
+  <div class="modalTitle">Overlays aufräumen</div>
+  <div class="modalBody">
+    <p>
+      Möchtest du wirklich alle Overlays ohne aktivierten Schreibschutz löschen?
+      Es bleiben nur die Overlays die den Schreibschutz aktiviert haben übrig.
+      Alle anderen Overlays werden endgültig gelöscht.
+    </p>
+    <p>
+      Diese Funktion ist nützlich um vor einer neuen Veranstaltung alle nicht
+      benötigten Overlays zu entfernen.
+    </p>
+  </div>
+  <div class="modalFooter button-bar">
+    <button
+      class="btn btn-secondary"
+      (click)="closeModal('confirmCleanUpOverlaysModal')"
+    >
+      Abbrechen
+    </button>
+    <button
+      class="btn btn-danger"
+      (click)="onUserConfirmedOberlayCleanUp('confirmCleanUpOverlaysModal')"
+    >
+      Ja, Overlays ohne Schreibschutz löschen
+    </button>
+  </div>
+</jw-modal>
