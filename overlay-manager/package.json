@@ -12,7 +12,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "buildforelectron": "ng build --base-href ./"
+    "buildforelectron": "ng build --base-href ./ && rm -r ./../overlay-desktop-client/app/* && cp ./dist/overlay-manager/* ./../overlay-desktop-client/app/",
+    "buildforelectron_win": "ng build --base-href ./ && DEL /s /q .\\..\\overlay-desktop-client\\app\\* && XCOPY /Y /s /e .\\dist\\overlay-manager\\* .\\..\\overlay-desktop-client\\app\\"
   },
   "private": true,
   "dependencies": {
