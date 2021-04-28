@@ -27,38 +27,8 @@
     "electron": "^12.0.2"
   },
   "config": {
-    "forge": {
-      "packagerConfig": {
-        "icon": "icons/mac/icon.icns"
-      },
-      "makers": [
-        {
-          "name": "@electron-forge/maker-dmg",
-          "platforms": [
-            "darwin"
-          ],
-          "config": {
-            "format": "ULFO"
-          }
-        },
-        {
-          "name": "@electron-forge/maker-zip",
-          "config": {},
-          "platforms": [
-            "darwin",
-            "win32",
-            "linux"
-          ]
-        },
-        {
-          "name": "@electron-forge/maker-deb",
-          "config": {}
-        },
-        {
-          "name": "@electron-forge/maker-rpm",
-          "config": {}
-        }
-      ]
+    "config": {
+      "forge": "./forge.config.js"
     }
   }
 }

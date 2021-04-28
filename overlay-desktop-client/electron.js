@@ -4,6 +4,8 @@ const path = require('path')
 
 let win = null
 
+if(require('electron-squirrel-startup')) app.quit();
+
 function createWindow() {
     win = new BrowserWindow({
         width: 1200,
