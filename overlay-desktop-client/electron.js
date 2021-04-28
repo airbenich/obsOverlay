@@ -4,7 +4,9 @@ const path = require('path')
 
 let win = null
 
-if(require('electron-squirrel-startup')) app.quit();
+if (require('electron-squirrel-startup')) app.quit();
+
+app.requestSingleInstanceLock()
 
 function createWindow() {
     win = new BrowserWindow({
@@ -30,15 +32,31 @@ function createWindow() {
     win.loadFile('./app/index.html')
 }
 
-app.whenReady().then(() => {
-    createWindow()
-    app.on('activate', () => {
-        if (BrowserWindow.getAllWindows().length === 0) {
-            createWindow()
-        }
+const gotTheLock = app.requestSingleInstanceLock()
 
+if (!gotTheLock) {
+    app.quit()
+} else {
+    app.on('second-instance', (event, commandLine, workingDirectory) => {
+        // Someone tried to run a second instance, we should focus our window.
+        if (win) {
+            if (win.isMinimized()) win.restore()
+            win.focus()
+        }
     })
-})
+
+    app.whenReady().then(() => {
+        createWindow()
+        app.on('activate', () => {
+            if (BrowserWindow.getAllWindows().length === 0) {
+                createWindow()
+            }
+
+        })
+    })
+}
+
+
 
 app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') {
