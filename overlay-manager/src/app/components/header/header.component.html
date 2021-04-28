@@ -33,13 +33,6 @@
           </div>
         </div> -->
 
-        <button
-          class="btn btn-secondary"
-          (click)="openModal('confirmCleanUpOverlaysModal')"
-        >
-          Aufräumen
-        </button>
-
         <li class="nav-item">
           <!-- <div class="nav-link" (click)="onUserConfirmedOberlayCleanUp('confirmCleanUpOverlaysModal')">
             <i
@@ -83,31 +76,4 @@
   </nav>
 </div>
 
-<jw-modal id="confirmCleanUpOverlaysModal">
-  <div class="modalTitle">Overlays aufräumen</div>
-  <div class="modalBody">
-    <p>
-      Möchtest du wirklich alle Overlays ohne aktivierten Schreibschutz löschen?
-      Es bleiben nur die Overlays die den Schreibschutz aktiviert haben übrig.
-      Alle anderen Overlays werden endgültig gelöscht.
-    </p>
-    <p>
-      Diese Funktion ist nützlich um vor einer neuen Veranstaltung alle nicht
-      benötigten Overlays zu entfernen.
-    </p>
-  </div>
-  <div class="modalFooter button-bar">
-    <button
-      class="btn btn-secondary"
-      (click)="closeModal('confirmCleanUpOverlaysModal')"
-    >
-      Abbrechen
-    </button>
-    <button
-      class="btn btn-danger"
-      (click)="onUserConfirmedOberlayCleanUp('confirmCleanUpOverlaysModal')"
-    >
-      Ja, Overlays ohne Schreibschutz löschen
-    </button>
-  </div>
-</jw-modal>
+
