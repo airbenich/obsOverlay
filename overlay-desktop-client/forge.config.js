@@ -62,6 +62,7 @@ const config = {
           exe: 'overlay-manager.exe',
           setupExe: 'Setup.exe',
           setupIcon: path.resolve(iconDir, 'icon.ico'),
+          iconUrl: path.resolve(iconDir, 'icon.ico'),
           noMsi: true,
           setupExe: `overlay-manager-${version}-win32-${arch}-setup.exe`,
           setupIcon: path.resolve(iconDir, 'icon.ico'),
