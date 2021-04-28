@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { OverlayServerService } from 'src/app/shared/services/overlay-server/overlay-server.service';
+import { SettingsService } from 'src/app/shared/services/settings/settings.service';
 import { Status } from './status';
 
 @Component({
@@ -22,7 +23,7 @@ export class StatusComponent implements OnInit, OnDestroy {
 
   private overlayServerStatusSubscription: Subscription;
 
-  constructor(private overlayServerService: OverlayServerService) {}
+  constructor(private overlayServerService: OverlayServerService, public settingsService: SettingsService) {}
 
   ngOnInit(): void {
     this.subscribeToStates();

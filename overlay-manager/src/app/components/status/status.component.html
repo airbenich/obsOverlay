@@ -1,3 +1,5 @@
+<ng-container *ngIf="settingsService.isConfigAvailable">
 <li class="nav-item" *ngFor=" let s of status" title="{{ s.status }}">
     <a class="nav-link"><i aria-hidden="true" class="v-icon notranslate mdi mdi-circle {{ s.status }} theme--dark"></i> {{ s.service }}</a>
 </li>
+</ng-container>

@@ -42,7 +42,10 @@ export class OverlayServerService {
     this.startConnectionMonitoring();
   }
 
-  private startConnectionMonitoring(): void {
+  public startConnectionMonitoring(): void {
+    console.log('startConnectionMonitoring');
+    console.log(this.socket);
+
     // on connection
     this.socket.fromEvent('connect').subscribe((observer) => {
       console.log('Successfully connected to Websocket Server');
@@ -183,7 +186,11 @@ export class OverlayServerService {
     });
   }
 
-  public sortingChanged(event: any, sortedArray: IOverlay[], sortKey: string): void {
+  public sortingChanged(
+    event: any,
+    sortedArray: IOverlay[],
+    sortKey: string
+  ): void {
     const temp = sortedArray[event.previousIndex];
     sortedArray[event.previousIndex] = sortedArray[event.currentIndex];
     sortedArray[event.currentIndex] = temp;
