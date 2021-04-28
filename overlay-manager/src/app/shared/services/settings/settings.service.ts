@@ -31,13 +31,13 @@ export class SettingsService {
         'No data available in local storage with key: ' + this.localStorageKey
       );
       console.warn('Loading default data for: ' + this.localStorageKey);
-      this.settings = { ...this.settingsDefault };
-      this.pristineSettings = { ...this.settingsDefault };
+      this.settings = JSON.parse(JSON.stringify(this.settingsDefault));
+      this.pristineSettings = JSON.parse(JSON.stringify(this.settingsDefault));
       return;
     }
     try {
       this.settings = JSON.parse(data);
-      this.pristineSettings = { ...this.settings };
+      this.pristineSettings = JSON.parse(JSON.stringify(this.settings));
       this.isConfigAvailable = true;
     } catch (error) {
       console.error(
@@ -53,7 +53,7 @@ export class SettingsService {
     }
     localStorage.setItem(this.localStorageKey, JSON.stringify(this.settings));
     this.isConfigAvailable = true;
-    this.pristineSettings = { ...this.settings };
+    this.pristineSettings = JSON.parse(JSON.stringify(this.settings));
   }
 
   public clearStorage(): void {

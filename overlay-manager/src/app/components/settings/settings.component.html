@@ -1,15 +1,30 @@
-<div class="left-column">
-  <div class="header">
-    <h5>Einstellungen</h5>
-  </div>
+<div>
+  <h5>{{ "Einstellungen" | translate }}</h5>
+</div>
+<div>
+  <h5>{{ "Tools" | translate }}</h5>
+  <button
+    class="btn btn-warning"
+    (click)="openModal('confirmCleanUpOverlaysModal')"
+  >
+    <i
+      aria-hidden="true"
+      class="v-icon notranslate mdi mdi-lock-reset theme--dark"
+    ></i>
+    {{ "Aufräumen" | translate }}
+  </button>
+</div>
+<div>
+  <h5>{{ "Overlay Server Einstellungen" | translate }}</h5>
+
   <div class="panel">
     <div class="panel-body">
       <div class="form-group">
-        <label for="host">{{ "Hostname" | translate }}</label>
+        <label for="hostname">{{ "Hostname" | translate }}</label>
         <input
           type="name"
           class="form-control"
-          id="host"
+          id="hostname"
           placeholder="Hostname / IP Adresse von overlay-server"
           aria-describedby="nameHelp"
           [(ngModel)]="settingsService.settings.websocket.host"
@@ -37,25 +52,57 @@
           [(ngModel)]="settingsService.settings.websocket.authCode"
         />
       </div>
-      <button class="btn btn-secondary" (click)="onUserClickResetConfig()">
-        Settings zurücksetzen
-      </button>
-      <button
-        *ngIf="!settingsService.areSettingsPristine()"
-        class="btn btn-warning"
-        (click)="onUserClickCancelButton()"
-      >
-        Abbrechen
-      </button>
-      <button *ngIf="!settingsService.areSettingsPristine() || !settingsService.isConfigAvailable" class="btn btn-primary" (click)="onUserClickSaveButton()">
-        Speichern
-      </button>
-      <!-- <button class="btn btn-primary">
-        Verbinden
-      </button>
-      <button class="btn btn-primary">
-        Trennen
-      </button> -->
+      <div class="form-group">
+        <button class="btn btn-secondary" (click)="onUserClickResetConfig()">
+          Settings zurücksetzen
+        </button>
+        <button
+          *ngIf="!settingsService.areSettingsPristine()"
+          class="btn btn-warning"
+          (click)="onUserClickCancelButton()"
+        >
+          Abbrechen
+        </button>
+        <button
+          *ngIf="
+            !settingsService.areSettingsPristine() ||
+            !settingsService.isConfigAvailable
+          "
+          class="btn btn-success"
+          (click)="onUserClickSaveButton()"
+        >
+          Speichern
+        </button>
+      </div>
     </div>
   </div>
 </div>
+
+<jw-modal id="confirmCleanUpOverlaysModal">
+  <div class="modalTitle">Overlays aufräumen</div>
+  <div class="modalBody">
+    <p>
+      Möchtest du wirklich alle Overlays ohne aktivierten Schreibschutz löschen?
+      Es bleiben nur die Overlays die den Schreibschutz aktiviert haben übrig.
+      Alle anderen Overlays werden endgültig gelöscht.
+    </p>
+    <p>
+      Diese Funktion ist nützlich um vor einer neuen Veranstaltung alle nicht
+      benötigten Overlays zu entfernen.
+    </p>
+  </div>
+  <div class="modalFooter button-bar">
+    <button
+      class="btn btn-secondary"
+      (click)="closeModal('confirmCleanUpOverlaysModal')"
+    >
+      Abbrechen
+    </button>
+    <button
+      class="btn btn-danger"
+      (click)="onUserConfirmedOberlayCleanUp('confirmCleanUpOverlaysModal')"
+    >
+      Ja, Overlays ohne Schreibschutz löschen
+    </button>
+  </div>
+</jw-modal>
