@@ -12,7 +12,7 @@ import { OverlayServerService } from 'src/app/shared/services/overlay-server/ove
 export class SettingsComponent implements OnInit {
   ngOnInit(): void {}
   iselectron = false;
-
+  
   constructor(
     public settingsService: SettingsService,
     public overlayServerService: OverlayServerService,

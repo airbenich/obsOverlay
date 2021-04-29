@@ -7,7 +7,7 @@
           aria-hidden="true"
           class="v-icon notranslate mdi mdi-camera-timer theme--dark"
         ></i>
-        {{ "Zeige 10 Sekunden" | translate }}
+        {{ "Show for x Seconds" | translate:{value: '10'} }}
       </button>
       <button
         class="btn btn-warning"
@@ -40,19 +40,19 @@
           aria-hidden="true"
           class="v-icon notranslate mdi mdi-play theme--dark"
         ></i>
-        {{ "Einblenden" | translate }}
+        {{ "Show" | translate }}
       </button>
       <button class="btn btn-danger" (click)="onClickHideButton()" *ngIf="isOverlayShown">
         <i
           aria-hidden="true"
           class="v-icon notranslate mdi mdi-stop theme--dark"
         ></i>
-        {{ "Ausblenden" | translate }}
+        {{ "Hide" | translate }}
       </button></span
     >
   </div>
   <div class="progressBar">
-    <div class="time">Dauer {{ currentRemainingAutomationTimeString }}</div>
+    <div class="time">{{ "Duration" | translate }} {{ currentRemainingAutomationTimeString }}</div>
     <div class="bar" [class.active]="isAutomationActive" [style.width.%]="currentAutomationProgress"></div>
   </div>
 </div>

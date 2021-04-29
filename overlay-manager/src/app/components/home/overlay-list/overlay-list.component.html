@@ -14,7 +14,7 @@
       aria-hidden="true"
       class="v-icon notranslate mdi mdi-heart theme--dark"
     ></i>
-    {{ "Nur Favoriten anzeigen" | translate }}
+    {{ "Show only favorites" | translate }}
   </button>
   <div></div>
   <button class="btn btn-primary" (click)="onUserClickedOnNewOverlay()">
@@ -22,7 +22,7 @@
       aria-hidden="true"
       class="v-icon notranslate mdi mdi-plus theme--dark"
     ></i>
-    {{ "Neues Overlay" | translate }}
+    {{ "New Overlay" | translate }}
   </button>
 </div>
 
@@ -30,7 +30,7 @@
   <input
     #searchfield
     type="search"
-    placeholder="Nach Namen suchen ..."
+    placeholder="Search ..."
     [(ngModel)]="searchTerm"
     (keyup)="onUserTypedInSearchBar()"
     (focus)="hotkeyService.lockTypingHotkeys = true"
@@ -43,7 +43,7 @@
         aria-hidden="true"
         class="v-icon notranslate mdi mdi-magnify theme--dark"
       ></i>
-      {{ "Suchergebnisse" | translate }}
+      {{ "Search results" | translate }}
     </div>
     <ng-container *ngFor="let overlay of searchResults">
       <app-button-tile
@@ -64,7 +64,7 @@
         aria-hidden="true"
         class="v-icon notranslate mdi mdi-file theme--dark"
       ></i>
-      {{ "Nicht gespeichertes Overlay" | translate }}
+      {{ "Not saved overlay" | translate }}
     </div>
     <app-button-tile
       *ngIf="overlayServerService.draftOverlay"
@@ -83,7 +83,7 @@
         aria-hidden="true"
         class="v-icon notranslate mdi mdi-pin theme--dark"
       ></i>
-      {{ "Angepinnte Overlays" | translate }}
+      {{ "Pinned Overlays" | translate }}
     </div>
     <div
       cdkDropList
@@ -112,7 +112,7 @@
           aria-hidden="true"
           class="v-icon notranslate mdi mdi-heart theme--dark"
         ></i>
-        {{ "Favoriten Overlays" | translate }}
+        {{ "Favorite Overlays" | translate }}
       </div>
       <div
         cdkDropList
@@ -142,7 +142,7 @@
           aria-hidden="true"
           class="v-icon notranslate mdi mdi-message-text theme--dark"
         ></i>
-        {{ "Alle Overlays" | translate }}
+        {{ "All Overlays" | translate }}
       </div>
         <ng-container *ngFor="let overlay of overlayServerService.overlaysWithoutPinnedToTop">
           <app-button-tile

@@ -1,5 +1,9 @@
 <div>
-  <h5>{{ "Einstellungen" | translate }}</h5>
+  <h5>{{ "Settings" | translate }}</h5>
+  <div class="form-group">
+    <label for="hostname">{{ "Language" | translate }}</label>
+
+  </div>
 </div>
 <div>
   <h5>{{ "Tools" | translate }}</h5>
@@ -11,11 +15,11 @@
       aria-hidden="true"
       class="v-icon notranslate mdi mdi-lock-reset theme--dark"
     ></i>
-    {{ "Aufräumen" | translate }}
+    {{ "Cleanup" | translate }}
   </button>
 </div>
 <div>
-  <h5>{{ "Overlay Server Einstellungen" | translate }}</h5>
+  <h5>{{ "Overlay Server" | translate }} {{ "Settings" | translate }}</h5>
 
   <div class="panel">
     <div class="panel-body">
@@ -52,16 +56,16 @@
           [(ngModel)]="settingsService.settings.websocket.authCode"
         />
       </div>
-      <div class="form-group">
+      <div class="btn-group">
         <button class="btn btn-secondary" (click)="onUserClickResetConfig()">
-          Settings zurücksetzen
+          {{ "Reset Settings" | translate }}
         </button>
         <button
           *ngIf="!settingsService.areSettingsPristine()"
           class="btn btn-warning"
           (click)="onUserClickCancelButton()"
         >
-          Abbrechen
+        {{ "Cancel" | translate }}
         </button>
         <button
           *ngIf="
@@ -71,7 +75,7 @@
           class="btn btn-success"
           (click)="onUserClickSaveButton()"
         >
-          Speichern
+        {{ "Save" | translate }}
         </button>
       </div>
     </div>
@@ -79,16 +83,10 @@
 </div>
 
 <jw-modal id="confirmCleanUpOverlaysModal">
-  <div class="modalTitle">Overlays aufräumen</div>
+  <div class="modalTitle">{{ "Cleanup" | translate }}</div>
   <div class="modalBody">
     <p>
-      Möchtest du wirklich alle Overlays ohne aktivierten Schreibschutz löschen?
-      Es bleiben nur die Overlays die den Schreibschutz aktiviert haben übrig.
-      Alle anderen Overlays werden endgültig gelöscht.
-    </p>
-    <p>
-      Diese Funktion ist nützlich um vor einer neuen Veranstaltung alle nicht
-      benötigten Overlays zu entfernen.
+      {{ "CleanupMessage" | translate }} 
     </p>
   </div>
   <div class="modalFooter button-bar">
@@ -96,13 +94,13 @@
       class="btn btn-secondary"
       (click)="closeModal('confirmCleanUpOverlaysModal')"
     >
-      Abbrechen
+    {{ "Cancel" | translate }}
     </button>
     <button
       class="btn btn-danger"
       (click)="onUserConfirmedOberlayCleanUp('confirmCleanUpOverlaysModal')"
     >
-      Ja, Overlays ohne Schreibschutz löschen
+      {{ "Cleanup" | translate }}
     </button>
   </div>
 </jw-modal>

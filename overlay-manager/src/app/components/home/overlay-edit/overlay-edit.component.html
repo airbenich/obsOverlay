@@ -2,7 +2,7 @@
 <div class="panel">
   <div class="panel-body">
     <div class="form-group">
-      <label for="title">{{ "Titel" | translate }}</label>
+      <label for="title">{{ "Title" | translate }}</label>
       <input
         type="name"
         class="form-control"
@@ -18,12 +18,12 @@
       <!-- <small id="nameHelp" class="form-text text-muted">{{ 'First line' | translate }}</small> -->
     </div>
     <div class="form-group">
-      <label for="subtitle">{{ "Untertitel" | translate }}</label>
+      <label for="subtitle">{{ "Subtitle" | translate }}</label>
       <input
         type="name"
         class="form-control"
         id="subtitle"
-        placeholder="Rolle oder Untertitel"
+        placeholder="Subtitle"
         aria-describedby="nameHelp"
         [(ngModel)]="selectedOverlay.subtitle"
         [disabled]="selectedOverlay?.readOnly"
@@ -66,7 +66,7 @@
           aria-hidden="true"
           class="v-icon notranslate mdi mdi-trash-can theme--dark"
         ></i>
-        {{ "Löschen" | translate }}
+        {{ "Delete" | translate }}
       </button>
       <button
         class="btn btn-warning"
@@ -77,7 +77,7 @@
           aria-hidden="true"
           class="v-icon notranslate mdi mdi-cancel theme--dark"
         ></i>
-        {{ "Abbrechen" | translate }}
+        {{ "Cancel" | translate }}
       </button>
     </div>
 
@@ -91,7 +91,7 @@
           aria-hidden="true"
           class="v-icon notranslate mdi mdi-cancel theme--dark"
         ></i>
-        {{ "Schließen" | translate }}
+        {{ "Close" | translate }}
       </button>
       <button
         class="btn btn-primary"
