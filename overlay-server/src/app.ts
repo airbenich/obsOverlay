@@ -7,6 +7,7 @@ import config from './config.json';
 const { Address6 } = require('ip-address');
 
 const app = require('express')();
+const express = require('express');
 const http = require('http').Server(app);
 const path = require('path');
 const colors = require('colors/safe');
@@ -30,8 +31,11 @@ console.clear();
 console.log(colors.green('---------- Overlay Server ----------'));
 console.log('');
 
+// serve overlay-screen
+// TODO: generate screens, define templates...
+app.use(express.static(path.resolve('../overlay-screen/')));
 app.get('/', (req: any, res: any) => {
-  res.sendFile(path.resolve('src/test.html'));
+  res.sendFile(path.resolve('../overlay-screen/index.html'));
 });
 
 // Authentication
