@@ -2,7 +2,10 @@
   <h5>{{ "Settings" | translate }}</h5>
   <div class="form-group">
     <label for="hostname">{{ "Language" | translate }}</label>
-
+    <br />
+    <div class="btn-group">
+      <button *ngFor="let language of languages" (click)="setLanguage(language)" class="btn btn-primary">{{ language }}</button>
+    </div>
   </div>
 </div>
 <div>

@@ -3,6 +3,7 @@ import { SettingsService } from 'src/app/shared/services/settings/settings.servi
 import isElectron from 'is-electron';
 import { ModalService } from 'src/app/shared/components/modal';
 import { OverlayServerService } from 'src/app/shared/services/overlay-server/overlay-server.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-settings',
@@ -10,17 +11,20 @@ import { OverlayServerService } from 'src/app/shared/services/overlay-server/ove
   styleUrls: ['./settings.component.scss'],
 })
 export class SettingsComponent implements OnInit {
-  ngOnInit(): void {}
+  ngOnInit(): void { }
   iselectron = false;
   importFile: string;
   fileCantBeImported: true | null = true;
+  languages = null
 
   constructor(
     public settingsService: SettingsService,
     public overlayServerService: OverlayServerService,
-    private modalService: ModalService
+    private modalService: ModalService,
+    private translate: TranslateService
   ) {
     this.iselectron = isElectron();
+    this.languages = ["en", "de"]
   }
 
   openModal(id: string) {
@@ -30,6 +34,12 @@ export class SettingsComponent implements OnInit {
   public onUserConfirmedOberlayCleanUp(id: string): void {
     this.overlayServerService.cleanUpLowerThirds();
     this.closeModal(id);
+  }
+
+  setLanguage(language: string): void {
+    this.settingsService.settings["language"] = language;
+    this.settingsService.saveToStorage();
+    this.translate.use(language);
   }
 
   closeModal(id: string) {
