@@ -35,7 +35,6 @@
       <app-toggle-switch
         [(isChecked)]="selectedOverlay.favorit"
         [title]="'Favorite' | translate"
-        [disabled]="selectedOverlay?.readOnly"
         (isCheckedChange)="instantFormChange()"
       ></app-toggle-switch>
       <app-toggle-switch
