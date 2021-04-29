@@ -24,7 +24,7 @@ export class SettingsComponent implements OnInit {
     private translate: TranslateService
   ) {
     this.iselectron = isElectron();
-    this.languages = ["en", "de"]
+    this.languages = ["en", "de", "ru"]
   }
 
   openModal(id: string) {
