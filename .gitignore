@@ -113,4 +113,5 @@ package-lock.json
 yarn.lock
 out
 overlay-desktop-client/app
-overlay-server/src/lowerthirds.json
+
+lowerthirds.json
