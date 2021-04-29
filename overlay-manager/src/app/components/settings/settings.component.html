@@ -7,30 +7,32 @@
 </div>
 <div>
   <h5>{{ "Tools" | translate }}</h5>
-  <button class="btn btn-secondary" (click)="openModal('importModal')">
-    <i
-      aria-hidden="true"
-      class="v-icon notranslate mdi mdi-application-import theme--dark"
-    ></i>
-    {{ "Import" | translate }}
-  </button>
-  <button class="btn btn-info" (click)="overlayServerService.getExportFile()">
-    <i
-      aria-hidden="true"
-      class="v-icon notranslate mdi mdi-content-save theme--dark"
-    ></i>
-    {{ "Export" | translate }}
-  </button>
-  <button
-    class="btn btn-warning"
-    (click)="openModal('confirmCleanUpOverlaysModal')"
-  >
-    <i
-      aria-hidden="true"
-      class="v-icon notranslate mdi mdi-lock-reset theme--dark"
-    ></i>
-    {{ "Cleanup" | translate }}
-  </button>
+  <div class="btn-group">
+    <button class="btn btn-secondary" (click)="openModal('importModal')">
+      <i
+        aria-hidden="true"
+        class="v-icon notranslate mdi mdi-application-import theme--dark"
+      ></i>
+      {{ "Import" | translate }}
+    </button>
+    <button class="btn btn-info" (click)="overlayServerService.getExportFile()">
+      <i
+        aria-hidden="true"
+        class="v-icon notranslate mdi mdi-content-save theme--dark"
+      ></i>
+      {{ "Export" | translate }}
+    </button>
+    <button
+      class="btn btn-warning"
+      (click)="openModal('confirmCleanUpOverlaysModal')"
+    >
+      <i
+        aria-hidden="true"
+        class="v-icon notranslate mdi mdi-lock-reset theme--dark"
+      ></i>
+      {{ "Cleanup" | translate }}
+    </button>
+  </div>
 </div>
 <div>
   <h5>{{ "Overlay Server" | translate }} {{ "Settings" | translate }}</h5>
@@ -120,7 +122,7 @@
 </jw-modal>
 
 <jw-modal id="importModal">
-  <div class="modalTitle">Overlays importieren</div>
+  <div class="modalTitle">{{ "Import Overlays" | translate }}</div>
   <div class="modalBody">
     <input
       type="file"
@@ -128,23 +130,24 @@
       (change)="handleFileInput($event.target.files)"
     /><br />
   </div>
-  <div class="modalFooter button-bar">
+  <div class="modalFooter btn-group">
     <button class="btn btn-secondary" (click)="closeModal('importModal')">
-      Abbrechen
+      {{ "Cancel" | translate }}
     </button>
     <button
       [attr.disabled]="fileCantBeImported"
       class="btn btn-danger"
       (click)="onUserClickImportAndOverwriteFile()"
     >
-      Ja, bestehende Overlays löschen und importieren
+    {{ "Import - Overwrite" | translate }}
+      
     </button>
     <button
       [attr.disabled]="fileCantBeImported"
       class="btn btn-success"
       (click)="onUserClickImportAndMergeFile()"
     >
-      Ja, Overlays importieren und hinzufügen
+    {{ "Import - Append" | translate }}
     </button>
   </div>
 </jw-modal>

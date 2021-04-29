@@ -29,5 +29,10 @@
     "Show": "Zeigen",
     "Hide": "Ausblenden",
     "Duration":"Dauer",
-    "Preview": "Vorschau"
+    "Preview": "Vorschau",
+    "Import": "Import",
+    "Export" :"Export",
+    "Import Overlays": "Overlays importieren",
+    "Import - Overwrite": "Import - Überschreiben",
+    "Import - Append": "Import - Hinzufügen"
 }

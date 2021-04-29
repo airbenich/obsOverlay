@@ -29,5 +29,10 @@
     "Show": "Show",
     "Hide": "Hide",
     "Duration":"Duration",
-    "Preview": "Preview"
+    "Preview": "Preview",
+    "Import": "Import",
+    "Export" :"Export",
+    "Import Overlays": "Import Overlays",
+    "Import - Overwrite": "Import - Overwrite",
+    "Import - Append": "Import - Append"
 }
