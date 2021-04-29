@@ -1,4 +1,5 @@
 overlay-remote/storage/
+overlay-server/storage/
 
 overlay-server/build/**
 
@@ -113,5 +114,3 @@ package-lock.json
 yarn.lock
 out
 overlay-desktop-client/app
-
-lowerthirds.json

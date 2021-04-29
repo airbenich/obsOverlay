@@ -1,7 +1,4 @@
-/* eslint-disable no-param-reassign */
-// eslint-disable-next-line import/prefer-default-export
-import config from './config.json';
-import storedLowerthirds from './lowerthirds.json';
+const storage = require('node-persist');
 
 const fs = require('fs');
 const { v4: uuid } = require('uuid');
@@ -21,6 +18,9 @@ export type IOverlay = {
 
 export class LowerthirdsManager {
   private lowerthirds: IOverlay[] = [];
+
+  private storageKey = 'overlay-server-storage';
+  private storagePath = 'storage/lowerThirds/';
 
   constructor() {
     // Load initially all lower thirds from the file
@@ -72,17 +72,27 @@ export class LowerthirdsManager {
     this.store();
   }
 
-  private store(): void {
-    const json = JSON.stringify(this.lowerthirds);
-
-    // Uses the sync version to prevent congruent file writing
-    fs.writeFileSync('./src/lowerthirds.json', json);
-    console.log(colors.gray('Lowerthirds stored'));
+  private async store(): Promise<void> {
+    if (storage.setItem) {
+      await storage.setItem(this.storageKey, this.lowerthirds);
+      console.log(colors.gray('Lowerthirds stored'));
+    }
   }
 
-  private load(): void {
-    this.lowerthirds = storedLowerthirds;
-    console.log(colors.gray('Lowerthirds loaded'));
+  private async load(): Promise<void> {
+    // you must first call storage.init
+    await storage.init({
+      dir: this.storagePath,
+    });
+
+    const data = await storage.getItem(this.storageKey);
+    if (data) {
+      this.lowerthirds = data;
+      console.log(colors.gray('Lowerthirds loaded'));
+    } else {
+      this.store();
+      console.log(colors.gray('Lowerthirds initialized'));
+    }
   }
 
   public getAll(): IOverlay[] {
