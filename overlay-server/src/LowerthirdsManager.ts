@@ -20,11 +20,34 @@ export class LowerthirdsManager {
   private lowerthirds: IOverlay[] = [];
 
   private storageKey = 'overlay-server-storage';
+
   private storagePath = 'storage/lowerThirds/';
+
+  private autoSaveRunner: NodeJS.Timeout | undefined;
+
+  private autoSaveRunnerTime = 1000 * 5;
+
+  private autoSaveLastSave: string | undefined;
 
   constructor() {
     // Load initially all lower thirds from the file
     this.load();
+    this.startAutoSave();
+  }
+
+  private startAutoSave() {
+    this.autoSaveRunner = setInterval(() => {
+      if (this.autoSaveLastSave !== JSON.stringify(this.lowerthirds)) {
+        console.log(colors.gray('Changes detected'));
+        this.store();
+      }
+    }, this.autoSaveRunnerTime);
+  }
+
+  private stopAutoSave() {
+    if (this.autoSaveRunner) {
+      clearInterval(this.autoSaveRunner);
+    }
   }
 
   public add(lowerthird: IOverlay): IOverlay {
@@ -50,8 +73,6 @@ export class LowerthirdsManager {
       }
     }
 
-    this.store();
-
     return lowerthird;
   }
 
@@ -74,6 +95,7 @@ export class LowerthirdsManager {
 
   private async store(): Promise<void> {
     if (storage.setItem) {
+      this.autoSaveLastSave = JSON.stringify(this.lowerthirds);
       await storage.setItem(this.storageKey, this.lowerthirds);
       console.log(colors.gray('Lowerthirds stored'));
     }

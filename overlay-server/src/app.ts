@@ -74,7 +74,7 @@ io.on('connection', (socket: any) => {
   clients.push(socket);
 
   // return 'connected'
-  socket.emit('connetion', true);
+  socket.emit('connection', true);
 
   // Send all available lowerthirds to the client
   socket.emit('get_lowerthirds', lowerthirds.getAll());
