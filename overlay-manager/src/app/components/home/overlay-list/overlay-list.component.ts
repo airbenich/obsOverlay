@@ -68,27 +68,19 @@ export class OverlayListComponent implements OnInit {
     let selectionList: IOverlay[];
     if (this.showFavorites) {
       // search in pinnend & favorites
-      selectionList = this.overlayServerService.overlays.filter(
-        (item) => item.pinnedToTop
-      );
-      selectionList = selectionList.concat(
-        this.overlayServerService.overlays.filter(
-          (item) => item.favorit && !item.pinnedToTop
-        )
+      selectionList = this.overlayServerService.pinnedToTopOverlays.concat(
+        this.overlayServerService.favoriteOverlays
       );
     } else if (this.searchTerm) {
       // search in search results
       selectionList = this.searchResults;
     } else {
-      selectionList = this.overlayServerService.overlays.filter(
-        (item) => item.pinnedToTop
-      );
-      selectionList = selectionList.concat(
-        this.overlayServerService.overlays.filter((item) => !item.pinnedToTop)
+      // search in pinned & normal list
+      selectionList = this.overlayServerService.pinnedToTopOverlays.concat(
+        this.overlayServerService.overlaysWithoutPinnedToTop
       );
     }
 
-    // search in pinned & normal list
     let selectedIndex = selectionList.indexOf(this.selectedOverlay);
     let nextIndex = 0;
     if (selectedIndex >= 0) {
