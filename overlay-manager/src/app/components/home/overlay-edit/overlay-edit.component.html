@@ -7,7 +7,7 @@
         type="name"
         class="form-control"
         id="title"
-        placeholder="Name der Person"
+        placeholder="{{ 'Title' | translate }}"
         aria-describedby="nameHelp"
         [(ngModel)]="selectedOverlay.title"
         [disabled]="selectedOverlay?.readOnly"
@@ -23,7 +23,7 @@
         type="name"
         class="form-control"
         id="subtitle"
-        placeholder="Subtitle"
+        placeholder="{{ 'Subtitle' | translate }}"
         aria-describedby="nameHelp"
         [(ngModel)]="selectedOverlay.subtitle"
         [disabled]="selectedOverlay?.readOnly"
@@ -34,20 +34,19 @@
       <!-- <small id="nameHelp" class="form-text text-muted">{{ 'Second line' | translate }}</small> -->
       <app-toggle-switch
         [(isChecked)]="selectedOverlay.favorit"
-        [title]="'Favorit'"
-        [description]="'in die Auswahl für diese Veranstaltung nehmen'"
+        [title]="'Favorite' | translate"
         [disabled]="selectedOverlay?.readOnly"
         (isCheckedChange)="instantFormChange()"
       ></app-toggle-switch>
       <app-toggle-switch
         [(isChecked)]="selectedOverlay.pinnedToTop"
-        [title]="'Anpinnen'"
+        [title]="'Pinned' | translate"
         [disabled]="selectedOverlay?.readOnly"
         (isCheckedChange)="instantFormChange()"
       ></app-toggle-switch>
       <app-toggle-switch
         [(isChecked)]="selectedOverlay.readOnly"
-        [title]="'Schreibgeschützt'"
+        [title]="'Protected' | translate"
         (isCheckedChange)="instantFormChange()"
       ></app-toggle-switch>
     </div>
@@ -102,7 +101,7 @@
           aria-hidden="true"
           class="v-icon notranslate mdi mdi-check theme--dark"
         ></i>
-        {{ "Speichern" | translate }}
+        {{ "Save" | translate }}
       </button>
     </div>
   </div>

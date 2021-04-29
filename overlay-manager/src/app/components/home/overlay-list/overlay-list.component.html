@@ -69,9 +69,9 @@
     <app-button-tile
       *ngIf="overlayServerService.draftOverlay"
       [(title)]="overlayServerService.draftOverlay.title"
-      [placeholderTitle]="'Neues Overlay'"
+      [placeholderTitle]="'New Overlay' | translate"
       [(subtitle)]="overlayServerService.draftOverlay.subtitle"
-      [placeholderSubtitle]="'Felder ausfüllen und speichern'"
+      [placeholderSubtitle]="'PlaceholderSubtitle' | translate"
       (click)="onClick(overlayServerService.draftOverlay)"
       [selected]="selectedOverlay == overlayServerService.draftOverlay"
       [favorite]="overlayServerService.draftOverlay.favorit"
