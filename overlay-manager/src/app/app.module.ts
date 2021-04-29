@@ -20,6 +20,7 @@ import { ModalModule } from './shared/components/modal/index'
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { SettingsService } from 'src/app/shared/services/settings/settings.service';
+import { ModalModule } from './shared/components/modal/index';
 
 const port = 3000;
 const host = 'localhost';

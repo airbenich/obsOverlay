@@ -3,6 +3,7 @@ import { Socket } from 'ngx-socket-io';
 import { IOverlay } from 'src/app/models/ioverlay';
 import { IChannel } from 'src/app/models/ichannel';
 import { Subject, Subscription } from 'rxjs';
+import fileDownload from 'js-file-download';
 @Injectable({
   providedIn: 'root',
 })
@@ -198,6 +199,36 @@ export class OverlayServerService {
     sortedArray.forEach((item, index) => {
       item[sortKey] = index;
       this.updateLowerThird(item);
+    });
+  }
+
+  public getExportFile(): void {
+    const exportData = {
+      overlays: this.overlays,
+    };
+    let filename = new Date().toISOString();
+    filename += '_overlay-manager-export';
+    filename += '.json';
+    fileDownload(JSON.stringify(exportData), filename);
+  }
+
+  public importJSONString(jsonString: string, overwrite: boolean): void {
+    const importObject = JSON.parse(jsonString);
+    if (importObject.overlays) {
+      const overlays = importObject.overlays as IOverlay[];
+      overlays.forEach((overlay) => {
+        console.log(overlay);
+        if (!overwrite) {
+          delete overlay.id;
+        }
+        this.addLowerThird(overlay);
+      });
+    }
+  }
+
+  public clearForImport(): void {
+    this.overlays.forEach((overlay) => {
+      this.removeLowerThird(overlay);
     });
   }
 }

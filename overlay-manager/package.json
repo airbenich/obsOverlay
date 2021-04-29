@@ -29,6 +29,7 @@
     "@ngx-translate/core": "^13.0.0",
     "@ngx-translate/http-loader": "^6.0.0",
     "is-electron": "^2.2.0",
+    "js-file-download": "^0.4.12",
     "ngx-socket-io": "~3.2.0",
     "rxjs": "~6.5.5",
     "tslib": "^2.0.0",
