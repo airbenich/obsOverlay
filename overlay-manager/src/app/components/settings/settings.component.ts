@@ -11,11 +11,14 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./settings.component.scss'],
 })
 export class SettingsComponent implements OnInit {
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.overlayServerService.serverAvailable.subscribe((value) => this.disableConnectionSettings = value);
+  }
   iselectron = false;
   importFile: string;
   fileCantBeImported: true | null = true;
   languages = null
+  disableConnectionSettings = true;
 
   constructor(
     public settingsService: SettingsService,
@@ -46,12 +49,9 @@ export class SettingsComponent implements OnInit {
     this.modalService.close(id);
   }
 
-  onUserClickSaveButton(): void {
+  onUserClickConnect(): void {
     this.settingsService.saveToStorage();
-  }
-
-  onUserClickCancelButton(): void {
-    this.settingsService.loadFromStorage();
+    this.overlayServerService.connect();
   }
 
   onUserClickResetConfig(): void {

@@ -19,7 +19,6 @@ import { OverlayLiveControlComponent } from './components/home/overlay-live-cont
 import { ModalModule } from './shared/components/modal/index'
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { SettingsService } from 'src/app/shared/services/settings/settings.service';
 
 const port = 3000;
 const host = 'localhost';
@@ -29,6 +28,7 @@ const config: SocketIoConfig = {
   url: 'http://' + host + ':' + port,
   options: {
     query: 'authentication=' + authCode,
+    autoConnect: false
   },
 };
 

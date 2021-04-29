@@ -4,7 +4,13 @@
     <label for="hostname">{{ "Language" | translate }}</label>
     <br />
     <div class="btn-group">
-      <button *ngFor="let language of languages" (click)="setLanguage(language)" class="btn btn-primary">{{ language }}</button>
+      <button
+        *ngFor="let language of languages"
+        (click)="setLanguage(language)"
+        class="btn btn-primary"
+      >
+        {{ language }}
+      </button>
     </div>
   </div>
 </div>
@@ -39,7 +45,6 @@
 </div>
 <div>
   <h5>{{ "Overlay Server" | translate }} {{ "Settings" | translate }}</h5>
-
   <div class="panel">
     <div class="panel-body">
       <div class="form-group">
@@ -51,6 +56,7 @@
           placeholder="Hostname / IP Adresse von overlay-server"
           aria-describedby="nameHelp"
           [(ngModel)]="settingsService.settings.websocket.host"
+          [attr.disabled]="disableConnectionSettings ? true : null"
         />
       </div>
       <div class="form-group">
@@ -62,6 +68,7 @@
           placeholder="Port"
           aria-describedby="nameHelp"
           [(ngModel)]="settingsService.settings.websocket.port"
+          [attr.disabled]="disableConnectionSettings ? true : null"
         />
       </div>
       <div class="form-group">
@@ -73,28 +80,26 @@
           placeholder="AuthCode"
           aria-describedby="nameHelp"
           [(ngModel)]="settingsService.settings.websocket.authCode"
+          [attr.disabled]="disableConnectionSettings ? true : null"
         />
       </div>
       <div class="btn-group">
-        <button class="btn btn-secondary" (click)="onUserClickResetConfig()">
+        <button
+          *ngIf="!disableConnectionSettings"
+          class="btn btn-secondary"
+          (click)="onUserClickResetConfig()"
+        >
           {{ "Reset Settings" | translate }}
         </button>
         <button
-          *ngIf="!settingsService.areSettingsPristine()"
-          class="btn btn-warning"
-          (click)="onUserClickCancelButton()"
+          *ngIf="disableConnectionSettings"
+          class="btn btn-secondary"
+          (click)="this.overlayServerService.disconnect()"
         >
-        {{ "Cancel" | translate }}
+          {{ "Disconnect" | translate }}
         </button>
-        <button
-          *ngIf="
-            !settingsService.areSettingsPristine() ||
-            !settingsService.isConfigAvailable
-          "
-          class="btn btn-success"
-          (click)="onUserClickSaveButton()"
-        >
-        {{ "Save" | translate }}
+        <button *ngIf="!disableConnectionSettings" class="btn btn-primary" (click)="onUserClickConnect()">
+          {{ "Connect" | translate }}
         </button>
       </div>
     </div>
@@ -105,7 +110,7 @@
   <div class="modalTitle">{{ "Cleanup" | translate }}</div>
   <div class="modalBody">
     <p>
-      {{ "CleanupMessage" | translate }} 
+      {{ "CleanupMessage" | translate }}
     </p>
   </div>
   <div class="modalFooter button-bar">
@@ -113,7 +118,7 @@
       class="btn btn-secondary"
       (click)="closeModal('confirmCleanUpOverlaysModal')"
     >
-    {{ "Cancel" | translate }}
+      {{ "Cancel" | translate }}
     </button>
     <button
       class="btn btn-danger"
@@ -142,15 +147,14 @@
       class="btn btn-danger"
       (click)="onUserClickImportAndOverwriteFile()"
     >
-    {{ "Import - Overwrite" | translate }}
-      
+      {{ "Import - Overwrite" | translate }}
     </button>
     <button
       [attr.disabled]="fileCantBeImported"
       class="btn btn-success"
       (click)="onUserClickImportAndMergeFile()"
     >
-    {{ "Import - Append" | translate }}
+      {{ "Import - Append" | translate }}
     </button>
   </div>
 </jw-modal>

@@ -20,7 +20,7 @@ export class SettingsService {
 
   private localStorageKey = 'overlay-manager-settings';
 
-  constructor(private socket: Socket) {
+  constructor() {
     this.loadFromStorage();
   }
 

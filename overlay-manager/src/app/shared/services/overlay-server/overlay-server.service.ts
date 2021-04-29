@@ -1,9 +1,10 @@
 import { EventEmitter, Injectable } from '@angular/core';
-import { Socket } from 'ngx-socket-io';
+import { Socket, SocketIoConfig } from 'ngx-socket-io';
 import { IOverlay } from 'src/app/models/ioverlay';
 import { IChannel } from 'src/app/models/ichannel';
-import { Subject, Subscription } from 'rxjs';
+import { BehaviorSubject, Subject, Subscription } from 'rxjs';
 import fileDownload from 'js-file-download';
+import { SettingsService } from '../settings/settings.service';
 @Injectable({
   providedIn: 'root',
 })
@@ -34,19 +35,19 @@ export class OverlayServerService {
   private getOverlaysSubscription: Subscription;
   private addedOwnOverlaysSubscription: Subscription;
 
-  public serverAvailable: Subject<boolean> = new Subject();
+  public serverAvailable: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   public overlayWasDeletedWithId: EventEmitter<string> = new EventEmitter();
   public newCreatedOverlay: EventEmitter<IOverlay> = new EventEmitter();
 
-  constructor(private socket: Socket) {
+  constructor(
+    private socket: Socket,
+    private settingsService: SettingsService
+  ) {
     this.startConnectionMonitoring();
   }
 
   public startConnectionMonitoring(): void {
-    console.log('startConnectionMonitoring');
-    console.log(this.socket);
-
     // on connection
     this.socket.fromEvent('connect').subscribe((observer) => {
       console.log('Successfully connected to Websocket Server');
@@ -230,5 +231,22 @@ export class OverlayServerService {
     this.overlays.forEach((overlay) => {
       this.removeLowerThird(overlay);
     });
+  }
+
+  public connect(): void {
+    this.socket.ioSocket.io.opts.query =
+      'authentication=' + this.settingsService.settings.websocket.authCode;
+    this.socket.ioSocket.io.uri =
+      'http://' +
+      this.settingsService.settings.websocket.host +
+      ':' +
+      this.settingsService.settings.websocket.port;
+    this.socket.connect();
+    this.serverAvailable.next(true);
+  }
+
+  public disconnect(): void {
+    this.serverAvailable.next(false);
+    this.socket.disconnect();
   }
 }
