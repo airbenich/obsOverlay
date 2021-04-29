@@ -18,7 +18,7 @@ import { FormsModule } from '@angular/forms';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { OverlayPreviewComponent } from './components/home/overlay-preview/overlay-preview.component';
 import { OverlayLiveControlComponent } from './components/home/overlay-live-control/overlay-live-control.component';
-import { ModalModule } from './shared/components/modal/index'
+import { ModalModule } from './shared/components/modal/index';
 
 const port = 3000;
 const host = 'localhost';

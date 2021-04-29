@@ -12,6 +12,8 @@ import { OverlayServerService } from 'src/app/shared/services/overlay-server/ove
 export class SettingsComponent implements OnInit {
   ngOnInit(): void {}
   iselectron = false;
+  importFile: string;
+  fileCantBeImported: true | null = true;
 
   constructor(
     public settingsService: SettingsService,
@@ -44,5 +46,29 @@ export class SettingsComponent implements OnInit {
 
   onUserClickResetConfig(): void {
     this.settingsService.clearStorage();
+  }
+
+  onUserClickImportAndOverwriteFile(): void {
+    this.overlayServerService.clearForImport();
+    this.overlayServerService.importJSONString(this.importFile, true);
+    this.closeModal('importModal');
+  }
+  onUserClickImportAndMergeFile(): void {
+    this.overlayServerService.importJSONString(this.importFile, false);
+    this.closeModal('importModal');
+  }
+
+  handleFileInput(files: FileList) {
+    files
+      .item(0)
+      .text()
+      .then((data) => {
+        if (data) {
+          this.importFile = data;
+          this.fileCantBeImported = null;
+        } else {
+          this.fileCantBeImported = true;
+        }
+      });
   }
 }

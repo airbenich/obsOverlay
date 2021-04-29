@@ -1,6 +1,7 @@
 input:disabled,
 input[readonly] {
-  background-color: #878787;
+  background-color: #555;
+  color: #fff;
   opacity: 1;
   cursor: not-allowed;
 }
