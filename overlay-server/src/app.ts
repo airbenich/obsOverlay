@@ -55,7 +55,8 @@ app.get('/channels/:id/', (req: any, res: any) => {
     'cache': false,
   });
 
-  // WiP placeholder
+  // WiP placeholder  | let channel = channelManager.getChannelById(req.params.id)
+  
   let channel = {
     id: 1,
     name: "Main",
