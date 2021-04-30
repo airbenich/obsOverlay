@@ -7,7 +7,7 @@
     "Settings": "Settings",
     "Tools": "Tools",
     "Cleanup": "Cleanup Overlays",
-    "CleanupMessage": "Are you sure? All unprotecded overlays will be deleted!",
+    "CleanupMessage": "Are you sure? All unprotected overlays will be deleted!",
     "Hostname": "Hostname",
     "Port": "Port",
     "AuthCode": "AuthCode",
@@ -37,6 +37,14 @@
     "Import": "Import",
     "Export" :"Export",
     "Import Overlays": "Import Overlays",
-    "Import - Overwrite": "Import - Overwrite",
-    "Import - Append": "Import - Append"
+    "Import - Replace": "Import - Replace",
+    "Import - Append": "Import - Append",
+    "Export Overlays": "Export Overlays",
+    "Export only favorite Overlays": "Export only favorite Overlays",
+    "Language changed": "Language changed",
+    "The language was changed succesful.": "The language was changed succesful.",
+    "Connected successful": "Connected successful",
+    "The connection was established successful.": "The connection was established successful.",
+    "Connection lost": "Connection lost",
+    "The connection to the Overlay Server was lost.": "The connection to the Overlay Server was lost."
 }

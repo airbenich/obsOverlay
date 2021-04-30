@@ -31,6 +31,7 @@
     "is-electron": "^2.2.0",
     "js-file-download": "^0.4.12",
     "ngx-socket-io": "~3.2.0",
+    "ngx-toastr": "^13.2.1",
     "rxjs": "~6.5.5",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.3"

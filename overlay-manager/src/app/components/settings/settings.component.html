@@ -24,7 +24,7 @@
       ></i>
       {{ "Import" | translate }}
     </button>
-    <button class="btn btn-info" (click)="overlayServerService.getExportFile()">
+    <button class="btn btn-info" (click)="openModal('exportModal')">
       <i
         aria-hidden="true"
         class="v-icon notranslate mdi mdi-content-save theme--dark"
@@ -98,7 +98,11 @@
         >
           {{ "Disconnect" | translate }}
         </button>
-        <button *ngIf="!disableConnectionSettings" class="btn btn-primary" (click)="onUserClickConnect()">
+        <button
+          *ngIf="!disableConnectionSettings"
+          class="btn btn-primary"
+          (click)="onUserClickConnect()"
+        >
           {{ "Connect" | translate }}
         </button>
       </div>
@@ -147,7 +151,7 @@
       class="btn btn-danger"
       (click)="onUserClickImportAndOverwriteFile()"
     >
-      {{ "Import - Overwrite" | translate }}
+      {{ "Import - Replace" | translate }}
     </button>
     <button
       [attr.disabled]="fileCantBeImported"
@@ -155,6 +159,25 @@
       (click)="onUserClickImportAndMergeFile()"
     >
       {{ "Import - Append" | translate }}
+    </button>
+  </div>
+</jw-modal>
+
+<jw-modal id="exportModal">
+  <div class="modalTitle">{{ "Export Overlays" | translate }}</div>
+  <div class="modalBody">
+    <app-toggle-switch
+      [(isChecked)]="exportOnlyOverlayFavorites"
+      [title]="'Export only favorite Overlays' | translate"
+    ></app-toggle-switch
+    ><br />
+  </div>
+  <div class="modalFooter btn-group">
+    <button class="btn btn-secondary" (click)="closeModal('exportModal')">
+      {{ "Cancel" | translate }}
+    </button>
+    <button class="btn btn-success" (click)="onUserClickExportFile()">
+      {{ "Export" | translate }}
     </button>
   </div>
 </jw-modal>

@@ -4,6 +4,7 @@ import isElectron from 'is-electron';
 import { ModalService } from 'src/app/shared/components/modal';
 import { OverlayServerService } from 'src/app/shared/services/overlay-server/overlay-server.service';
 import { TranslateService } from '@ngx-translate/core';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-settings',
@@ -12,22 +13,26 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class SettingsComponent implements OnInit {
   ngOnInit(): void {
-    this.overlayServerService.serverAvailable.subscribe((value) => this.disableConnectionSettings = value);
+    this.overlayServerService.serverAvailable.subscribe(
+      (value) => (this.disableConnectionSettings = value)
+    );
   }
   iselectron = false;
   importFile: string;
   fileCantBeImported: true | null = true;
-  languages = null
+  exportOnlyOverlayFavorites = false;
+  languages = null;
   disableConnectionSettings = true;
 
   constructor(
     public settingsService: SettingsService,
     public overlayServerService: OverlayServerService,
     private modalService: ModalService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private toastr: ToastrService
   ) {
     this.iselectron = isElectron();
-    this.languages = ["en", "de", "ru"]
+    this.languages = ['en', 'de', 'ru'];
   }
 
   openModal(id: string) {
@@ -37,12 +42,21 @@ export class SettingsComponent implements OnInit {
   public onUserConfirmedOberlayCleanUp(id: string): void {
     this.overlayServerService.cleanUpLowerThirds();
     this.closeModal(id);
+    this.toastr.success(
+      this.translate.instant('All overlays without a protection were removed.'),
+      this.translate.instant('Cleanup successful')
+    );
   }
 
   setLanguage(language: string): void {
-    this.settingsService.settings["language"] = language;
+    this.settingsService.settings['language'] = language;
     this.settingsService.saveToStorage();
-    this.translate.use(language);
+    this.translate.use(language).subscribe(() => {
+      this.toastr.success(
+        this.translate.instant('The language was changed succesful.'),
+        this.translate.instant('Language changed')
+      );
+    });
   }
 
   closeModal(id: string) {
@@ -62,10 +76,27 @@ export class SettingsComponent implements OnInit {
     this.overlayServerService.clearForImport();
     this.overlayServerService.importJSONString(this.importFile, true);
     this.closeModal('importModal');
+    this.toastr.success(
+      this.translate.instant('The import and replace was successful.'),
+      this.translate.instant('Import successful')
+    );
   }
   onUserClickImportAndMergeFile(): void {
     this.overlayServerService.importJSONString(this.importFile, false);
     this.closeModal('importModal');
+    this.toastr.success(
+      this.translate.instant('The import and merge was successful.'),
+      this.translate.instant('Import successful')
+    );
+  }
+
+  onUserClickExportFile(): void {
+    this.overlayServerService.getExportFile(this.exportOnlyOverlayFavorites);
+    this.closeModal('exportModal');
+    this.toastr.success(
+      this.translate.instant('The export was successful.'),
+      this.translate.instant('Export successful')
+    );
   }
 
   handleFileInput(files: FileList) {

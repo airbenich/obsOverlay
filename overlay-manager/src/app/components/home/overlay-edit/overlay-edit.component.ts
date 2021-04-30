@@ -15,6 +15,8 @@ import {
 import { IOverlay } from 'src/app/models/ioverlay';
 import { HotkeyService } from 'src/app/shared/services/hotkey/hotkey.service';
 import { OverlayServerService } from 'src/app/shared/services/overlay-server/overlay-server.service';
+import { ToastrService } from 'ngx-toastr';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-overlay-edit',
@@ -37,7 +39,9 @@ export class OverlayEditComponent implements OnInit, OnDestroy {
 
   constructor(
     public overlayServerService: OverlayServerService,
-    public hotkeyService: HotkeyService
+    public hotkeyService: HotkeyService,
+    public toastr: ToastrService,
+    public translate: TranslateService
   ) {}
 
   ngOnInit(): void {
@@ -86,11 +90,19 @@ export class OverlayEditComponent implements OnInit, OnDestroy {
     this.overlayServerService.addLowerThird(this.selectedOverlay);
     delete this.overlayServerService.draftOverlay;
     this.closeOverlay();
+    this.toastr.success(
+      this.translate.instant('The new overlay was saved.'),
+      this.translate.instant('Save successful')
+    );
   }
 
   public onClickDeleteButton(): void {
     this.overlayServerService.removeLowerThird(this.selectedOverlay);
     this.closeOverlay();
+    this.toastr.success(
+      this.translate.instant('The overlay was deleted.'),
+      this.translate.instant('Delete successful')
+    );
   }
 
   public onClickCancelButton(): void {

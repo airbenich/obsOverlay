@@ -5,6 +5,8 @@ import { IChannel } from 'src/app/models/ichannel';
 import { BehaviorSubject, Subject, Subscription } from 'rxjs';
 import fileDownload from 'js-file-download';
 import { SettingsService } from '../settings/settings.service';
+import { TranslateService } from '@ngx-translate/core';
+import { ToastrService } from 'ngx-toastr';
 @Injectable({
   providedIn: 'root',
 })
@@ -40,9 +42,13 @@ export class OverlayServerService {
   public overlayWasDeletedWithId: EventEmitter<string> = new EventEmitter();
   public newCreatedOverlay: EventEmitter<IOverlay> = new EventEmitter();
 
+  private initialConnectionMade = false;
+
   constructor(
     private socket: Socket,
-    private settingsService: SettingsService
+    private settingsService: SettingsService,
+    public translate: TranslateService,
+    public toastr: ToastrService
   ) {
     this.startConnectionMonitoring();
   }
@@ -55,6 +61,17 @@ export class OverlayServerService {
       this.subscribeToLowerThirds();
       this.subscribeToOwnAddedOverlays();
 
+      // hide the first connection toast
+      if (this.initialConnectionMade) {
+        this.toastr.success(
+          this.translate.instant('The connection was established successful.'),
+          this.translate.instant('Connected successful')
+        );
+      } else {
+        this.initialConnectionMade = true;
+      }
+
+
       this.getChannels().then((data) => (this.channels = data));
     });
 
@@ -64,6 +81,13 @@ export class OverlayServerService {
       console.error(
         'Lost connection to Websocket Server - Reason: ' + observer
       );
+
+      this.toastr.error(
+        this.translate.instant('The connection to the Overlay Server was lost.'),
+        this.translate.instant('Connection lost')
+      );
+
+      this.overlays = [];
 
       // unsubscribe from all observables
       // this.getOverlaysSubscription.unsubscribe();
@@ -203,9 +227,16 @@ export class OverlayServerService {
     });
   }
 
-  public getExportFile(): void {
+  public getExportFile(onlyFavoriteOverlays: boolean): void {
+    let overlays: IOverlay[];
+    if (onlyFavoriteOverlays) {
+      overlays = this.overlays.filter((overlay) => overlay.favorit)
+    } else {
+      overlays = this.overlays;
+    }
+
     const exportData = {
-      overlays: this.overlays,
+      overlays: overlays,
     };
     let filename = new Date().toISOString();
     filename += '_overlay-manager-export';
@@ -242,11 +273,9 @@ export class OverlayServerService {
       ':' +
       this.settingsService.settings.websocket.port;
     this.socket.connect();
-    this.serverAvailable.next(true);
   }
 
   public disconnect(): void {
-    this.serverAvailable.next(false);
     this.socket.disconnect();
   }
 }

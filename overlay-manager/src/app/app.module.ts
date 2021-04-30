@@ -19,6 +19,10 @@ import { OverlayLiveControlComponent } from './components/home/overlay-live-cont
 import { ModalModule } from './shared/components/modal/index'
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { CommonModule } from '@angular/common';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+
 
 const port = 3000;
 const host = 'localhost';
@@ -65,7 +69,10 @@ export function createTranslateLoader(http: HttpClient) {
     }
     }),
     SocketIoModule.forRoot(config),
-    ModalModule
+    ModalModule,
+    CommonModule,
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot() // ToastrModule added
   ],
   providers: [],
   bootstrap: [AppComponent],
