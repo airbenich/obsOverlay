@@ -49,34 +49,27 @@ app.get('/channels/', (req: any, res: any) => {
 
 // generate channel screen 
 app.get('/channels/:id/', (req: any, res: any) => {
-  // WiP
-
   const {TwingEnvironment, TwingLoaderFilesystem} = require('twing');
-  let loader = new TwingLoaderFilesystem('storage/templates/');
+  let loader = new TwingLoaderFilesystem('templates/');
   let twing = new TwingEnvironment(loader, {
     'cache': false,
   });
 
-  let template = {
-    id: 1,
-    name: "default",
-    path: "default"
-  };
-
+  // WiP placeholder
   let channel = {
     id: 1,
     name: "Main",
-    templateid: 1
+    templateName: "default"
   }
 
-  twing.render( template.path +'/template.twig', {channel:channel, template:template, host:host, port:port, authCode:authCode}).then((output:any) => {
+  twing.render( channel.templateName +'/template.twig', {channel:channel, host:host, port:port, authCode:authCode}).then((output:any) => {
     res.end(output);
   });
 
 });
 
 // serve template static files
-app.use('/templates/', express.static(path.resolve('storage/templates/')));
+app.use('/templates/', express.static(path.resolve('templates/')));
 
 
 // Authentication
