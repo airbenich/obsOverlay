@@ -114,3 +114,6 @@ package-lock.json
 yarn.lock
 out
 overlay-desktop-client/app
+
+overlay-server/templates/*
+!overlay-server/templates/default

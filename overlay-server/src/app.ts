@@ -17,6 +17,11 @@ const port = process.env.SERVERPORT || config.port;
 const host = process.env.SERVERHOST || config.host;
 const authCode = process.env.AUTHKEY || config.authCode;
 
+// Store all connected clients
+const clients: any[] = [];
+const lowerthirds = new LowerthirdsManager();
+const channelManager = new ChannelManager();
+
 const io = require('socket.io')(http, {
   allowEIO3: true,
   cors: {
@@ -31,12 +36,48 @@ console.clear();
 console.log(colors.green('---------- Overlay Server ----------'));
 console.log('');
 
-// serve overlay-screen
-// TODO: generate screens, define templates...
-app.use(express.static(path.resolve('../overlay-screen/')));
+// serve overlay-manager
+app.use(express.static(path.resolve('../overlay-manager/dist/overlay-manager/')));
 app.get('/', (req: any, res: any) => {
-  res.sendFile(path.resolve('../overlay-screen/index.html'));
+  res.sendFile(path.resolve('../overlay-manager/dist/overlay-manager/index.html'));
 });
+
+app.get('/channels/', (req: any, res: any) => {
+  let channels = channelManager.getChannels();
+  res.send(channels);
+});
+
+// generate channel screen 
+app.get('/channels/:id/', (req: any, res: any) => {
+  // WiP
+
+  const {TwingEnvironment, TwingLoaderFilesystem} = require('twing');
+  let loader = new TwingLoaderFilesystem('storage/templates/');
+  let twing = new TwingEnvironment(loader, {
+    'cache': false,
+  });
+
+  let template = {
+    id: 1,
+    name: "default",
+    path: "default"
+  };
+
+  let channel = {
+    id: 1,
+    name: "Main",
+    templateid: 1
+  }
+
+  twing.render( template.path +'/template.twig', {channel:channel, template:template, host:host, port:port, authCode:authCode}).then((output:any) => {
+    res.end(output);
+  });
+
+});
+
+// serve template static files
+app.use('/templates/', express.static(path.resolve('storage/templates/')));
+
 
 // Authentication
 io.use((socket: any, next: any): any => {
@@ -48,11 +89,6 @@ io.use((socket: any, next: any): any => {
   // call next() with an Error if you need to reject the connection.
   next(new Error('Authentication error'));
 });
-
-// Store all connected clients
-const clients: any[] = [];
-const lowerthirds = new LowerthirdsManager();
-const channels = new ChannelManager();
 
 io.on('connection', (socket: any) => {
   // Try to find which computer is connecting
@@ -79,7 +115,7 @@ io.on('connection', (socket: any) => {
   // Send all available lowerthirds to the client
   socket.emit('get_lowerthirds', lowerthirds.getAll());
 
-  socket.emit('get_channels', channels.getChannels());
+  socket.emit('get_channels', channelManager.getChannels());
 
   // Adds a new lowerthird
   socket.on('add_lowerthird', (data: any) => {
