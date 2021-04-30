@@ -26,15 +26,3 @@ services:
       - ./overlay-manager/:/home/node/app
     ports:
      - "4200:4200"
-     
-  overlay-screen:
-    image: nginx:alpine
-    container_name: overlay-screen
-    volumes:
-      - ./overlay-screen/nginx.conf:/etc/nginx/nginx.conf:ro
-      - ./overlay-screen/:/overlay-screen
-    command: [nginx-debug, '-g', 'daemon off;'] 
-    ports:
-     - "${SCREENPORT}:80"
-    depends_on:
-      - "overlay-server"
