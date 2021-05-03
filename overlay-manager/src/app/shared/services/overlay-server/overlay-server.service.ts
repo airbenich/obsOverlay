@@ -208,6 +208,9 @@ export class OverlayServerService {
     this.overlays.forEach((lowerThird) => {
       if (!lowerThird.readOnly) {
         this.removeLowerThird(lowerThird);
+      } else if (lowerThird.favorit) {
+        lowerThird.favorit = false;
+        this.updateLowerThird(lowerThird);
       }
     });
   }
