@@ -15,7 +15,7 @@ const dns = require('dns');
 
 const port = process.env.SERVERPORT || config.port;
 const host = process.env.SERVERHOST || config.host;
-const authCode = process.env.AUTHKEY || config.authCode;
+const authCode = process.env.AUTHCODE || config.authCode;
 
 // Store all connected clients
 const clients: any[] = [];
