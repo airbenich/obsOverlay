@@ -6,6 +6,7 @@ services:
     image: "node:12"
     working_dir: /overlay-server
     command: bash -c "npm install && npm start"
+    restart: unless-stopped
     environment:
      - SERVERHOST=${SERVERHOST}
      - SERVERPORT=${SERVERPORT}
