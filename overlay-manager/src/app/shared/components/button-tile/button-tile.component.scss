@@ -8,8 +8,8 @@ button {
   color: #fff;
   min-height: 74px;
 
-  :focus {
-    outline: none;
+  &:focus {
+    outline: unset;
   }
 
   .title {
