@@ -15,10 +15,10 @@ export class StatusComponent implements OnInit, OnDestroy {
       service: 'Overlay Server',
       status: 'connecting',
     },
-    {
-      service: 'Livestream Software OBS',
-      status: 'connecting',
-    },
+    // {
+    //   service: 'Livestream Software OBS',
+    //   status: 'connecting',
+    // },
   ];
 
   private overlayServerStatusSubscription: Subscription;

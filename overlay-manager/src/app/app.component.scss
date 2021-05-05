@@ -3,4 +3,23 @@
   width: 100%;
   display: block;
   position: absolute;
+  user-select: none;
+  cursor: default;
 }
+
+.page {
+  padding-top: 80px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 20px;
+  height: 100%;
+
+  > * {
+    height: 100%;
+  }
+}
+
+:host ::ng-deep router-outlet + *:not(nav) {
+  height:100%;
+}
+

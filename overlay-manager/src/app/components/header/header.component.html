@@ -1,62 +1,75 @@
-<div class="header" id="topbar">
-  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-    <a class="navbar-brand" routerLink="./"
-      ><i
-        aria-hidden="true"
-        class="v-icon notranslate mdi mdi-format-align-bottom theme--dark"
-      ></i>
-      {{ "Overlay Manager" | translate }}</a
-    >
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-toggle="collapse"
-      data-target="#navbarCollapse"
-      aria-controls="navbarCollapse"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarCollapse">
-      <ul class="navbar-nav mr-auto"></ul>
-      <ul class="navbar-nav" id="topbarnav">
-        <app-status></app-status>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/settings"
-            ><i
-              aria-hidden="true"
-              class="v-icon notranslate mdi mdi-cog theme--dark"
-            ></i
-          ></a>
+<nav>
+  <a class="logo" routerLink="./"
+    ><i
+      aria-hidden="true"
+      class="v-icon notranslate mdi mdi-format-align-bottom theme--dark"
+    ></i>
+    {{ "Overlay Manager" | translate }}</a
+  >
+  <div class="left">
+    <ul>
+      <a
+        *ngFor="let page of pageMenuLeft"
+        routerLink="{{ page.link }}"
+        [routerLinkActiveOptions]="{ exact: true }"
+        routerLinkActive="active"
+      >
+        <li>
+          <i
+            *ngIf="page.icon"
+            aria-hidden="true"
+            class="v-icon notranslate mdi {{ page.icon }} theme--dark"
+          ></i>
+          {{ page.name | translate }}
         </li>
-        <li [hidden]="!iselectron" class="nav-item electron_window_controll">
-          <button type="button" id="min-btn" class="nav-button btn">
-            <i
-              aria-hidden="true"
-              class="v-icon notranslate mdi mdi-window-minimize theme--dark"
-            ></i>
-          </button>
-        </li>
-        <li [hidden]="!iselectron" class="nav-item electron_window_controll">
-          <button type="button" id="max-btn" class="nav-button btn">
-            <i
-              aria-hidden="true"
-              class="v-icon notranslate mdi mdi-window-maximize theme--dark"
-            ></i>
-          </button>
-        </li>
-        <li [hidden]="!iselectron" class="nav-item electron_window_controll">
-          <button type="button" id="close-btn" class="nav-button btn">
-            <i
-              aria-hidden="true"
-              class="v-icon notranslate mdi mdi-close theme--dark"
-            ></i>
-          </button>
-        </li>
-      </ul>
-    </div>
-  </nav>
-</div>
+      </a>
+    </ul>
+  </div>
 
+  <div class="spacer-column"></div>
 
+  <div class="right">
+    <ul>
+      <a
+        *ngFor="let page of pageMenuRight"
+        routerLink="{{ page.link }}"
+        [routerLinkActiveOptions]="{ exact: true }"
+        routerLinkActive="active"
+      >
+        <li>
+          <i
+            *ngIf="page.icon"
+            aria-hidden="true"
+            class="v-icon notranslate mdi {{ page.icon }} theme--dark"
+          ></i>
+          {{ page.name | translate }}
+        </li>
+      </a>
+    </ul>
+    <app-status></app-status>
+    <ul>
+      <li [hidden]="!iselectron" class="electron_window_controll" id="min-btn">
+        <i
+          aria-hidden="true"
+          class="v-icon notranslate mdi mdi-window-minimize theme--dark"
+        ></i>
+      </li>
+      <li [hidden]="!iselectron" class="electron_window_controll" id="max-btn">
+        <i
+          aria-hidden="true"
+          class="v-icon notranslate mdi mdi-window-maximize theme--dark"
+        ></i>
+      </li>
+      <li
+        [hidden]="!iselectron"
+        class="electron_window_controll"
+        id="close-btn"
+      >
+        <i
+          aria-hidden="true"
+          class="v-icon notranslate mdi mdi-close theme--dark"
+        ></i>
+      </li>
+    </ul>
+  </div>
+</nav>

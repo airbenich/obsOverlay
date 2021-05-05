@@ -9,9 +9,25 @@ import { OverlayServerService } from 'src/app/shared/services/overlay-server/ove
 })
 export class HeaderComponent implements OnInit {
   iselectron = false;
-  constructor(
-    public overlayServerService: OverlayServerService,
-  ) {
+
+  pageMenuLeft = [
+    {
+      name: 'Overlays',
+      link: '/',
+    },
+    {
+      name: 'Channels',
+      link: '/channels',
+    }
+  ];
+  pageMenuRight = [
+    {
+      name: 'Settings',
+      link: '/settings',
+      icon: 'mdi-cog',
+    }
+  ];
+  constructor(public overlayServerService: OverlayServerService) {
     this.iselectron = isElectron();
   }
 

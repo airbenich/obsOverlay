@@ -22,6 +22,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { ChannelsComponent } from './components/channels/channels.component';
 
 
 const port = 3000;
@@ -53,6 +54,7 @@ export function createTranslateLoader(http: HttpClient) {
     ToggleSwitchComponent,
     OverlayPreviewComponent,
     OverlayLiveControlComponent,
+    ChannelsComponent,
   ],
   imports: [
     BrowserModule,
