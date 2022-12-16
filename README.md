@@ -3,9 +3,24 @@ A websocket based overlay software for showing lower-thirds in Open Broadcaster 
 
 
 
+![Overlay Manager Screenshot](https://raw.githubusercontent.com/airbenich/obsOverlay/master/gfx/obsOverlay_gfx-splash.png)
 ![Infographic on how to use this app](https://raw.githubusercontent.com/airbenich/obsOverlay/master/gfx/obsOverlay_gfx.png)
 
-## To Use
+## Features
+
+- Instant sync on your network
+- Your Library & Favorites
+- Quick access on pinned
+- Protect and Cleanup
+- Search as you type
+- Drag'n'Drop sorting
+- Export and Import datasets
+- Automatic Timer
+- Build own Themes with maximum flexibility
+
+More Infos & Graphics on [Project Site](https://overlaymanager.erbenich.eu).
+
+## Setup Instruction
 
 To clone and run this repository you'll need to run these commands from your command line:
 
@@ -14,11 +29,18 @@ To clone and run this repository you'll need to run these commands from your com
 git clone https://github.com/airbenich/obsOverlay.git
 # Go into the repository
 cd obsOverlay
-# Go into the application like: overlay-server
+# Go into the application: overlay-manager
+cd overlay-manager
+# Install dependencies
+npm install
+# Run the server app
+npm start 
+
+# Go into the application: overlay-server
 cd overlay-server
 # Install dependencies
 npm install
-# Run the app
+# Run the manager gui app
 npm start 
 ```
 
