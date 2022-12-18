@@ -1,0 +1,19 @@
+input:disabled,
+input[readonly] {
+  background-color: #555;
+  color: #fff;
+  opacity: 1;
+  cursor: not-allowed;
+}
+
+*:disabled {
+  cursor: not-allowed;
+}
+
+.panel-footer {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: 1fr;
+  gap: 0px 0px;
+  grid-template-areas: ". .";
+}

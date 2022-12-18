@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  overlay-server:
+    container_name: overlay-server
+    image: "node:12"
+    working_dir: /overlay-server
+    command: bash -c "npm install && npm start"
+    restart: unless-stopped
+    environment:
+     - SERVERHOST=${SERVERHOST}
+     - SERVERPORT=${SERVERPORT}
+     - AUTHCODE=${AUTHCODE}
+    ports:
+     - "${SERVERPORT}:${SERVERPORT}"
+    volumes:
+     - ./overlay-server/:/overlay-server
+     - ./overlay-manager/dist/overlay-manager/:/overlay-manager/dist/overlay-manager/

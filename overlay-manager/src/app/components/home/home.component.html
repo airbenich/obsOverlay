@@ -1,0 +1,22 @@
+<div class="left-column">
+  <app-overlay-list
+    [(selectedOverlay)]="selectedOverlay"
+    (selectOverlay)="overlaySelected($event)"
+  ></app-overlay-list>
+</div>
+<div class="middle-column">
+  <div *ngIf="selectedOverlay">
+    <app-overlay-edit
+      [(selectedOverlay)]="selectedOverlay"
+      (closedOverlay)="closeOverlay()"
+    ></app-overlay-edit>
+  </div>
+</div>
+<div class="right-column" *ngIf="selectedOverlay">
+  <app-overlay-preview
+    [(selectedOverlay)]="selectedOverlay"
+  ></app-overlay-preview>
+  <app-overlay-live-control
+    [(selectedOverlay)]="selectedOverlay"
+  ></app-overlay-live-control>
+</div>

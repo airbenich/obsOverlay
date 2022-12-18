@@ -1,36 +1,16 @@
-# Presentation Server
+# Overlay Server
 
-**The Presentation Server manages communication between different presentation softwares with socket.io.**
+You can start the Overlay Server with:
+```npm run start```
 
-All other application must connect to this server via HOST and PORT (3000).
 
-## To Use
+## Development
 
-Clone this repository and run from your command line:
+The project uses *linting* to gurantee a uniform code style. Please use ``npm install`` with the dev dependencies.
 
-```bash
-# Go into the repository
-cd presentation-server
-# Install dependencies and run the app
-npm install && npm start
-```
+You can build the Overlay Server once with:
+```npm run build```
+ 
+or you can watch for changes in the code and build afterwards with: 
+```npm run watch```
 
-## Deploy as docker container
-Build docker image from Dockerfile:
-
-`docker build -t overlay-server ./`
-
-Show all docker images:
-
-`docker images`
-
-Save docker image to file:
-
-`docker save -o ../overlay-server.tar overlay-server`
-
-### Deploy to docker host machine (e.g. Synology NAS)
-* Transfer file to docker host machine
-* stop old container
-* remove old image
-* add new image
-* start image as container and route port 3000 and 62000 in port settings

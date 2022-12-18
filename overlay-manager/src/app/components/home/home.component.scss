@@ -1,0 +1,19 @@
+:host {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 100%;
+  gap: 0px 20px;
+  grid-template-areas:
+    ". . .";
+}
+
+.left-column {
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  // grid-template-rows: auto minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr);
+  grid-template-areas:
+    "."
+    ".";
+}

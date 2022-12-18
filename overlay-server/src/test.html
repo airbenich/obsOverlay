@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Overlay Server Tests</title>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io({
+           query: "authentication=" + "sDJZn16TuP7zu82a"
+        });
+
+        socket.on('get_lowerthirds', function(msg) {
+            console.log(msg);
+        });
+    </script>
+  </head>
+  <body>
+
+  </body>
+</html>

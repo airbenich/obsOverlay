@@ -1,0 +1,100 @@
+<h5>{{ "Edit overlay" | translate }}</h5>
+<div class="panel">
+  <div class="panel-body">
+    <div class="form-group">
+      <label for="title">{{ "Title" | translate }}</label>
+      <input
+        type="name"
+        class="form-control"
+        id="title"
+        placeholder="{{ 'Title' | translate }}"
+        aria-describedby="nameHelp"
+        [(ngModel)]="selectedOverlay.title"
+        [disabled]="selectedOverlay?.readOnly"
+        (focus)="hotkeyService.lockTypingHotkeys = true"
+        (blur)="hotkeyService.lockTypingHotkeys = false"
+        (keyup)="debouncedFormChange()"
+      />
+      <!-- <small id="nameHelp" class="form-text text-muted">{{ 'First line' | translate }}</small> -->
+    </div>
+    <div class="form-group">
+      <label for="subtitle">{{ "Subtitle" | translate }}</label>
+      <input
+        type="name"
+        class="form-control"
+        id="subtitle"
+        placeholder="{{ 'Subtitle' | translate }}"
+        aria-describedby="nameHelp"
+        [(ngModel)]="selectedOverlay.subtitle"
+        [disabled]="selectedOverlay?.readOnly"
+        (focus)="hotkeyService.lockTypingHotkeys = true"
+        (blur)="hotkeyService.lockTypingHotkeys = false"
+        (keyup)="debouncedFormChange()"
+      />
+      <!-- <small id="nameHelp" class="form-text text-muted">{{ 'Second line' | translate }}</small> -->
+      <app-toggle-switch
+        [(isChecked)]="selectedOverlay.readOnly"
+        [title]="'Protected' | translate"
+        (isCheckedChange)="instantFormChange()"
+      ></app-toggle-switch>
+      <app-toggle-switch
+        [(isChecked)]="selectedOverlay.pinnedToTop"
+        [title]="'Pinned' | translate"
+        [disabled]="selectedOverlay?.readOnly"
+        (isCheckedChange)="instantFormChange()"
+      ></app-toggle-switch>
+      <app-toggle-switch
+        [(isChecked)]="selectedOverlay.favorit"
+        [title]="'Favorite' | translate"
+        (isCheckedChange)="instantFormChange()"
+      ></app-toggle-switch>
+    </div>
+  </div>
+  <div class="panel-footer">
+    <div class="left">
+      <button
+        class="btn btn-danger"
+        (click)="onClickDeleteButton()"
+        *ngIf="!isDraft && !selectedOverlay.readOnly"
+      >
+        <i
+          aria-hidden="true"
+          class="v-icon notranslate mdi mdi-trash-can theme--dark"
+        ></i>
+        {{ "Delete" | translate }}
+      </button>
+      <button
+        class="btn btn-warning"
+        (click)="onClickCancelButton()"
+        *ngIf="isDraft"
+      >
+        <i
+          aria-hidden="true"
+          class="v-icon notranslate mdi mdi-cancel theme--dark"
+        ></i>
+        {{ "Cancel" | translate }}
+      </button>
+    </div>
+
+    <div class="right btn-group">
+      <button class="btn btn-dark" (click)="closeOverlay()" *ngIf="!isDraft">
+        <i
+          aria-hidden="true"
+          class="v-icon notranslate mdi mdi-cancel theme--dark"
+        ></i>
+        {{ "Close" | translate }}
+      </button>
+      <button
+        class="btn btn-primary"
+        (click)="onClickSaveButton()"
+        *ngIf="isDraft"
+      >
+        <i
+          aria-hidden="true"
+          class="v-icon notranslate mdi mdi-check theme--dark"
+        ></i>
+        {{ "Save" | translate }}
+      </button>
+    </div>
+  </div>
+</div>

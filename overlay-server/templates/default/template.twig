@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Channel {{ channel.id }} | {{ channel.name }}</title>
+    <script src="/templates/default/js/jquery-3.5.0.min.js"></script>
+    <link rel="stylesheet" href="/templates/default/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/templates/default/css/bootstrap-theme-black.css">
+    <link rel="stylesheet" href="/templates/default/css/bootstrap-vertical-grid.css" />
+    <link rel="stylesheet" href="/templates/default/css/main.css">
+    <!-- <script src="/templates/default/js/bootstrap.min.js"></script> -->
+    <script src="/templates/default/js/socket-io/socket.io.slim.js"></script>
+    <script src="/templates/default/js/lowerThird.js"></script>
+    <script>
+      var CONFIG = {};
+      CONFIG.host = '{{ host }}';
+      CONFIG.port = {{ port }};
+      CONFIG.authkey = '{{ authCode }}';
+    </script>
+    <script src="/templates/default/js/main.js"></script>
+  </head>
+  <body>
+    <div class="presentation">
+      <div class="lowerThird">
+        <div class="text">
+          <div class="title"></div>
+          <div class="subtitle"></div>
+        </div>
+        <div class="presentationProgress">
+          <div class="progress-bar" role="progressbar" style="width: 0%;">
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,58 @@
+<h5>{{ "Live Control" | translate }}</h5>
+<div class="panel">
+  <div class="panel-body">
+    <span class="btn-group">
+      <button class="btn btn-primary" (click)="onClickShow10Button()" *ngIf="!isAutomationActive">
+        <i
+          aria-hidden="true"
+          class="v-icon notranslate mdi mdi-camera-timer theme--dark"
+        ></i>
+        {{ "Show for x Seconds" | translate:{value: '10'} }}
+      </button>
+      <button
+        class="btn btn-warning"
+        *ngIf="isAutomationActive && !isAutomationPaused"
+        (click)="onClickPauseCountdownButton()"
+      >
+        <i
+          aria-hidden="true"
+          class="v-icon notranslate mdi mdi-pause theme--dark"
+        ></i>
+      </button>
+      <button
+        class="btn btn-warning"
+        *ngIf="isAutomationActive && isAutomationPaused"
+        (click)="onClickResumeCountdownButton()"
+      >
+        <i
+          aria-hidden="true"
+          class="v-icon notranslate mdi mdi-play theme--dark"
+        ></i>
+      </button>
+    </span>
+    <span class="float-right btn-group">
+      <button
+        class="btn btn-success"
+        (click)="onClickShowButton()"
+        *ngIf="!isOverlayShown"
+      >
+        <i
+          aria-hidden="true"
+          class="v-icon notranslate mdi mdi-play theme--dark"
+        ></i>
+        {{ "Show" | translate }}
+      </button>
+      <button class="btn btn-danger" (click)="onClickHideButton()" *ngIf="isOverlayShown">
+        <i
+          aria-hidden="true"
+          class="v-icon notranslate mdi mdi-stop theme--dark"
+        ></i>
+        {{ "Hide" | translate }}
+      </button></span
+    >
+  </div>
+  <div class="progressBar">
+    <div class="time">{{ "Duration" | translate }} {{ currentRemainingAutomationTimeString }}</div>
+    <div class="bar" [class.active]="isAutomationActive" [style.width.%]="currentAutomationProgress"></div>
+  </div>
+</div>

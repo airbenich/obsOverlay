@@ -1,12 +1,13 @@
 var CONFIG = {};
 CONFIG.host = 'localhost';
 CONFIG.port = 3000;
+CONFIG.authkey = 'sDJZn16TuP7zu82a';
 
 var lowerThird = new LowerThird({});
 
 // socket.io
 client = io.connect('http://'+CONFIG.host+':'+CONFIG.port,{
-  query: "authentication=sDJZn16TuP7zu82a"
+  query: "authentication=" + CONFIG.authkey
 });
 
 // on connection
@@ -35,8 +36,8 @@ client.on('content',function(data) {
 
   if(data.type == 'lowerThird') {
     if(data.content.action == 'show') {
-      lowerThird.name = data.content.element.name;
-      lowerThird.description = data.content.element.description;
+      lowerThird.title = data.content.element.title;
+      lowerThird.subtitle = data.content.element.subtitle;
       lowerThird.show();
     }
     if(data.content.action == 'hide') {

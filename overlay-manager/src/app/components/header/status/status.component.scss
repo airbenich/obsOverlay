@@ -1,0 +1,22 @@
+:host {
+  height: 100%;
+}
+
+.stateElement {
+  height: 100%;
+  padding: 15px;
+  color: #a2a2a2;
+  cursor: default;
+}
+
+.online {
+  color: rgb(15, 199, 15);
+}
+
+.offline {
+  color: red;
+}
+
+.connecting {
+  color: orange;
+}

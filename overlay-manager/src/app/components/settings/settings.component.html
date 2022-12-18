@@ -1,0 +1,183 @@
+<div>
+  <h5>{{ "Settings" | translate }}</h5>
+  <div class="form-group">
+    <label for="hostname">{{ "Language" | translate }}</label>
+    <br />
+    <div class="btn-group">
+      <button
+        *ngFor="let language of languages"
+        (click)="setLanguage(language)"
+        class="btn btn-primary"
+      >
+        {{ language }}
+      </button>
+    </div>
+  </div>
+</div>
+<div>
+  <h5>{{ "Tools" | translate }}</h5>
+  <div class="btn-group">
+    <button class="btn btn-secondary" (click)="openModal('importModal')">
+      <i
+        aria-hidden="true"
+        class="v-icon notranslate mdi mdi-application-import theme--dark"
+      ></i>
+      {{ "Import" | translate }}
+    </button>
+    <button class="btn btn-info" (click)="openModal('exportModal')">
+      <i
+        aria-hidden="true"
+        class="v-icon notranslate mdi mdi-content-save theme--dark"
+      ></i>
+      {{ "Export" | translate }}
+    </button>
+    <button
+      class="btn btn-warning"
+      (click)="openModal('confirmCleanUpOverlaysModal')"
+    >
+      <i
+        aria-hidden="true"
+        class="v-icon notranslate mdi mdi-lock-reset theme--dark"
+      ></i>
+      {{ "Cleanup" | translate }}
+    </button>
+  </div>
+</div>
+<div>
+  <h5>{{ "Overlay Server" | translate }} {{ "Settings" | translate }}</h5>
+  <div class="panel">
+    <div class="panel-body">
+      <div class="form-group">
+        <label for="hostname">{{ "Hostname" | translate }}</label>
+        <input
+          type="name"
+          class="form-control"
+          id="hostname"
+          placeholder="Hostname / IP Adresse von overlay-server"
+          aria-describedby="nameHelp"
+          [(ngModel)]="settingsService.settings.websocket.host"
+          [attr.disabled]="disableConnectionSettings ? true : null"
+        />
+      </div>
+      <div class="form-group">
+        <label for="port">{{ "Port" | translate }}</label>
+        <input
+          type="number"
+          class="form-control"
+          id="port"
+          placeholder="Port"
+          aria-describedby="nameHelp"
+          [(ngModel)]="settingsService.settings.websocket.port"
+          [attr.disabled]="disableConnectionSettings ? true : null"
+        />
+      </div>
+      <div class="form-group">
+        <label for="authCode">{{ "AuthCode" | translate }}</label>
+        <input
+          type="text"
+          class="form-control"
+          id="authCode"
+          placeholder="AuthCode"
+          aria-describedby="nameHelp"
+          [(ngModel)]="settingsService.settings.websocket.authCode"
+          [attr.disabled]="disableConnectionSettings ? true : null"
+        />
+      </div>
+      <div class="btn-group">
+        <button
+          *ngIf="!disableConnectionSettings"
+          class="btn btn-secondary"
+          (click)="onUserClickResetConfig()"
+        >
+          {{ "Reset Settings" | translate }}
+        </button>
+        <button
+          *ngIf="disableConnectionSettings"
+          class="btn btn-secondary"
+          (click)="this.overlayServerService.disconnect()"
+        >
+          {{ "Disconnect" | translate }}
+        </button>
+        <button
+          *ngIf="!disableConnectionSettings"
+          class="btn btn-primary"
+          (click)="onUserClickConnect()"
+        >
+          {{ "Connect" | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<jw-modal id="confirmCleanUpOverlaysModal">
+  <div class="modalTitle">{{ "Cleanup" | translate }}</div>
+  <div class="modalBody">
+    <p>
+      {{ "CleanupMessage" | translate }}
+    </p>
+  </div>
+  <div class="modalFooter button-bar">
+    <button
+      class="btn btn-secondary"
+      (click)="closeModal('confirmCleanUpOverlaysModal')"
+    >
+      {{ "Cancel" | translate }}
+    </button>
+    <button
+      class="btn btn-danger"
+      (click)="onUserConfirmedOberlayCleanUp('confirmCleanUpOverlaysModal')"
+    >
+      {{ "Cleanup" | translate }}
+    </button>
+  </div>
+</jw-modal>
+
+<jw-modal id="importModal">
+  <div class="modalTitle">{{ "Import Overlays" | translate }}</div>
+  <div class="modalBody">
+    <input
+      type="file"
+      value="Import"
+      (change)="handleFileInput($event.target.files)"
+    /><br />
+  </div>
+  <div class="modalFooter btn-group">
+    <button class="btn btn-secondary" (click)="closeModal('importModal')">
+      {{ "Cancel" | translate }}
+    </button>
+    <button
+      [attr.disabled]="fileCantBeImported"
+      class="btn btn-danger"
+      (click)="onUserClickImportAndOverwriteFile()"
+    >
+      {{ "Import - Replace" | translate }}
+    </button>
+    <button
+      [attr.disabled]="fileCantBeImported"
+      class="btn btn-success"
+      (click)="onUserClickImportAndMergeFile()"
+    >
+      {{ "Import - Append" | translate }}
+    </button>
+  </div>
+</jw-modal>
+
+<jw-modal id="exportModal">
+  <div class="modalTitle">{{ "Export Overlays" | translate }}</div>
+  <div class="modalBody">
+    <app-toggle-switch
+      [(isChecked)]="exportOnlyOverlayFavorites"
+      [title]="'Export only favorite Overlays' | translate"
+    ></app-toggle-switch
+    ><br />
+  </div>
+  <div class="modalFooter btn-group">
+    <button class="btn btn-secondary" (click)="closeModal('exportModal')">
+      {{ "Cancel" | translate }}
+    </button>
+    <button class="btn btn-success" (click)="onUserClickExportFile()">
+      {{ "Export" | translate }}
+    </button>
+  </div>
+</jw-modal>

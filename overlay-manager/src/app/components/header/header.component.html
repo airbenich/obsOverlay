@@ -1,0 +1,75 @@
+<nav>
+  <a class="logo" routerLink="./"
+    ><i
+      aria-hidden="true"
+      class="v-icon notranslate mdi mdi-format-align-bottom theme--dark"
+    ></i>
+    {{ "Overlay Manager" | translate }}</a
+  >
+  <div class="left">
+    <ul>
+      <a
+        *ngFor="let page of pageMenuLeft"
+        routerLink="{{ page.link }}"
+        [routerLinkActiveOptions]="{ exact: true }"
+        routerLinkActive="active"
+      >
+        <li>
+          <i
+            *ngIf="page.icon"
+            aria-hidden="true"
+            class="v-icon notranslate mdi {{ page.icon }} theme--dark"
+          ></i>
+          {{ page.name | translate }}
+        </li>
+      </a>
+    </ul>
+  </div>
+
+  <div class="spacer-column"></div>
+
+  <div class="right">
+    <ul>
+      <a
+        *ngFor="let page of pageMenuRight"
+        routerLink="{{ page.link }}"
+        [routerLinkActiveOptions]="{ exact: true }"
+        routerLinkActive="active"
+      >
+        <li>
+          <i
+            *ngIf="page.icon"
+            aria-hidden="true"
+            class="v-icon notranslate mdi {{ page.icon }} theme--dark"
+          ></i>
+          {{ page.name | translate }}
+        </li>
+      </a>
+    </ul>
+    <app-status></app-status>
+    <ul>
+      <li [hidden]="!iselectron" class="electron_window_controll" id="min-btn">
+        <i
+          aria-hidden="true"
+          class="v-icon notranslate mdi mdi-window-minimize theme--dark"
+        ></i>
+      </li>
+      <li [hidden]="!iselectron" class="electron_window_controll" id="max-btn">
+        <i
+          aria-hidden="true"
+          class="v-icon notranslate mdi mdi-window-maximize theme--dark"
+        ></i>
+      </li>
+      <li
+        [hidden]="!iselectron"
+        class="electron_window_controll"
+        id="close-btn"
+      >
+        <i
+          aria-hidden="true"
+          class="v-icon notranslate mdi mdi-close theme--dark"
+        ></i>
+      </li>
+    </ul>
+  </div>
+</nav>

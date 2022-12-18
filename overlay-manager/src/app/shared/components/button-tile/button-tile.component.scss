@@ -1,0 +1,50 @@
+:host {
+  width: 100%;
+}
+
+button {
+  width: 100%;
+  background-color: #444;
+  color: #fff;
+  min-height: 74px;
+
+  &:focus {
+    outline: unset;
+  }
+
+  .title {
+    font-weight: 600;
+  }
+
+  .subtitle {
+    color: #bbb;
+  }
+}
+
+.selected {
+  background-color: #007bff;
+
+  .subtitle {
+    color: #ddd;
+  }
+
+  .icons {
+    color: #fff;
+  }
+}
+
+.icons {
+  position: absolute;
+  display: inline;
+  right: 0px;
+  text-align: right;
+  top: 0px;
+  padding: 1.25rem 1.25rem;
+  font-size: 1.2em;
+  color: #aaa;
+
+  > div {
+    display: inline;
+    margin-left: 10px;
+  }
+}

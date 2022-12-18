@@ -1,4 +1,9 @@
 overlay-remote/storage/
+overlay-server/storage/
+
+overlay-server/build/**
+
+.DS_Store
 
 # Logs
 logs
@@ -104,3 +109,11 @@ dist
 
 # TernJS port file
 .tern-port
+
+package-lock.json
+yarn.lock
+out
+overlay-desktop-client/app
+
+overlay-server/templates/*
+!overlay-server/templates/default

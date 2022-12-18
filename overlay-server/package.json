@@ -1,15 +1,41 @@
 {
   "name": "overlay-server",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "OBS Overlay server backend for message and data managment ",
+  "main": "build/app.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "npx tsc -w",
+    "start": "npx tsc && node ./build/app.js",
+    "build": "npx tsc",
+    "dev": "npx nodemon ./build/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/airbenich/obsOverlay.git"
   },
   "author": "",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/airbenich/obsOverlay/issues"
+  },
+  "homepage": "https://github.com/airbenich/obsOverlay#readme",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.19.0",
+    "@typescript-eslint/parser": "^4.19.0",
+    "eslint": "^7.22.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.22.1",
+    "nodemon": "^2.0.7",
+    "typescript": "^4.2.3"
+  },
   "dependencies": {
+    "colors": "^1.4.0",
     "express": "^4.17.1",
-    "socket.io": "^2.4.0"
+    "ip-address": "^7.1.0",
+    "node-persist": "^3.1.0",
+    "socket.io": "^4.0.0",
+    "twing": "^5.0.2",
+    "uuid": "^8.3.2"
   }
 }
