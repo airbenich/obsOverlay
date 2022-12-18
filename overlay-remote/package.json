@@ -11,6 +11,6 @@
   "dependencies": {
     "inquirer": "^7.1.0",
     "node-persist": "^3.0.5",
-    "socket.io": "^2.4.0"
+    "socket.io": "^2.5.0"
   }
 }
